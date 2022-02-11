@@ -1,6 +1,5 @@
 //declarations
-require('dotenv').config()
-console.log(process.env) // remove this after you've confirmed it working
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -16,9 +15,6 @@ const deckRoutes = require('./routes/decks');
 const app = express();
 app.use(morgan(ENVIRONMENT));
 app.use(bodyParser.json());
-
-
-
 
 //routes
 app.use('/decks', deckRoutes());
