@@ -1,12 +1,13 @@
 //declarations
+require('dotenv').config()
+console.log(process.env) // remove this after you've confirmed it working
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 //const bcrypt = require('bcrypt');
 
 //env variables
-const PORT = 8080;
-const ENVIRONMENT = 'dev';
+const {PORT, ENVIRONMENT} = process.env;
 
 //routes requires
 const deckRoutes = require('./routes/decks');
