@@ -7,6 +7,7 @@ const userRoutes = () => {
   router.get('/', (req, res) => {
     getAllUsers((users) => {
       res.json(users);
+      // console.log(users);
     });
   });
   return router;
