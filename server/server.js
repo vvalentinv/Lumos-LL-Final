@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 //const bcrypt = require('bcrypt');
 // const client = require('./db/connection');
-const { getAllUsers } = require('./db/queries');
+// const { getAllUsers } = require('./db/queries');
 
 //env variables
 const { PORT, ENVIRONMENT } = process.env;
@@ -16,6 +16,7 @@ const { PORT, ENVIRONMENT } = process.env;
 const deckRoutes = require('./routes/decks');
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
+const deckCardsRoutes = require('./routes/deckCards');
 
 // middleware
 const app = express();
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use('/decks', deckRoutes());
 app.use('/api/users', userRoutes());
 app.use('/api/cards', cardRoutes());
+app.use('/api/deckcards', deckCardsRoutes());
 
 app.get('/', (req, res) => {
   res.json({ home: `It's home` });
