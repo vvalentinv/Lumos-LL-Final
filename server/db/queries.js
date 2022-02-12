@@ -22,7 +22,6 @@ const getAllDecks = (cb) => {
     .catch((error) => console.log(error.message));
 };
 
-
 //! CARDS
 const getAllCards = (cb) => {
   client.query("SELECT * FROM cards;")
@@ -45,6 +44,17 @@ const getAllDeckCards = (cb) => {
     .catch((error) => console.log(error.message));
 };
 
+//! CATEGORIES
+const getAllCategories = (cb) => {
+  client.query("SELECT * FROM categories;")
+    .then((results) => {
+    // categories array of objects
+      // console.log(results.rows);
+      cb(results.rows);
+    })
+    .catch((error) => console.log(error.message));
+};
+
 //TODO getAllDecksForUser (UUID and takes in cb)
 
-module.exports = { getAllUsers, getAllDecks, getAllCards, getAllDeckCards, };
+module.exports = { getAllUsers, getAllDecks, getAllCards, getAllDeckCards, getAllCategories };
