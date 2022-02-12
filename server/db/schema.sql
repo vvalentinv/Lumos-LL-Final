@@ -5,11 +5,11 @@ DROP TABLE IF EXISTS decks;
 DROP TABLE IF EXISTS decks_with_cards;
 
 CREATE TABLE users(
-  id SERIAL PRIMARY KEY,
-  firstName VARCHAR(50),
-  lastName VARCHAR(50),
-  email VARCHAR(250),
-  pass VARCHAR(250)
+    id UUID DEFAULT uuid_generate_v4(),
+    nickname VARCHAR(255),
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email_Verified BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE cards(
@@ -41,29 +41,12 @@ CREATE TABLE decks_with_cards(
   deck_id REFERENCES decks(id)
 );
 
-INSERT INTO users (firstName, lastName, email, pass)
-VALUES ("aF", "aL","a@a.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("bF", "bL","b@b.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("cF", "cL","c@c.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("dF", "dL","d@d.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("eF", "eL","e@e.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("fF", "fL","f@f.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("gF", "gL","g@g.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("hF", "hL","h@h.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("iF", "iL","i@i.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("jF", "jL","j@j.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("kF", "kL","k@k.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("lF", "lL","l@l.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("mF", "mL","m@m.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("nF", "nL","n@n.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("oF", "oL","o@o.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("pF", "pL","p@p.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("qF", "qL","q@q.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("rF", "rL","r@r.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("sF", "sL","s@s.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("tF", "tL","t@t.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("uF", "uL","u@u.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u."),
-       ("vF", "vL","v@v.ca","$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.")v
+INSERT INTO users (nickname, email, password, email_Verified)
+VALUES ('aa', 'a@a.ca','$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', TRUE),
+       ('bb', 'b@b.ca','$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', TRUE),
+       ('cc', 'c@c.ca','$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', TRUE),
+       ('dd', 'd@d.ca','$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', TRUE),
+       ('ee', 'e@e.ca','$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', TRUE);
 
 
 INSERT INTO cards (user_id, question, url, answer, all_answers, public)
