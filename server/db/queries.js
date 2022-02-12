@@ -4,7 +4,7 @@ const client = require('./connection');
 const getAllUsers = (cb) => {
   client.query("SELECT * FROM users;")
     .then((results) => {
-    // users array of objects
+      // users array of objects
       // console.log(results.rows);
       cb(results.rows);
     })
@@ -15,7 +15,7 @@ const getAllUsers = (cb) => {
 const getAllDecks = (cb) => {
   client.query("SELECT * FROM decks;")
     .then((results) => {
-    // decks array of objects
+      // decks array of objects
       // console.log(results.rows);
       cb(results.rows);
     })
@@ -26,7 +26,7 @@ const getAllDecks = (cb) => {
 const getAllCards = (cb) => {
   client.query("SELECT * FROM cards;")
     .then((results) => {
-    // cards array of objects
+      // cards array of objects
       // console.log(results.rows);
       cb(results.rows);
     })
@@ -35,9 +35,9 @@ const getAllCards = (cb) => {
 
 //! DECKCARDS
 const getAllDeckCards = (cb) => {
-  client.query("SELECT * FROM cards;")
+  client.query("SELECT * FROM decks_with_cards;")
     .then((results) => {
-    // deckcards array of objects
+      // deckcards array of objects
       // console.log(results.rows);
       cb(results.rows);
     })
@@ -48,7 +48,7 @@ const getAllDeckCards = (cb) => {
 const getAllCategories = (cb) => {
   client.query("SELECT * FROM categories;")
     .then((results) => {
-    // categories array of objects
+      // categories array of objects
       // console.log(results.rows);
       cb(results.rows);
     })
@@ -56,5 +56,16 @@ const getAllCategories = (cb) => {
 };
 
 //TODO getAllDecksForUser (UUID and takes in cb)
+const getAllDecksForUser = (uuid, cb) => {
+  client.query(`SELECT * FROM decks
+                WHERE user_id = $1 ;`, [uuid])
+    .then((results) => {
+      // categories array of objects
+      // console.log(results.rows);
+      cb(results.rows);
+    })
+    .catch((error) => console.log(error.message));
+};
 
-module.exports = { getAllUsers, getAllDecks, getAllCards, getAllDeckCards, getAllCategories };
+
+module.exports = { getAllUsers, getAllDecks, getAllCards, getAllDeckCards, getAllCategories, getAllDecksForUser };

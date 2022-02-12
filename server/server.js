@@ -16,7 +16,6 @@ const { PORT, ENVIRONMENT } = process.env;
 const userRoutes = require('./routes/users');
 const deckRoutes = require('./routes/decks');
 const cardRoutes = require('./routes/cards');
-const deckCardsRoutes = require('./routes/deckCards');
 const categoriesRoutes = require('./routes/categories');
 
 //middleware
@@ -28,7 +27,7 @@ app.use(bodyParser.json());
 app.use('/api/users', userRoutes());
 app.use('/api/decks', deckRoutes());
 app.use('/api/cards', cardRoutes());
-app.use('/api/deckcards', deckCardsRoutes());
+app.use('/api/decks', deckRoutes());
 app.use('/api/categories', categoriesRoutes());
 
 app.get('/', (req, res) => {
