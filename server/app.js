@@ -10,6 +10,8 @@ const client = require('./db/connection');
 //env variables
 const {PORT, ENVIRONMENT} = process.env;
 
+console.log(process.env);
+
 //routes requires
 const deckRoutes = require('./routes/decks');
 
