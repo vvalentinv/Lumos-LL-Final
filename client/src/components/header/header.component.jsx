@@ -14,7 +14,7 @@ const Header = () => {
                 <LogoutButton />
                 {user
                     ?
-                    <h1>Welcome {user.name}</h1>
+                    <h2>Welcome {user.name}</h2>
                     : null
                 }
             </header>
