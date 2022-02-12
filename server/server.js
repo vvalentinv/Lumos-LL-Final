@@ -13,8 +13,8 @@ const { PORT, ENVIRONMENT } = process.env;
 // console.log(process.env);
 
 //routes requires
-const deckRoutes = require('./routes/decks');
 const userRoutes = require('./routes/users');
+const deckRoutes = require('./routes/decks');
 const cardRoutes = require('./routes/cards');
 const deckCardsRoutes = require('./routes/deckCards');
 
@@ -24,8 +24,8 @@ app.use(morgan(ENVIRONMENT));
 app.use(bodyParser.json());
 
 //routes
-app.use('/decks', deckRoutes());
 app.use('/api/users', userRoutes());
+app.use('/api/decks', deckRoutes());
 app.use('/api/cards', cardRoutes());
 app.use('/api/deckcards', deckCardsRoutes());
 

@@ -10,6 +10,19 @@ const getAllUsers = (cb) => {
     })
     .catch((error) => console.log(error.message));
 };
+
+//! DECKS
+const getAllDecks = (cb) => {
+  client.query("SELECT * FROM decks;")
+    .then((results) => {
+    // decks array of objects
+      // console.log(results.rows);
+      cb(results.rows);
+    })
+    .catch((error) => console.log(error.message));
+};
+
+
 //! CARDS
 const getAllCards = (cb) => {
   client.query("SELECT * FROM cards;")
@@ -34,4 +47,4 @@ const getAllDeckCards = (cb) => {
 
 //TODO getAllDecksForUser (UUID and takes in cb)
 
-module.exports = { getAllUsers,  getAllCards, getAllDeckCards };
+module.exports = { getAllUsers, getAllDecks, getAllCards, getAllDeckCards, };
