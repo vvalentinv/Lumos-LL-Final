@@ -5,8 +5,8 @@ const router = require('express').Router();
 const deckCardsRoutes = () => {
   // routes
   router.get('/', (req, res) => {
-    getAllDeckCards((users) => {
-      res.json(users);
+    getAllDeckCards((deckCards) => {
+      res.json(deckCards);
     });
   });
   return router;

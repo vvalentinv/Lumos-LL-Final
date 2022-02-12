@@ -5,8 +5,8 @@ const router = require('express').Router();
 const cardRoutes = () => {
   // routes
   router.get('/', (req, res) => {
-    getAllCards((users) => {
-      res.json(users);
+    getAllCards((cards) => {
+      res.json(cards);
     });
   });
   return router;
