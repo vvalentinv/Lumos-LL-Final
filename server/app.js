@@ -4,6 +4,8 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 //const bcrypt = require('bcrypt');
+const client = require('./db/connection');
+
 
 //env variables
 const {PORT, ENVIRONMENT} = process.env;
