@@ -15,6 +15,7 @@ const { PORT, ENVIRONMENT } = process.env;
 //routes requires
 const deckRoutes = require('./routes/decks');
 const userRoutes = require('./routes/users');
+const cardRoutes = require('./routes/cards');
 
 // middleware
 const app = express();
@@ -23,7 +24,8 @@ app.use(bodyParser.json());
 
 //routes
 app.use('/decks', deckRoutes());
-app.use('/api/users',userRoutes());
+app.use('/api/users', userRoutes());
+app.use('/api/cards', cardRoutes());
 
 app.get('/', (req, res) => {
   res.json({ home: `It's home` });

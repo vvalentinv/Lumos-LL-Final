@@ -10,6 +10,16 @@ const getAllUsers = (cb) => {
     .catch((error) => console.log(error.message));
 };
 
-module.exports = {
-  getAllUsers
+const getAllCards = (cb) => {
+  client.query("SELECT * FROM cards;")
+    .then((results) => {
+    // users array of objects
+      // console.log(results.rows);
+      cb(results.rows);
+    })
+    .catch((error) => console.log(error.message));
 };
+
+//TODO getAllDecksForUser (UUID and takes in cb)
+
+module.exports = { getAllUsers,  getAllCards };
