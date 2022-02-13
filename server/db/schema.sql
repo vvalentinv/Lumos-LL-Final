@@ -88,7 +88,7 @@ VALUES ('33f51c26-9f0f-43c5-a121-8cc00747123f', 'Q1','https://drive.google.com/f
        ('955c8c5c-f761-4233-ac57-fab3e003c362', 'Q13','https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
        'A13', '{"F1", "F2", "F3", "A13"}', FALSE),
        ('9f2bc655-2647-4e61-9ac9-23ead312de8a', 'Q14','https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
-       'A14', '{"F1", "F2", "F3", "A14"}',FALSE),
+       'A14', '{"F1", "F2", "F3", "A14"}', FALSE),
        ('9f2bc655-2647-4e61-9ac9-23ead312de8a', 'Q15','https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
        'A15', '{"F1", "F2", "F3", "A15"}', FALSE),
        ('9f2bc655-2647-4e61-9ac9-23ead312de8a', 'Q16','https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
@@ -109,10 +109,10 @@ INSERT INTO decks (user_id, name, description, category_id) VALUES
         ('33f51c26-9f0f-43c5-a121-8cc00747123f','cards 3,5,9', 'the description of the deck with id = 2', 1),
         ('33f51c26-9f0f-43c5-a121-8cc00747123f','cards 1,3,7,9', 'the description of the deck with id = 2', 1);
 
-INSERT INTO decks_with_cards (card_id,deck_id) VALUES 
-        (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1), (7,1), (9,1), (10,1),
-        (1,2), (3,2), (5,2), (7,2), (9,2),(11,2), (12,2), (13,2),
-        (1,3), (3,3), (5,3), (7,3), (9,3),(14,3), (15,3), (16,3),
+INSERT INTO decks_with_cards (card_id, deck_id) VALUES 
+        (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1), (8,1), (9,1), (10,1),
+        (1,2), (3,2), (5,2), (7,2), (9,2), (11,2), (12,2), (13,2),
+        (1,3), (3,3), (5,3), (7,3), (9,3), (14,3), (15,3), (16,3),
         (1,4), (3,4), (5,4), (7,4),
         (3,5), (5,5), (9,5),
         (1,6), (3,6), (7,6), (9,6);
