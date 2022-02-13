@@ -10,8 +10,6 @@ import LogoutButton from '../../components/logout-button/logout-button.component
 const Header = () => {
     const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-    console.log(user);
-
     return (
         <div className="header">
 
@@ -26,7 +24,7 @@ const Header = () => {
                         Sign In
                     </CustomButton >
                     :
-                    <CustomButton onClick={() => logout()} >
+                    <CustomButton onClick={() => logout()}>
                         Sign Out
                     </CustomButton>
                 }
