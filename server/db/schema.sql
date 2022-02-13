@@ -104,9 +104,16 @@ INSERT INTO categories (category_name) VALUES ('SCIENCES'),
 INSERT INTO decks (user_id, name, description, category_id) VALUES 
         ('33f51c26-9f0f-43c5-a121-8cc00747123f','First 10 cards', 'the description of the deck with id = 1', 1),
         ('955c8c5c-f761-4233-ac57-fab3e003c362','First 5 Public cards and cards 11, 12, and 13', 'the description of the deck with id = 2', 1),
-        ('9f2bc655-2647-4e61-9ac9-23ead312de8a','First 5 Public cards and cards 14, 15, and 16', 'the description of the deck with id = 3', 1);
+        ('9f2bc655-2647-4e61-9ac9-23ead312de8a','First 5 Public cards and cards 14, 15, and 16', 'the description of the deck with id = 3', 1),
+        ('33f51c26-9f0f-43c5-a121-8cc00747123f','cards 1,3,5,7', 'the description of the deck with id = 2', 1),
+        ('33f51c26-9f0f-43c5-a121-8cc00747123f','cards 3,5,9', 'the description of the deck with id = 2', 1),
+        ('33f51c26-9f0f-43c5-a121-8cc00747123f','cards 1,3,7,9', 'the description of the deck with id = 2', 1);
 
 INSERT INTO decks_with_cards (card_id,deck_id) VALUES 
         (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1), (7,1), (9,1), (10,1),
         (1,2), (3,2), (5,2), (7,2), (9,2),(11,2), (12,2), (13,2),
-        (1,3), (3,3), (5,3), (7,3), (9,3),(14,2), (15,2), (16,2);
+        (1,3), (3,3), (5,3), (7,3), (9,3),(14,3), (15,3), (16,3),
+        (1,4), (3,4), (5,4), (7,4),
+        (3,5), (5,5), (9,5),
+        (1,6), (3,6), (7,6), (9,6);
+
