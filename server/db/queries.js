@@ -55,7 +55,7 @@ const getAllCategories = (cb) => {
     .catch((error) => console.log(error.message));
 };
 
-//TODO getAllDecksForUser (UUID and takes in cb)
+//! GETALLDECKSFORUSER
 const getAllDecksForUser = (uuid, cb) => {
   client.query(`SELECT * FROM decks
                 WHERE user_id = $1 ;`, [uuid])
@@ -67,5 +67,16 @@ const getAllDecksForUser = (uuid, cb) => {
     .catch((error) => console.log(error.message));
 };
 
+//! GETALLCARDSFORDECK
+const getAllCardsForDeck = (deck_id, cb) => {
+  client.query(`SELECT cards.id, cards.question, cards.answer FROM cards JOIN decks_with_cards ON cards.id = decks_with_cards.card_id
+                WHERE deck_id = $1 ;`, [deck_id])
+    .then((results) => {
+      // categories array of objects
+      // console.log(results.rows);
+      cb(results.rows);
+    })
+    .catch((error) => console.log(error.message));
+};
 
-module.exports = { getAllUsers, getAllDecks, getAllCards, getAllDeckCards, getAllCategories, getAllDecksForUser };
+module.exports = { getAllUsers, getAllDecks, getAllCards, getAllDeckCards, getAllCategories, getAllDecksForUser, getAllCardsForDeck };
