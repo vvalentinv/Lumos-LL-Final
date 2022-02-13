@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import DataFetching from "./components/dataFetching.js/dataFetching";
 
 import Header from './components/header/header.component';
 
@@ -10,6 +11,7 @@ const App = () => {
   return (
     <div>
       <Header />
+      <DataFetching />
       <Routes>
         <Route exact path='/' element={<HomePage />} />
         <Route path='/createdeck' element={<CreateDeckPage />} />
