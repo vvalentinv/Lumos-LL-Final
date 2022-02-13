@@ -1,0 +1,11 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .header-right {
+        align-items: center;
+        display: inline-flex;
+        font-size: 10px;
+    }
+}
