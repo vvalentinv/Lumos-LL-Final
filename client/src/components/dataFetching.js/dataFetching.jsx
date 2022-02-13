@@ -1,18 +1,31 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const DataFetching = () => {
+  // useState is where data is stored
+  const [cards, setCards] = useState([]);
+
+  // Use effect makes the request for you
   useEffect(() => {
     // get all cards from deck 1
     axios.get(`/api/cards/1`).then((response) => {
       // console.log(response);
-      console.log(response.data);
+      // console.log(response.data);
+      setCards(response.data);
     });
-  });
+  }, []);
 
   return (
     <div>
       <h2>Data Fetching!!!</h2>
+      {/* turn array of objects into an array of jsx elements  */}
+      {cards.map((card) => {
+        return (
+          <p key={card.id}>
+            Question: {card.question} Answer: {card.answer} ({card.id})
+          </p>
+        );
+      })}
     </div>
   );
 };
