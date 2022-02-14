@@ -1,17 +1,17 @@
-import CardListActionTypes from "./card-list.types";
+import CardListActionTypes from "./card-list.types.js";
 
-export const addCard = card => ({
-    type: CardListActionTypes.ADD_ITEM,
-    payload: card
+export const addCard = newCard => ({
+    type: CardListActionTypes.ADD_CARD,
+    payload: newCard
 });
 
-export const deleteCard = card => ({
-    type: CardListActionTypes.DELETE_ITEM,
-    payload: card
+export const deleteCard = id => ({
+    type: CardListActionTypes.DELETE_CARD,
+    payload: id
 });
 
-export const editCard = card => ({
-    type: CardListActionTypes.EDIT_ITEM,
+export const updateCard = card => ({
+    type: CardListActionTypes.UPDATE_CARD,
     payload: card
 });
 

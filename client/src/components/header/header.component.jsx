@@ -1,23 +1,38 @@
 import { useAuth0 } from "@auth0/auth0-react";
 
-import LoginButton from '../../components/login-button/login-button.component.jsx';
-import LogoutButton from '../../components/logout-button/logout-button.component.jsx';
+import './header.styles.scss';
+
+import CustomButton from "../custom-button/custom-button.component";
 
 const Header = () => {
-    const { user } = useAuth0();
+    const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
     return (
-        <div className="App">
-            <header className="App-header">
+        <div className="header">
+
+            <div className="header-left">
                 <h1>Lumos</h1>
-                <LoginButton />
-                <LogoutButton />
+            </div>
+
+            <div className='header-right'>
+                {!isAuthenticated
+                    ?
+                    <CustomButton onClick={() => loginWithRedirect()}>
+                        Sign In
+                    </CustomButton >
+                    :
+                    <CustomButton onClick={() => logout()}>
+                        Sign Out
+                    </CustomButton>
+                }
+
                 {user
                     ?
-                    <h2>Welcome {user.name}</h2>
-                    : null
+                    <h2>Welcome {user.given_name}</h2>
+                    : ''
                 }
-            </header>
+            </div>
+
         </div>
     )
 }
