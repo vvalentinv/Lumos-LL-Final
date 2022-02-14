@@ -17,16 +17,15 @@ const cardListReducer = (state = INITIAL_STATE, action) => {
         case CardListActionTypes.DELETE_CARD:
             return {
                 ...state,
-                cardList: state.cardList.filter((card) => card.id !== action.payload.id)
+                cardList: state.cardList.filter((card) => card.id !== action.payload)
             };
 
-        // case CardListActionTypes._CARD:
+        // case CardListActionTypes.UPDATE_CARD:
         //     return {
         //         ...state,
         //         cardList: state.cardList[action.payload.id] = action.payload.cardValue
         //     };
 
-        //Redo DELETE_CARD???
         //cardValue should be an obj with id, term and definition
 
         default:

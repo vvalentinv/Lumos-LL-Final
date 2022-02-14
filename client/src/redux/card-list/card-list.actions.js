@@ -5,9 +5,9 @@ export const addCard = newCard => ({
     payload: newCard
 });
 
-export const deleteCard = card => ({
+export const deleteCard = id => ({
     type: CardListActionTypes.DELETE_CARD,
-    payload: card
+    payload: id
 });
 
 export const updateCard = card => ({

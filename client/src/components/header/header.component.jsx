@@ -4,9 +4,6 @@ import './header.styles.scss';
 
 import CustomButton from "../custom-button/custom-button.component";
 
-import LoginButton from '../../components/login-button/login-button.component.jsx';
-import LogoutButton from '../../components/logout-button/logout-button.component.jsx';
-
 const Header = () => {
     const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 

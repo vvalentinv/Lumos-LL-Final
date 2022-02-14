@@ -1,4 +1,4 @@
-
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard } from "../../redux/card-list/card-list.actions";
 
@@ -11,7 +11,9 @@ const CreateDeckPage = () => {
     const selCardList = useSelector(state => state.cardList);
     const { cardList } = selCardList;
 
-    console.log(cardList);
+    // useEffect(() => {
+    //FETCH ALL CARDS FROM BACKEND AND STORE IN CARDLIST STATE
+    // }, [])
 
     const addNewCard = () => {
         const newCard = {
@@ -25,12 +27,27 @@ const CreateDeckPage = () => {
     }
 
     return (
-        <>
-            <p>Create a new deck</p>
-            <CustomButton onClick={() => addNewCard()}>
+        <div className='create-deck-page'>
+            <h1 className='title-header'>Create a new deck</h1>
+            <div className='card-container'>
+                {cardList.map((card) => {
+
+                    const { id, term, definition } = card;
+
+                    return (
+                        <Card
+                            key={id}
+                            id={id}
+                            term={term}
+                            definition={definition}
+                        />
+                    )
+                })}
+            </div>
+            <CustomButton className='add-card-button' onClick={() => addNewCard()}>
                 Add Card
             </CustomButton>
-        </>
+        </div>
     );
 };
 
