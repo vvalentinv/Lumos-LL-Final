@@ -11,11 +11,11 @@ const App = () => {
   return (
     <div>
       <Header />
-      <DataFetching />
       <Routes>
         <Route exact path='/' element={<HomePage />} />
         <Route path='/createdeck' element={<CreateDeckPage />} />
       </Routes>
+      <DataFetching />
     </div>
   );
 }

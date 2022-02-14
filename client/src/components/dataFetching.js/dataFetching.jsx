@@ -8,10 +8,14 @@ const DataFetching = () => {
   // Use effect makes the request for you
   useEffect(() => {
     // get all cards from deck 1
-    axios.get(`/api/cards/1`).then((response) => {
+    axios.get(`/api/cards/3`).then((response) => {
       // console.log(response);
-      // console.log(response.data);
-      setCards(response.data);
+      console.log(response.data);
+      // setCards(response.data);
+      // use a callback to prevent infinite loop caused by a dependancy array
+      setCards((prevCards) => {
+        return [...prevCards, ...response.data];
+      });
     });
   }, []);
 
@@ -22,7 +26,7 @@ const DataFetching = () => {
       {cards.map((card) => {
         return (
           <p key={card.id}>
-            Question: {card.question} Answer: {card.answer} ({card.id})
+            Question: {card.question} | Answer: {card.answer} ({card.id})
           </p>
         );
       })}
