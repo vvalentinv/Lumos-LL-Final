@@ -13,6 +13,7 @@ const App = () => {
       <Routes>
         <Route exact path='/' element={<HomePage />} />
         <Route path='/createdeck' element={<CreateDeckPage />} />
+        <Route path='/editdeck/:deckid' element={<CreateDeckPage />} />
       </Routes>
     </div>
   );

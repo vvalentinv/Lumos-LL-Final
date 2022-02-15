@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard } from "../../redux/card-list/card-list.actions";
 
@@ -7,13 +8,24 @@ import Card from "../../components/card/card.component";
 
 const CreateDeckPage = () => {
 
+    const [editMode, setEditMode] = useState(false);
+
+    const { deckid } = useParams();
+
+    console.log(deckid)
+
+    // useEffect(() => {
+    //     setEdit(
+    //         deckid ? true : false
+    //     )
+    //     if (editMode) async fetch of existing I'th Deck Cards from DB
+    //     and update cardList state in Redux store 
+    //     FETCH_DECK_CARDS redux action
+    // }, [deckid])
+
     const dispatch = useDispatch();
     const selCardList = useSelector(state => state.cardList);
     const { cardList } = selCardList;
-
-    // useEffect(() => {
-    //FETCH ALL CARDS FROM BACKEND AND STORE IN CARDLIST STATE
-    // }, [])
 
     const addNewCard = () => {
         const newCard = {
@@ -22,7 +34,6 @@ const CreateDeckPage = () => {
             definition: '',
             isUpdated: false
         }
-        console.log('Add Card', addCard(newCard));
         dispatch(addCard(newCard));
     }
 
@@ -47,24 +58,21 @@ const CreateDeckPage = () => {
             <CustomButton className='add-card-button' onClick={() => addNewCard()}>
                 Add Card
             </CustomButton>
+            <div className='submit-deck-button-container'>
+                <CustomButton className='submit-deck-button'>
+                    Submit Deck
+                </CustomButton>
+            </div>
+
         </div>
     );
 };
 
-
 export default CreateDeckPage;
 
-//Save button - post request for I'th Card
-
-//1. POST Request
-
-// POST api.card.deck/cards/{id}
-
-
-
-
-
-//Done Button
-
-//For Loop Axios
-//Update store
+    // const submitHandler = () => {
+    //     const addCards = cardList.filter(card => !card.isUpdated)
+    //     const updatedCards = cardList.filter(card => card.isUpdated)
+    //     dispatch(batchAddCards(addCards))
+    //     dispatch(batchUpdateCards(updatedCards))
+    // }
