@@ -58,7 +58,7 @@ const getAllCategories = (cb) => {
 //! GETALLDECKSFORUSER
 const getAllDecksForUser = (uuid, cb) => {
   client.query(`SELECT * FROM decks
-                WHERE user_id = $1 ;`, [uuid])
+                WHERE user_id = $1;`, [uuid])
     .then((results) => {
       // categories array of objects
       // console.log(results.rows);
@@ -79,4 +79,28 @@ const getAllCardsForDeck = (deck_id, cb) => {
     .catch((error) => console.log(error.message));
 };
 
-module.exports = { getAllUsers, getAllDecks, getAllCards, getAllDeckCards, getAllCategories, getAllDecksForUser, getAllCardsForDeck };
+//! GETUSERBYEMAIL
+const getUserByEmail = (email, cb) => {
+  client.query(`SELECT email FROM users 
+                WHERE email = $1 ;`, [email])
+    .then((results) => {
+      // categories array of objects
+      // console.log(results.rows);
+      cb(results ? true : false);
+    })
+    .catch((error) => console.log(error.message));
+};
+
+//! STOREUSER
+const storeUser = (user, cb) => {
+  client.query(`INSERT INTO users(nickname, email, password, email_verified) VALUES
+  ($1, $2, $3, $4) RETURNING *;`, [user.nickname, user.email, user.password, user.email_verified])
+    .then((results) => {
+      // categories array of objects
+      console.log(results.rows);
+      cb(results ? true : false);
+    })
+    .catch((error) => console.log(error.message));
+};
+
+module.exports = { getAllUsers, getAllDecks, getAllCards, getAllDeckCards, getAllCategories, getAllDecksForUser, getAllCardsForDeck, getUserByEmail, storeUser };

@@ -25,6 +25,7 @@ const app = express();
 app.use(morgan(ENVIRONMENT));
 // app.use(bodyParser.json());
 
+// new way of using middleware bodyParser
 app.use(express.json());
 
 app.use(cors());

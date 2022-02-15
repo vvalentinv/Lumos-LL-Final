@@ -1,4 +1,4 @@
-const { getAllDecks, getAllDecksForUser } = require("../db/queries");
+const { getAllDecks, getAllDecksForUser, getUserByEmail, storeUser } = require("../db/queries");
 
 const router = require('express').Router();
 
@@ -18,14 +18,20 @@ const deckRoutes = () => {
       res.json(decks);
     });
   });
+  
   //all decks with cards
   router.post('/', (req, res) => {
     console.log("+++++++++++++++++++++", req.body);
+    // req.body contains all info front react (found in morgan terminal)
+    const {email, nickname, email_verified } = req.body[1];
+    const user = { email, nickname, email_verified, password:'$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.' };
+    let uuid = '';
+    if (!getUserByEmail(email)) {
+      uuid = storeUser(user);
+      console.log(uuid);
+    }
     // //const uuid = req.params.id;
-    // getAllDecksForUser(uuid, (decks) => {
-    //   res.json(decks);
-    // });
-    return res.send({ status: 'OKxxx' });
+    return res.send({ status: `from database query email was found = ${ uuid }`});
   });
   return router;
 };
