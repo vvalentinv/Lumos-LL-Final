@@ -3,12 +3,17 @@ import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard } from "../../redux/card-list/card-list.actions";
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 import CustomButton from "../../components/custom-button/custom-button.component";
 import Card from "../../components/card/card.component";
 import axios from "axios";
-import store from "../../redux/store";
 
 const CreateDeckPage = () => {
+    const [deckTitle, setDeckTitle] = useState('');
+
+    const {user } = useAuth0();
+    console.log(user);
 
     const [editMode, setEditMode] = useState(false);
 
@@ -48,7 +53,7 @@ const CreateDeckPage = () => {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        axios.post(`localhost:8080/api/decks/createdeck`, fakeDeck)
+        return axios.post(`http://localhost:8080/api/decks/`, [cardList, user])
         .then(result => console.log(result));
     }
 
