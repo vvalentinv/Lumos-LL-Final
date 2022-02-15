@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './components/header/header.component';
 
 import HomePage from './pages/home-page/home-page.component';
-import CreateDeckPage from './pages/create-deck-page/create-deck-page.component';
+import ViewDeckPage from './pages/create-deck-page/create-deck-page.component';
+import DeckPreviewPage from './pages/deck-preview-page/deck-preview-page.component';
 
 const App = () => {
 
@@ -12,8 +13,9 @@ const App = () => {
       <Header />
       <Routes>
         <Route exact path='/' element={<HomePage />} />
-        <Route path='/createdeck' element={<CreateDeckPage />} />
-        <Route path='/editdeck/:deckid' element={<CreateDeckPage />} />
+        <Route path='/createdeck' element={<ViewDeckPage />} />
+        <Route path='/editdeck/:deckID' element={<ViewDeckPage />} />
+        <Route path='/deckpreview/:deckID' element={<DeckPreviewPage />} />
       </Routes>
     </div>
   );
