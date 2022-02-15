@@ -1,38 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCard } from "../../redux/card-list/card-list.actions";
+import { fetchCardList, addCard } from "../../redux/card-list/card-list.actions";
 
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
 import CustomButton from "../../components/custom-button/custom-button.component";
 import Card from "../../components/card/card.component";
-import axios from "axios";
 
-const CreateDeckPage = () => {
+const ViewDeckPage = () => {
+
     const [deckTitle, setDeckTitle] = useState('');
-
-    const {user } = useAuth0();
-    console.log(user);
-
+    const [isLoading, setLoading] = useState(false);
     const [editMode, setEditMode] = useState(false);
-
-    const { deckid } = useParams();
-
-    console.log(deckid)
-
-    useEffect(() => {
-        setEditMode(
-            deckid ? true : false
-        )
-        // if (editMode) async fetch of existing I'th Deck Cards from DB
-        // and update cardList state in Redux store 
-        // FETCH_DECK_CARDS redux action
-    }, [deckid])
 
     const dispatch = useDispatch();
     const selCardList = useSelector(state => state.cardList);
     const { cardList } = selCardList;
+
+    const { user } = useAuth0();
+    const { deckID } = useParams(); //Derived from DB
+
+    useEffect(() => {
+        const isDeckID = deckID ? true : false;
+        setEditMode(isDeckID);
+
+        if (editMode) {
+            setLoading(true);
+            // dispatch(fetchCardList(deckid, setLoading))
+        }
+    }, [deckID, editMode])
+
 
     const addNewCard = () => {
         const newCard = {
@@ -51,10 +50,14 @@ const CreateDeckPage = () => {
         categoryid: 1
     }
 
+    //Make sure submit deck button works
+    //Make sure we can fetch list of decks
+    //Make sure we can delete individual deck - AXIOS DELETE
+
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        return axios.post(`http://localhost:8080/api/decks/`, [cardList, user])
-        .then(result => console.log(result));
+        return axios.post(`http://localhost:8080/api/decks/`, { cardList, user })
+            .then(result => console.log(result));
     }
 
     return (
@@ -88,11 +91,6 @@ const CreateDeckPage = () => {
     );
 };
 
-export default CreateDeckPage;
+export default ViewDeckPage;
 
-    // const submitHandler = () => {
-    //     const addCards = cardList.filter(card => !card.isUpdated)
-    //     const updatedCards = cardList.filter(card => card.isUpdated)
-    //     dispatch(batchAddCards(addCards))
-    //     dispatch(batchUpdateCards(updatedCards))
-    // }
+
