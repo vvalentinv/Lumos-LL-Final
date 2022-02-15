@@ -4,13 +4,18 @@ import { updateCardInCardList } from './card-list.utils';
 
 const INITIAL_STATE = {
     cardList: [
-        { id: 1, term: 'First Day', definition: 'Monday', isUpdated: false },
-        { id: 2, term: 'Second Day', definition: 'Tuesday', isUpdated: false }
+        { id: 1, term: 'Placeholder 1', definition: 'Monday', isUpdated: false },
+        { id: 2, term: 'Placeholder 2', definition: 'Tuesday', isUpdated: false }
     ]
 };
 
 const cardListReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case CardListActionTypes.FETCH_CARD_LIST:
+            return {
+                ...state,
+                cardList: [...action.payload]
+            };
         case CardListActionTypes.ADD_CARD:
             return {
                 ...state,
