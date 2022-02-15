@@ -1,17 +1,14 @@
-export const addCardToCardList = (cardList, cardToAdd) => {
 
-
-    return -1;
+export const updateCardInCardList = (cardList, payload) => {
+    let newCardList = cardList.map((card) => {
+        let editCard = { ...card }
+        if (card.id === payload.id) {
+            editCard[payload.field] = payload.value
+            editCard.isUpdated = true
+        }
+        return editCard;
+    })
+    return newCardList;
 };
 
-export const removeCardFromCardList = (cardList, cardToDelete) => {
 
-
-    return -1;
-};
-
-export const editCardInCardList = (cardList, cardToEdit) => {
-
-
-    return -1;
-};

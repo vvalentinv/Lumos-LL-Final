@@ -1,5 +1,7 @@
 import CardListActionTypes from "./card-list.types";
 
+import { updateCardInCardList } from './card-list.utils';
+
 const INITIAL_STATE = {
     cardList: [
         { id: 1, term: 'First Day', definition: 'Monday', isUpdated: false },
@@ -20,13 +22,11 @@ const cardListReducer = (state = INITIAL_STATE, action) => {
                 cardList: state.cardList.filter((card) => card.id !== action.payload)
             };
 
-        // case CardListActionTypes.UPDATE_CARD:
-        //     return {
-        //         ...state,
-        //         cardList: state.cardList[action.payload.id] = action.payload.cardValue
-        //     };
-
-        //cardValue should be an obj with id, term and definition
+        case CardListActionTypes.UPDATE_CARD:
+            return {
+                ...state,
+                cardList: updateCardInCardList(state.cardList, action.payload)
+            };
 
         default:
             return state;
@@ -36,8 +36,20 @@ const cardListReducer = (state = INITIAL_STATE, action) => {
 export default cardListReducer;
 
 
+// return {
+//     ...state,
+//     [action.id]: {
+//         ...state[action.id],
+//         [action.field]: action.value,
+//     },
 
-//EDIT: state.cardList[action.payload.id] = action.payload.cardValue
+
+
+
+
+
+
+
 
 //redux state update:
 // cardList = { ...state, action.payload.newCard.id: {...action.payload.newCard } }
