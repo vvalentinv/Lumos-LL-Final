@@ -14,14 +14,12 @@ const CreateDeckPage = () => {
 
     console.log(deckid)
 
-    // useEffect(() => {
-    //     setEdit(
-    //         deckid ? true : false
-    //     )
-    //     if (editMode) async fetch of existing I'th Deck Cards from DB
-    //     and update cardList state in Redux store 
-    //     FETCH_DECK_CARDS redux action
-    // }, [deckid])
+    useEffect(() => {
+        setEditMode(deckid ? true : false)
+        // if (editMode) async fetch of existing I'th Deck Cards from DB
+        // and update cardList state in Redux store 
+        // FETCH_DECK_CARDS redux action thunk
+    }, [deckid])
 
     const dispatch = useDispatch();
     const selCardList = useSelector(state => state.cardList);
@@ -39,7 +37,10 @@ const CreateDeckPage = () => {
 
     return (
         <div className='create-deck-page'>
-            <h1 className='title-header'>Create a new deck</h1>
+            {editMode
+                ? <h1 className='title-header'>Edit Deck</h1>
+                : <h1 className='title-header'>Create a new deck</h1>
+            }
             <div className='card-container'>
                 {cardList.map((card) => {
 
