@@ -1,15 +1,21 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const DeckPreviewPage = () => {
 
-    //useEffect => get All Decks for Current User via Axios => Store in useState Hook
-    //=> Iterate over useState Hook and display list of decks
+    const [deck, setDeck] = useState([]);
+
+    useEffect(() => {
+        //useEffect => get all cards for current Deck ID via Axios => Store in useState Hook
+        // setDeck(res)
+    }, [])
+
 
     return (
-        <p>Home</p>
+        <p>Deck Preview</p>
+        //=> Iterate over useState Hook and display list of decks
     );
 }
 
 export default DeckPreviewPage;
 
-//useEffect => get All Cards for Current Deck ID via Axios => Store in useState Hook
-//=> Iterate over useState Hook and display list of cards
