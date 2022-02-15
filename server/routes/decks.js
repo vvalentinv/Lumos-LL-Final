@@ -18,6 +18,15 @@ const deckRoutes = () => {
       res.json(decks);
     });
   });
+  //all decks with cards
+  router.post('/', (req, res) => {
+    console.log("+++++++++++++++++++++", req.body);
+    // //const uuid = req.params.id;
+    // getAllDecksForUser(uuid, (decks) => {
+    //   res.json(decks);
+    // });
+    return res.send({ status: 'OKxxx' });
+  });
   return router;
 };
 

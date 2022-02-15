@@ -1,6 +1,7 @@
 //declarations
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 // const bcrypt = require('bcrypt');
@@ -20,14 +21,17 @@ const categoriesRoutes = require('./routes/categories');
 
 //middleware
 const app = express();
-app.use(morgan(ENVIRONMENT));
-app.use(bodyParser.json());
 
+app.use(morgan(ENVIRONMENT));
+// app.use(bodyParser.json());
+
+app.use(express.json());
+
+app.use(cors());
 //routes
 app.use('/api/users', userRoutes());
 app.use('/api/decks', deckRoutes());
 app.use('/api/cards', cardRoutes());
-app.use('/api/decks', deckRoutes());
 app.use('/api/categories', categoriesRoutes());
 
 app.get('/', (req, res) => {
