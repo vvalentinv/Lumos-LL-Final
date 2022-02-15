@@ -5,6 +5,8 @@ import { addCard } from "../../redux/card-list/card-list.actions";
 
 import CustomButton from "../../components/custom-button/custom-button.component";
 import Card from "../../components/card/card.component";
+import axios from "axios";
+import store from "../../redux/store";
 
 const CreateDeckPage = () => {
 
@@ -14,14 +16,14 @@ const CreateDeckPage = () => {
 
     console.log(deckid)
 
-    // useEffect(() => {
-    //     setEdit(
-    //         deckid ? true : false
-    //     )
-    //     if (editMode) async fetch of existing I'th Deck Cards from DB
-    //     and update cardList state in Redux store 
-    //     FETCH_DECK_CARDS redux action
-    // }, [deckid])
+    useEffect(() => {
+        setEditMode(
+            deckid ? true : false
+        )
+        // if (editMode) async fetch of existing I'th Deck Cards from DB
+        // and update cardList state in Redux store 
+        // FETCH_DECK_CARDS redux action
+    }, [deckid])
 
     const dispatch = useDispatch();
     const selCardList = useSelector(state => state.cardList);
@@ -35,6 +37,19 @@ const CreateDeckPage = () => {
             isUpdated: false
         }
         dispatch(addCard(newCard));
+    }
+
+    const fakeDeck = {
+        userid: 'aa',
+        name: 'fake',
+        description: 'deck',
+        categoryid: 1
+    }
+
+    const handleOnSubmit = (event) => {
+        event.preventDefault();
+        axios.post(`localhost:8080/api/decks/createdeck`, fakeDeck)
+        .then(result => console.log(result));
     }
 
     return (
@@ -59,7 +74,7 @@ const CreateDeckPage = () => {
                 Add Card
             </CustomButton>
             <div className='submit-deck-button-container'>
-                <CustomButton className='submit-deck-button'>
+                <CustomButton className='submit-deck-button' onClick={handleOnSubmit}>
                     Submit Deck
                 </CustomButton>
             </div>
