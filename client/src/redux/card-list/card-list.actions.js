@@ -17,9 +17,9 @@ export const updateCard = card => ({
   payload: card
 });
 
-export const fetchCardList = async (deckid, setLoading) => {
+export const fetchCardList = async (deckID, setLoading) => {
   try {
-    const res = await axios.get('https://localhost:8080/api/cards');
+    const res = await axios.get(`https://localhost:8080/api/decks/${deckID}`);
     setLoading(false);
 
     return {

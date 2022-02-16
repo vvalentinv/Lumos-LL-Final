@@ -4,10 +4,12 @@ import { updateCardInCardList } from './card-list.utils';
 
 const INITIAL_STATE = {
     cardList: [
-        { id: 1, term: 'Placeholder 1', definition: 'Monday', isUpdated: false },
-        { id: 2, term: 'Placeholder 2', definition: 'Tuesday', isUpdated: false }
+        { id: 1, term: 'Placeholder 1', definition: 'Monday', isUpdated: false, isPublic: false },
+        { id: 2, term: 'Placeholder 2', definition: 'Tuesday', isUpdated: false, isPublic: false }
     ]
 };
+
+//set public status for all
 
 const cardListReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -39,25 +41,3 @@ const cardListReducer = (state = INITIAL_STATE, action) => {
 };
 
 export default cardListReducer;
-
-
-// return {
-//     ...state,
-//     [action.id]: {
-//         ...state[action.id],
-//         [action.field]: action.value,
-//     },
-
-
-
-
-
-
-
-
-
-//redux state update:
-// cardList = { ...state, action.payload.newCard.id: {...action.payload.newCard } }
-
-
-// case ADD_CARD_UPDATE: 	const updatedCard = action.payload 	cardList.map((card) => { 		if (card.id === updatedCard.id) { 			return { 				...updatedCard 			} 		} 	})
