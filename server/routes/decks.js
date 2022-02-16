@@ -10,9 +10,20 @@ const deckRoutes = () => {
     });
   });
 
+  // get route
+  router.get('/:id', (req, res) => {
+    const uuid = req.params.id;
+    console.log(uuid);
+    const decks = getAllDecksForUser(uuid); //, (decks) => {
+    //   res.json(decks);
+    // });
+    console.log("decks.js-DECKS!!!!!!!!!!",decks);
+    return res.send(decks);
+  });
+
   //all decks with cards
 
-  router.post('/', async (req, res) => {
+  router.post('/', async(req, res) => {
     // console.log("+++++++++++++++++++++", req.body);
     // req.body contains all info front react (found in morgan terminal)
     const { email, nickname, email_verified } = req.body.user;
@@ -37,7 +48,7 @@ const deckRoutes = () => {
     // const deckCards = {};
 
     //~ STORE DECK
-    const deck = { deckTitle, uuid: uuid[0].id };
+    const deck = { deckTitle, uuid };
     // console.log(deck);
     const newDeck = await storeDeck(deck);
     // console.log("newDeck:", newDeck);
@@ -67,7 +78,7 @@ const deckRoutes = () => {
     }
 
     // console.log(uuid);
-    return res.send({ status: `for user ${uuid[0].id} stored deck ${newDeck[0].id} associated cards with ids ${cards} with it` });
+    return res.send({ status: `for user ${uuid} stored deck ${newDeck[0].id} associated cards with ids ${cards} with it` });
   });
   return router;
 };
