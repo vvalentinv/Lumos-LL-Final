@@ -1,4 +1,4 @@
-const { getAllDecks, getAllDecksForUser, storeUser, getUserIdByEmail, storeDeck, storeCard, linkCardToDeck } = require("../db/queries");
+const { getUuidByEmail, getAllDecks, getAllDecksForUser, storeUser, getUserIdByEmail, storeDeck, storeCard, linkCardToDeck } = require("../db/queries");
 
 const router = require('express').Router();
 
@@ -18,18 +18,20 @@ const deckRoutes = () => {
     const { email, nickname, email_verified } = req.body.user;
     const user = { email, nickname, email_verified, password: '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.' };
     const { deckTitle } = req.body;
-    let uuid = '';
-    const checkUser = await getUserIdByEmail(email);
-    // console.log("check email", checkUser);
-    // console.log(getUserIdByEmail(email));
+    const uuid = await getUuidByEmail(user);
+    // let uuid = '';
+    // const checkUser = await getUserIdByEmail(email);
+    // // console.log("check email", checkUser);
+    // // console.log(getUserIdByEmail(email));
 
-    if (checkUser.length < 1) {
-      uuid = await storeUser(user);
-      //   // console.log(uuid);
-    } //else {
-    //   uuid = await getUserIdByEmail(email);
-    // }
-    uuid = checkUser;
+    // if (checkUser.length < 1) {
+    //   uuid = await storeUser(user);
+    console.log(uuid);
+    // } //else {
+    // // removed redundant code
+    // //   uuid = await getUserIdByEmail(email);
+    // // }
+    // uuid = checkUser;
     //~ PREPARE FOR CARDS_DECK ASSOCIATION
 
     // const deckCards = {};
