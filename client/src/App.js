@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './components/header/header.component';
 
 import HomePage from './pages/home-page/home-page.component';
-import ViewDeckPage from './pages/create-deck-page/create-deck-page.component';
+import ViewDeckPage from './pages/view-deck-page/view-deck-page.component';
 import DeckPreviewPage from './pages/deck-preview-page/deck-preview-page.component';
 
 const App = () => {
