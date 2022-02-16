@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 // const bcrypt = require('bcrypt');
 // const client = require('./db/connection');
 // const { getAllUsers } = require('./db/queries');
@@ -23,6 +23,7 @@ const categoriesRoutes = require('./routes/categories');
 const app = express();
 
 app.use(morgan(ENVIRONMENT));
+// new way of using middleware bodyParser
 // app.use(bodyParser.json());
 
 app.use(express.json());
