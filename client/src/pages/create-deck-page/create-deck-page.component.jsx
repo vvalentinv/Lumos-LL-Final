@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCardList, addCard } from "../../redux/card-list/card-list.actions";
 
+import { useParams } from 'react-router';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
@@ -28,41 +28,46 @@ const ViewDeckPage = () => {
 
         if (editMode) {
             setLoading(true);
-            // dispatch(fetchCardList(deckid, setLoading))
+            // dispatch(fetchCardList(deckID, setLoading))
         }
     }, [deckID, editMode])
-
 
     const addNewCard = () => {
         const newCard = {
             id: cardList.length + 1,
             term: '',
             definition: '',
-            isUpdated: false
+            isUpdated: false,
+            isPublic: false
         }
         dispatch(addCard(newCard));
     }
 
-    const fakeDeck = {
-        userid: 'aa',
-        name: 'fake',
-        description: 'deck',
-        categoryid: 1
-    }
-
-    //Make sure submit deck button works
-    //Make sure we can fetch list of decks
-    //Make sure we can delete individual deck - AXIOS DELETE
-
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        return axios.post(`http://localhost:8080/api/decks/`, { cardList, user })
+        return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
             .then(result => console.log(result));
     }
 
+    console.log(deckTitle);
+
     return (
-        <div className='create-deck-page'>
-            <h1 className='title-header'>Create a new deck</h1>
+        <div className='view-deck-page'>
+            {editMode
+                ? <h1 className='title-header'>Edit Deck</h1>
+                : <h1 className='title-header'>Create a new deck</h1>
+            }
+            <span>Title</span>
+            <div className='deck-title'>
+                <input
+                    type='text'
+                    className='title-input-text'
+                    placeholder='Enter a title'
+                    value={deckTitle}
+                    onChange={event => setDeckTitle(event.target.value)}
+                >
+                </input>
+            </div>
             <div className='card-container'>
                 {cardList.map((card) => {
 
@@ -93,4 +98,12 @@ const ViewDeckPage = () => {
 
 export default ViewDeckPage;
 
+    //Make sure we can fetch list of decks
+    //Make sure we can delete individual deck - AXIOS DELETE
 
+    // const fakeDeck = {
+    //     userid: 'aa',
+    //     name: 'fake',
+    //     description: 'deck',
+    //     categoryid: 1
+    // }
