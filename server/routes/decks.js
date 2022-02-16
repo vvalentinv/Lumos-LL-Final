@@ -13,17 +13,19 @@ const deckRoutes = () => {
   // get route
   router.get('/:id', (req, res) => {
     const uuid = req.params.id;
-    console.log(uuid);
+    console.log(",,,,,,,,,,,,,,,,,,,,,,,,,,,", uuid);
     const decks = getAllDecksForUser(uuid); //, (decks) => {
     //   res.json(decks);
     // });
-    console.log("decks.js-DECKS!!!!!!!!!!",decks);
-    return res.send(decks);
+    decks.then((data) => {
+      return res.send(data);
+    })
+
   });
 
   //all decks with cards
 
-  router.post('/', async(req, res) => {
+  router.post('/', async (req, res) => {
     // console.log("+++++++++++++++++++++", req.body);
     // req.body contains all info front react (found in morgan terminal)
     const { email, nickname, email_verified } = req.body.user;
