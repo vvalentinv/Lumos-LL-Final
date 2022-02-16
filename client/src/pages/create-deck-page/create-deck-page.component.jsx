@@ -53,7 +53,7 @@ const CreateDeckPage = () => {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        return axios.post(`http://localhost:8080/api/decks/`, [cardList, user])
+        return axios.post(`http://localhost:8080/api/decks/`, {cardList, user})
         .then(result => console.log(result));
     }
 

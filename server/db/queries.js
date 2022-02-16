@@ -1,3 +1,4 @@
+const res = require('express/lib/response');
 const client = require('./connection');
 
 //! USERS
@@ -80,17 +81,27 @@ const getAllCardsForDeck = (deck_id, cb) => {
 };
 
 //! GETUSERBYEMAIL
-const getUserByEmail = (email) => {
-  client.query(`SELECT email FROM users 
+const getUserByEmail = async (email) => {
+  // return "xyz";
+
+
+
+  const abc = await client.query(`SELECT email FROM users 
                 WHERE email = $1;`, [email])
-    .then((results) => {
-      // array that contains an email
-      console.log("email:", results.rows[0].email);
-      return (results.rows[0].email);
-      // results.rows ? true : false;
-      // console.log("checkUser:", checkUser);
-    })
-    .catch((error) => console.log(error.message));
+  // .then((results) => {
+  //   // console.log("email:", results.Result.rows);
+
+  //   results;
+
+  // array that contains an email
+
+  // return (results.rows[0].email);
+  // results.rows ? true : false;
+  // console.log("checkUser:", checkUser);
+  // })
+  // .catch ((error) => console.log(error.message));
+  console.log("result from await", abc.rows);
+  return abc.rows;
 };
 
 //! STOREUSER
