@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteCard, updateCard } from '../../redux/card-list/card-list.actions';
 
-// import { questionHandleChange, answerHandleChange } from './card.utils';
-
 import './card.styles.scss';
 
 import { ReactComponent as TrashLogo } from '../../assets/trash.svg';
@@ -26,7 +24,6 @@ const Card = (props) => {
             field: 'term',
             value: event.target.value,
         }));
-
     }
 
     const answerHandleChange = (event) => {
