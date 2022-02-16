@@ -80,25 +80,27 @@ const getAllCardsForDeck = (deck_id, cb) => {
 };
 
 //! GETUSERBYEMAIL
-const getUserByEmail = (email, cb) => {
+const getUserByEmail = (email) => {
   client.query(`SELECT email FROM users 
-                WHERE email = $1 ;`, [email])
+                WHERE email = $1;`, [email])
     .then((results) => {
-      // categories array of objects
-      // console.log(results.rows);
-      cb(results ? true : false);
+      // array that contains an email
+      console.log("email:", results.rows[0].email);
+      return (results.rows[0].email);
+      // results.rows ? true : false;
+      // console.log("checkUser:", checkUser);
     })
     .catch((error) => console.log(error.message));
 };
 
 //! STOREUSER
-const storeUser = (user, cb) => {
+const storeUser = (user) => {
   client.query(`INSERT INTO users(nickname, email, password, email_verified) VALUES
   ($1, $2, $3, $4) RETURNING *;`, [user.nickname, user.email, user.password, user.email_verified])
     .then((results) => {
       // categories array of objects
-      console.log(results.rows);
-      cb(results ? true : false);
+      console.log("uuid:", results.rows[0].id);
+      results.rows[0].id;
     })
     .catch((error) => console.log(error.message));
 };

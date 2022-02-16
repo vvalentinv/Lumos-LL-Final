@@ -23,12 +23,15 @@ const deckRoutes = () => {
   router.post('/', (req, res) => {
     console.log("+++++++++++++++++++++", req.body);
     // req.body contains all info front react (found in morgan terminal)
-    const {email, nickname, email_verified } = req.body[1];
+    const { email, nickname, email_verified } = req.body[1];
     const user = { email, nickname, email_verified, password:'$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.' };
     let uuid = '';
-    if (!getUserByEmail(email)) {
+    // getUserByEmail(email, (email) => email);
+    // const emailFound = getUserByEmail(email, email => email);
+ 
+    if (getUserByEmail(email)) {
       uuid = storeUser(user);
-      console.log(uuid);
+    //   // console.log(uuid);
     }
     // //const uuid = req.params.id;
     return res.send({ status: `from database query email was found = ${ uuid }`});
