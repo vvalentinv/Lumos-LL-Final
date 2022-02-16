@@ -17,9 +17,11 @@ const userRoutes = () => {
     const { email, nickname, email_verified } = req.body.user;
     const user = { email, nickname, email_verified };
     const uuid = getUuidByEmail(user);
-    uuid.then((result) => {
-      res.send(result);
-    });
+    uuid
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((error) => { console.log(error) });
     // setTimeout(()=> {
     //   console.log("**********", uuid);
     //   res.send({uuid: uuid});

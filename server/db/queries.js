@@ -57,13 +57,13 @@ const getAllCategories = (cb) => {
 };
 
 //! GETALLDECKSFORUSER
-const getAllDecksForUser = (uuid, cb) => {
-  client.query(`SELECT * FROM decks
+const getAllDecksForUser = (uuid) => {
+  return client.query(`SELECT * FROM decks
                 WHERE user_id = $1;`, [uuid])
     .then((results) => {
       // categories array of objects
       // console.log(results.rows);
-      cb(results.rows);
+      return (results.rows);
     })
     .catch((error) => console.log(error.message));
 };
@@ -81,7 +81,7 @@ const getAllCardsForDeck = (deck_id, cb) => {
 };
 
 //! GETUSERBYIDEMAIL
-const getUserIdByEmail = async(email) => {
+const getUserIdByEmail = async (email) => {
   const exists = await client.query(`SELECT id FROM users 
                 WHERE email = $1;`, [email]);
   // console.log("result from await", exists.rows);
@@ -101,7 +101,7 @@ const storeUser = (user) => {
 };
 
 //! STOREDECK
-const storeDeck = async(deck) => {
+const storeDeck = async (deck) => {
   const newDeck = await client.query(`INSERT INTO decks (user_id, name, description, category_id) VALUES
   ($1, $2, $3, $4) RETURNING *;`, [deck.uuid, deck.deckTitle, deck.deckTitle, 1]);
   // .then((results) => {
@@ -115,11 +115,11 @@ const storeDeck = async(deck) => {
 };
 
 //! STORECARD
-const storeCard = async(card, deck) => {
+const storeCard = async (card, deck) => {
   const newCard = await client.query(`INSERT INTO cards (user_id, question, url, answer, all_answers, public) VALUES
 ($1, $2, $3, $4, $5, $6) RETURNING *;`, [deck.uuid, card.definition,
     'https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
-    card.term, '{"F1", "F2", "F3"}', card.isPublic]);
+  card.term, '{"F1", "F2", "F3"}', card.isPublic]);
   // .then((results) => {
   // categories array of objects
   // console.log("cardAfterStore:", results.rows[0]);
@@ -131,7 +131,7 @@ const storeCard = async(card, deck) => {
 };
 
 //! LINKCARDTODECK
-const linkCardToDeck = async(cardId, deckId) => {
+const linkCardToDeck = async (cardId, deckId) => {
   const newDeckAssociation = await client.query(`INSERT INTO decks_with_cards (card_id, deck_id) VALUES
 ($1, $2) RETURNING *;`, [cardId, deckId]);
   // .then((results) => {
@@ -145,7 +145,7 @@ const linkCardToDeck = async(cardId, deckId) => {
 };
 
 //! GET-UUID-BY-EMAIL
-const getUuidByEmail = async(user) => {
+const getUuidByEmail = async (user) => {
   let uuid = '';
   // console.log("~~~~~~", user);
   const checkUser = await getUserIdByEmail(user.email);

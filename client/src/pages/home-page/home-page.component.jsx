@@ -10,6 +10,9 @@ const HomePage = () => {
     const { user } = useAuth0();
 
     useEffect(() => {
+        if(!user){
+          return;
+        }
         axios.post(`http://localhost:8080/api/users/`, { user })
         .then(result => {
             // console.log("Result-----------:", result.data);
@@ -17,12 +20,14 @@ const HomePage = () => {
         });
 
         //useEffect => get All Decks for Current User via Axios => Store in useState Hook
-        // setDeckList(res)
+        // setDeckList(res
     }, [user])
 
     useEffect(() => {
-
-        axios.get(`http://localhost:8080/api/deck/${userId}`, { user })
+      if(!user){
+        return;
+      }
+        axios.get(`http://localhost:8080/api/decks/${userId}` )
         .then(result => {
             console.log("Result+++++++++++:", result.data);
             setDeckList(result.data);
@@ -30,7 +35,7 @@ const HomePage = () => {
 
         //useEffect => get All Decks for Current User via Axios => Store in useState Hook
         // setDeckList(res)
-    }, [deckList, user, userId])
+    }, [userId])
 
    
     // console.log(user);
@@ -43,6 +48,3 @@ const HomePage = () => {
 }
 
 export default HomePage;
-
-
-
