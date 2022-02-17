@@ -35,15 +35,16 @@ const res = require('express/lib/response');
 // };
 
 //! DECK CARDS
-// const getAllDeckCards = (cb) => {
-//   client.query("SELECT * FROM decks_with_cards;")
-//     .then((results) => {
-// deckcards array of objects
-// console.log(results.rows);
-//       cb(results.rows);
-//     })
-//     .catch((error) => console.log(error.message));
-// };
+const getAllCardsByDeck = (userId, deckId) => {
+  return client.query(`SELECT * FROM cards
+                JOIN decks_with_cards ON cards.id = card_id
+                WHERE user_id = $1 AND deck_id = $2;`, [userId, deckId])
+    .then((results) => {
+      // console.log("FROM THE DATABASE:", results.rows);
+      return (results.rows);
+    })
+    .catch((error) => console.log(error.message));
+};
 
 //! CATEGORIES
 const getAllCategories = (cb) => {
@@ -103,7 +104,7 @@ const storeUser = (user) => {
   ($1, $2, $3, $4) RETURNING *;`, [user.nickname, user.email, user.password, user.email_verified])
     .then((results) => {
       // categories array of objects
-      console.log("uuid:", results.rows[0].id);
+      // console.log("uuid:", results.rows[0].id);
       results.rows[0].id;
     })
     .catch((error) => console.log(error.message));
@@ -133,7 +134,7 @@ const linkCardToDeck = async(cardId, deckId) => {
   return newDeckAssociation.rows[0];
 };
 
-// //! GET-UUID-BY-EMAIL
+//! GET-UUID-BY-EMAIL
 const getUuidByEmail = async(user) => {
   let uuid = '';
   const checkUser = await getUserIdByEmail(user.email);
@@ -145,5 +146,15 @@ const getUuidByEmail = async(user) => {
   return uuid;
 };
 
+//! GET-SPECIFIC-DECK-USER
+const getDeckByUserIdDeckId = (uuid, deckId) => {
+  return client.query(`SELECT * FROM decks
+                WHERE user_id = $1 AND id = $2;`, [uuid, deckId])
+    .then((results) => {
+      // console.log("FROM THE DATABASE:", results.rows[0]);
+      return (results.rows[0]);
+    })
+    .catch((error) => console.log(error.message));
+};
 
-module.exports = { getUuidByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUserIdByEmail, storeDeck, storeCard, linkCardToDeck };
+module.exports = { getUuidByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUserIdByEmail, storeDeck, storeCard, linkCardToDeck, getDeckByUserIdDeckId, getAllCardsByDeck };

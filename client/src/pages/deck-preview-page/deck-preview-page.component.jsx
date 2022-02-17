@@ -8,6 +8,7 @@ const DeckPreviewPage = () => {
     const [deck, setDeck] = useState([]);
     const [userId, setUserId] = useState();
     const [deckId, setDeckId] = useState();
+    const [cardList, setCardList] = useState([]);
     const { user } = useAuth0();
     const params = useParams();
 
@@ -28,14 +29,33 @@ const DeckPreviewPage = () => {
       setDeckId(params.deckID);
     }, [])
 
+    // 
+    useEffect(() => {
+        if(!userId && !deckId){
+            return;
+          }
+          axios.post(`http://localhost:8080/api/decks/${deckId}`, { userId, deckId })
+          .then(result => {
+              setDeck(result.data);
+          })
+          .catch(error => console.log(error));
+    }, [userId, deckId])
 
     useEffect(() => {
-        //useEffect => get all cards for current I'th Deck via Axios => Store in useState Hook
-        // setDeck(res)
-    }, [])
+        if(!userId && !deckId){
+            return;
+          }
+          axios.post(`http://localhost:8080/api/cards/${deckId}`, { userId, deckId })
+          .then(result => {
+              setCardList(result.data);
+          })
+          .catch(error => console.log(error));
+    }, [userId, deckId])
 
     console.log("user_id:", userId);
     console.log("deck_id:", deckId);
+    console.log("deck:", deck);
+    console.log("cardList:", cardList);
 
     return (
         <p>Deck Preview</p>

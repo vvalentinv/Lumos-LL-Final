@@ -1,4 +1,4 @@
-const { getUuidByEmail, getAllDecks, getAllDecksForUser, storeUser, getUserIdByEmail, storeDeck, storeCard, linkCardToDeck } = require("../db/queries");
+const { getUuidByEmail, getAllDecks, getAllDecksForUser, storeUser, getUserIdByEmail, storeDeck, storeCard, linkCardToDeck, getDeckByUserIdDeckId } = require("../db/queries");
 
 const router = require('express').Router();
 
@@ -15,6 +15,19 @@ const deckRoutes = () => {
     const uuid = req.params.id;
     getAllDecksForUser(uuid)
       .then((data) => {
+        return res.send(data);
+      })
+      .catch((error)=>console.log(error));
+  });
+
+  //! GET SPECIFIC DECK
+  router.post('/:id', (req, res) => {
+    const { userId, deckId} = req.body;
+    // console.log("UUID:", userId);
+    // console.log("DECKID:", deckId);
+    return getDeckByUserIdDeckId(userId, deckId)
+      .then((data) => {
+        // console.log(data);
         return res.send(data);
       })
       .catch((error)=>console.log(error));
