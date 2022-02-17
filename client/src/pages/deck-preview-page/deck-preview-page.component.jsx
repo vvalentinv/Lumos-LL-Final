@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
 import axios from "axios";
 
+import PreviewCard from "../../components/preview-card/preview-card.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
 
 import { ReactComponent as LeftArrowLogo } from '../../assets/left-arrow.svg';
@@ -11,7 +12,8 @@ import { ReactComponent as RightArrowLogo } from '../../assets/right-arrow.svg';
 
 const DeckPreviewPage = () => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+    const { deckID } = useParams();
 
     const amendShowAnswerFlag = (cardIndex, shouldBeHidden = false) => {
         const curCard = cardList[cardIndex];
@@ -83,14 +85,12 @@ const DeckPreviewPage = () => {
                     )
                 })}
             </div>
-            <CustomButton onClick={() => navigate()}>
-                Add or Remove Questions
-            </CustomButton>
+            <Link to={`/editdeck/${deckID}`}>
+                <CustomButton>
+                    Add or Remove Questions
+                </CustomButton>
+            </Link>
         </>
-        // <TermCardContainer />
-        //=> Iterate over useState Hook and display list of cards
-        //Button to View Deck 
-
     );
 }
 
