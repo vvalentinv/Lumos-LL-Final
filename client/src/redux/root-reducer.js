@@ -1,14 +1,11 @@
 import { combineReducers } from 'redux';
 
 import cardListReducer from './card-list/card-list.reducer';
-import deckListReducer from './deck-list/deck-list.reducer';
+import userReducer from './user/user.reducer';
 
 export default combineReducers({
     cardList: cardListReducer,
-    deckList: deckListReducer
+    user: userReducer
 });
 
 
-//Home Page - useEffect componentdidMount all decks
-
-//Deck Preview - useEffect componentdidMount I'th Deck

@@ -16,8 +16,12 @@ const ViewDeckPage = () => {
     const [editMode, setEditMode] = useState(false);
 
     const dispatch = useDispatch();
+
     const selCardList = useSelector(state => state.cardList);
     const { cardList } = selCardList;
+
+    const selUser = useSelector(state => state.user);
+    const { userUUID } = selUser;
 
     const { user } = useAuth0();
     const { deckID } = useParams();
@@ -28,11 +32,11 @@ const ViewDeckPage = () => {
 
         if (editMode) {
             setLoading(true);
-            // dispatch(fetchCardList(deckID, setLoading)) 
+            // dispatch(fetchCardList(userUUID, deckID, setLoading)) 
+            // setDeckTitle()
         }
     }, [deckID, editMode])
 
-    //setDeckTitle()
 
     const addNewCard = () => {
         const newCard = {
@@ -47,10 +51,13 @@ const ViewDeckPage = () => {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
+        // if (!deckTitle) return
         return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
             .then(result => console.log(result))
             .catch(error => console.log(error));
     }
+
+    const length = cardList.length;
 
     return (
         <div className='view-deck-page'>
@@ -66,6 +73,7 @@ const ViewDeckPage = () => {
                     placeholder='Enter a title'
                     value={deckTitle}
                     onChange={event => setDeckTitle(event.target.value)}
+                    required
                 >
                 </input>
             </div>
@@ -74,6 +82,7 @@ const ViewDeckPage = () => {
                     const { id, term, definition } = card;
                     return (
                         <Card
+                            length={length}
                             key={id}
                             id={id}
                             term={term}
@@ -96,6 +105,4 @@ const ViewDeckPage = () => {
 
 export default ViewDeckPage;
 
-    //Make sure we can fetch list of decks
-    //Make sure we can delete individual deck - AXIOS DELETE
 

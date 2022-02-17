@@ -1,5 +1,4 @@
 import CardListActionTypes from "./card-list.types.js";
-import DeckListActionTypes from "../deck-list/deck-list.types.js";
 import axios from 'axios';
 
 export const addCard = newCard => ({
@@ -17,10 +16,10 @@ export const updateCard = card => ({
   payload: card
 });
 
-export const fetchCardList = async (deckID, setLoading) => (
+export const fetchCardList = async (UUID, deckID, setLoading) => (
   async (dispatch) => {
     try {
-      const res = await axios.get(`https://localhost:8080/api/decks/${deckID}`);
+      const res = await axios.post(`https://localhost:8080/api/decks/${deckID}`, { UUID, deckID });
       setLoading(false);
 
       dispatch({
@@ -33,15 +32,15 @@ export const fetchCardList = async (deckID, setLoading) => (
   }
 )
 
-export function createDeck(values) {
-  return function (dispatch) {
-    return axios.post('localhost:8080/api/decks/createdeck', values)
-      .then((response) => {
-        dispatch({ type: DeckListActionTypes.ADD_DECK })
-        console.log(response);
-      })
-  }
-}
+// export function createDeck(values) {
+//   return function (dispatch) {
+//     return axios.post('localhost:8080/api/decks/createdeck', values)
+//       .then((response) => {
+//         dispatch({ type: DeckListActionTypes.ADD_DECK })
+//         console.log(response);
+//       })
+//   }
+// }
 
 // export const fetchCardList = async (deckID, setLoading) => {
 //   try {
