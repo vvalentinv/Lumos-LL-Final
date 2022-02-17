@@ -74,7 +74,7 @@ const DeckPreviewPage = () => {
             </div>
             <h2>{`Questions in this set (${cardList.length})`}</h2>
             <div className='preview-card-container'>
-                {cardList.map((card) => {
+                {cardList.length && cardList.map((card) => {
                     const { term, definition } = card;
                     return (
                         <PreviewCard

@@ -11,6 +11,11 @@ import Card from "../../components/card/card.component";
 
 const ViewDeckPage = () => {
 
+    const navigate = useNavigate();
+
+    // navigate(-1)
+    //Deck must always have at least two cards. Delete functionality is turned off once deck has two cards remaining.
+
     const [deckTitle, setDeckTitle] = useState('');
     const [isLoading, setLoading] = useState(false);
     const [editMode, setEditMode] = useState(false);
@@ -69,7 +74,7 @@ const ViewDeckPage = () => {
                 </input>
             </div>
             <div className='card-container'>
-                {cardList.map((card) => {
+                {cardList.length && cardList.map((card) => {
                     const { id, term, definition } = card;
                     return (
                         <Card
@@ -95,6 +100,5 @@ const ViewDeckPage = () => {
 
 export default ViewDeckPage;
 
-    //Make sure we can fetch list of decks
-    //Make sure we can delete individual deck - AXIOS DELETE
+//Make sure we can delete individual deck - AXIOS DELETE
 

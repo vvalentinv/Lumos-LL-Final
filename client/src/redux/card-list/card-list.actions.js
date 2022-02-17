@@ -17,21 +17,22 @@ export const updateCard = card => ({
   payload: card
 });
 
-export const fetchCardList = async (deckID, setLoading) => (
-  async (dispatch) => {
-    try {
-      const res = await axios.get(`https://localhost:8080/api/decks/${deckID}`);
-      setLoading(false);
+// export const fetchCardList = async (deckID, setLoading) => (
+//   async (dispatch) => {
+//     try {
+//       //We need to get the UUID 
+//       // const res = await axios.post(`https://localhost:8080/api/decks/${deckID}`, { userID, deckID }); //Requires both UUID and DeckID
+//       // setLoading(false);
 
-      dispatch({
-        type: CardListActionTypes.FETCH_CARD_LIST,
-        payload: res
-      })
-    } catch (error) {
-      console.log(`Error: ${error}`)
-    }
-  }
-)
+//       dispatch({
+//         type: CardListActionTypes.FETCH_CARD_LIST,
+//         payload: res
+//       })
+//     } catch (error) {
+//       console.log(`Error: ${error}`)
+//     }
+//   }
+// )
 
 export function createDeck(values) {
   return function (dispatch) {
