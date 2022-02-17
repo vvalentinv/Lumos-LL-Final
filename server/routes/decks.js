@@ -17,24 +17,25 @@ const deckRoutes = () => {
       .then((data) => {
         return res.send(data);
       })
-      .catch((error)=>console.log(error));
+      .catch((error) => console.log(error));
   });
 
   //! GET SPECIFIC DECK
   router.post('/:id', (req, res) => {
-    const { userId, deckId} = req.body;
+    console.log(req.body);
+    const { userId, deckID } = req.body;
     // console.log("UUID:", userId);
     // console.log("DECKID:", deckId);
-    return getDeckByUserIdDeckId(userId, deckId)
+    return getDeckByUserIdDeckId(userId, deckID)
       .then((data) => {
         // console.log(data);
         return res.send(data);
       })
-      .catch((error)=>console.log(error));
+      .catch((error) => console.log(error));
   });
 
   //! STORE DECKS
-  router.post('/', async(req, res) => {
+  router.post('/', async (req, res) => {
     const { email, nickname, email_verified } = req.body.user;
     const user = { email, nickname, email_verified, password: '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.' };
     const { deckTitle } = req.body;
@@ -43,7 +44,7 @@ const deckRoutes = () => {
     //~ STORE DECK
     const deck = { deckTitle, uuid };
     const newDeck = await storeDeck(deck);
-    
+
     //~ STORE FLASHCARDS
     const cards = [];
     for (const card of req.body.cardList) {
@@ -55,7 +56,7 @@ const deckRoutes = () => {
     for (const cardId of cards) {
       const newLink = await linkCardToDeck(cardId, newDeck[0].id);
     }
-    
+
     return res.send({ status: `for user ${uuid} stored deck ${newDeck[0].id} associated cards with ids ${cards} with it` });
   });
   return router;

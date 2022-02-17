@@ -111,7 +111,7 @@ const storeUser = (user) => {
 };
 
 //! STOREDECK
-const storeDeck = async(deck) => {
+const storeDeck = async (deck) => {
   const newDeck = await client.query(`INSERT INTO decks (user_id, deck_name, deck_description, category_id) VALUES
   ($1, $2, $3, $4) RETURNING *;`, [deck.uuid, deck.deckTitle, deck.deckTitle, 1]);
   // console.log("result from await", newDeck.rows);
@@ -119,23 +119,23 @@ const storeDeck = async(deck) => {
 };
 
 //! STORECARD
-const storeCard = async(card, deck) => {
+const storeCard = async (card, deck) => {
   const newCard = await client.query(`INSERT INTO cards (user_id, question, url, answer, all_answers, public) VALUES
 ($1, $2, $3, $4, $5, $6) RETURNING *;`, [deck.uuid, card.definition,
     'https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
-    card.term, '{"F1", "F2", "F3"}', card.isPublic]);
+  card.term, '{"F1", "F2", "F3"}', card.isPublic]);
   return newCard.rows;
 };
 
 //! LINKCARDTODECK
-const linkCardToDeck = async(cardId, deckId) => {
+const linkCardToDeck = async (cardId, deckId) => {
   const newDeckAssociation = await client.query(`INSERT INTO decks_with_cards (card_id, deck_id) VALUES
 ($1, $2) RETURNING *;`, [cardId, deckId]);
   return newDeckAssociation.rows[0];
 };
 
 //! GET-UUID-BY-EMAIL
-const getUuidByEmail = async(user) => {
+const getUuidByEmail = async (user) => {
   let uuid = '';
   const checkUser = await getUserIdByEmail(user.email);
 
@@ -148,10 +148,11 @@ const getUuidByEmail = async(user) => {
 
 //! GET-SPECIFIC-DECK-USER
 const getDeckByUserIdDeckId = (uuid, deckId) => {
+  // console.log("params:", uuid, deckId);
   return client.query(`SELECT * FROM decks
                 WHERE user_id = $1 AND id = $2;`, [uuid, deckId])
     .then((results) => {
-      // console.log("FROM THE DATABASE:", results.rows[0]);
+      // console.log("FROM THE DATABASE:", results);
       return (results.rows[0]);
     })
     .catch((error) => console.log(error.message));
