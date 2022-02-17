@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCardList, addCard } from "../../redux/card-list/card-list.actions";
 
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
@@ -20,7 +20,7 @@ const ViewDeckPage = () => {
     const { cardList } = selCardList;
 
     const { user } = useAuth0();
-    const { deckID } = useParams(); //Derived from DB
+    const { deckID } = useParams();
 
     useEffect(() => {
         const isDeckID = deckID ? true : false;
@@ -99,9 +99,3 @@ export default ViewDeckPage;
     //Make sure we can fetch list of decks
     //Make sure we can delete individual deck - AXIOS DELETE
 
-    // const fakeDeck = {
-    //     userid: 'aa',
-    //     name: 'fake',
-    //     description: 'deck',
-    //     categoryid: 1
-    // }
