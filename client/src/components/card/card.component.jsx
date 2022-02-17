@@ -6,10 +6,11 @@ import { deleteCard, updateCard } from '../../redux/card-list/card-list.actions'
 import './card.styles.scss';
 
 import { ReactComponent as TrashLogo } from '../../assets/trash.svg';
+import cardListReducer from '../../redux/card-list/card-list.reducer';
 
 const Card = (props) => {
 
-    const { id, term, definition } = props;
+    const { id, term, definition, length } = props;
 
     const [question, setQuestion] = useState(term);
     const [answer, setAnswer] = useState(definition);
@@ -42,6 +43,7 @@ const Card = (props) => {
                 <span>Card {id}</span>
                 <div className='delete-logo-container'>
                     <TrashLogo
+                        disabled={length <= 2 ? true : false}
                         className='delete-logo'
                         onClick={() => dispatch(deleteCard(id))}
                     />
