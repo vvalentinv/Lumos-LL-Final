@@ -4,82 +4,45 @@ const router = require('express').Router();
 
 const deckRoutes = () => {
   // routes
-  router.get('/', (req, res) => {
-    getAllDecks((decks) => {
-      res.json(decks);
-    });
-  });
+  // router.get('/', (req, res) => {
+  //   getAllDecks((decks) => {
+  //     res.json(decks);
+  //   });
+  // });
 
-  // get route
+  //! GET ALL DECKS FOR USER
   router.get('/:id', (req, res) => {
     const uuid = req.params.id;
-    console.log(",,,,,,,,,,,,,,,,,,,,,,,,,,,", uuid);
-    const decks = getAllDecksForUser(uuid); //, (decks) => {
-    //   res.json(decks);
-    // });
-    decks.then((data) => {
-      return res.send(data);
-    })
-
+    getAllDecksForUser(uuid)
+      .then((data) => {
+        return res.send(data);
+      })
+      .catch((error)=>console.log(error));
   });
 
-  //all decks with cards
-
-  router.post('/', async (req, res) => {
-    // console.log("+++++++++++++++++++++", req.body);
-    // req.body contains all info front react (found in morgan terminal)
+  //! STORE DECKS
+  router.post('/', async(req, res) => {
     const { email, nickname, email_verified } = req.body.user;
     const user = { email, nickname, email_verified, password: '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.' };
     const { deckTitle } = req.body;
     const uuid = await getUuidByEmail(user);
-    // let uuid = '';
-    // const checkUser = await getUserIdByEmail(email);
-    // // console.log("check email", checkUser);
-    // // console.log(getUserIdByEmail(email));
-
-    // if (checkUser.length < 1) {
-    //   uuid = await storeUser(user);
-    console.log(uuid);
-    // } //else {
-    // // removed redundant code
-    // //   uuid = await getUserIdByEmail(email);
-    // // }
-    // uuid = checkUser;
-    //~ PREPARE FOR CARDS_DECK ASSOCIATION
-
-    // const deckCards = {};
 
     //~ STORE DECK
     const deck = { deckTitle, uuid };
-    // console.log(deck);
     const newDeck = await storeDeck(deck);
-    // console.log("newDeck:", newDeck);
-    const cards = [];
-
-    // console.log("DECK_CARD:", newDeck);
-
+    
     //~ STORE FLASHCARDS
+    const cards = [];
     for (const card of req.body.cardList) {
-      // console.log("check the card object", req.body.cardList);
       const newCard = await storeCard(card, deck);
       cards.push(newCard[0].id);
     }
 
-    // deckCards.card_ids = cards;
-    // console.log(req.body);
-
-    // console.log("NEWDECKID:", newDeck[0].id);
-    // deckCards.deck_id = newDeck[0].id;
-    // console.log("deckCards:", deckCards);
-    // {...deckCards, deck_id: newDeck.id };
-
     //~ STORE CARD ASSOCIATION
     for (const cardId of cards) {
       const newLink = await linkCardToDeck(cardId, newDeck[0].id);
-      // console.log("+++++++++++++++++", newLink);
     }
-
-    // console.log(uuid);
+    
     return res.send({ status: `for user ${uuid} stored deck ${newDeck[0].id} associated cards with ids ${cards} with it` });
   });
   return router;
