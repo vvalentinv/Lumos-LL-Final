@@ -11,12 +11,22 @@ const cardRoutes = () => {
   // });
 
   router.post('/:id', (req, res) => {
-    const { userId, deckId} = req.body;
-    return getAllCardsByDeck(userId, deckId)
+    const { userId, deckID } = req.body;
+    console.log("carlist params:", userId, deckID);
+    return getAllCardsByDeck(userId, deckID)
       .then((data) => {
-        return res.send(data);
+        const changeForFrontEnd = [];
+        data.forEach((c) => {
+          const card = {};
+          card.term = c.question;
+          card.definition = c.answer;
+          card.showAnswer = false;
+          changeForFrontEnd.push(card);
+        });
+
+        return res.send(changeForFrontEnd);
       })
-      .catch((error)=>console.log(error));
+      .catch((error) => console.log(error));
   });
 
   // see cards for a specifc deck
@@ -29,6 +39,6 @@ const cardRoutes = () => {
   // });
   return router;
 };
- 
+
 
 module.exports = cardRoutes;
