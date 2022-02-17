@@ -48,8 +48,7 @@ const ViewDeckPage = () => {
     const handleOnSubmit = (event) => {
         event.preventDefault();
         return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
-            .then(result => console.log(result))
-            .catch(error => console.log(error));
+            .then(result => console.log(result));
     }
 
     return (

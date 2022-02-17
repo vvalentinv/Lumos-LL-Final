@@ -15,10 +15,13 @@ const HomePage = () => {
         }
         axios.post(`http://localhost:8080/api/users/`, { user })
         .then(result => {
+            // console.log("Result-----------:", result.data);
             setUserId(result.data);
-        })
-        .catch(error => console.log(error));
-    }, [user]);
+        });
+
+        //useEffect => get All Decks for Current User via Axios => Store in useState Hook
+        // setDeckList(res
+    }, [user])
 
     useEffect(() => {
       if(!user){
@@ -26,17 +29,20 @@ const HomePage = () => {
       }
         axios.get(`http://localhost:8080/api/decks/${userId}` )
         .then(result => {
-            setDeckList(result.data)
-          })
-          .catch(error => console.log(error));
-    }, [userId]);
+            console.log("Result+++++++++++:", result.data);
+            setDeckList(result.data);
+        }, [userId]);
 
-    console.log("deckList:", deckList);
-    console.log("userId:", userId);
+        //useEffect => get All Decks for Current User via Axios => Store in useState Hook
+        // setDeckList(res)
+    }, [userId])
 
+   
+    // console.log(user);
+    console.log("userId:",userId);
+    console.log(deckList)
     return (
         <p>Home</p>
-        // { deckList.map((decks) => ) }
         //=> Iterate over useState Hook and display list of decks
     );
 }
