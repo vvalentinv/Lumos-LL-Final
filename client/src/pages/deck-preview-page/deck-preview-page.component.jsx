@@ -1,42 +1,40 @@
 import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+
 import axios from "axios";
+
+import CustomButton from "../../components/custom-button/custom-button.component";
 
 import { ReactComponent as LeftArrowLogo } from '../../assets/left-arrow.svg';
 import { ReactComponent as RightArrowLogo } from '../../assets/right-arrow.svg';
 
 const DeckPreviewPage = () => {
 
-    const amendShowAnswerFlag = (cardIndex) => {
+    const navigate = useNavigate();
 
-        const curCard = cardList[cardIndex]
-        curCard.showAnswer = true;
+    const amendShowAnswerFlag = (cardIndex, shouldBeHidden = false) => {
+        const curCard = cardList[cardIndex];
+
+        if (shouldBeHidden) curCard.showAnswer = false; //User clicks right click
+        else curCard.showAnswer = !curCard.showAnswer; //User clicks on current flash card
+
         setCardList((prev) => {
-            return [...prev, curCard]
-            console.log(cardList);
+            prev[cardIndex] = curCard;
+            return [...prev];
         })
     }
 
-    // let newCardList = cardList.map((card) => {
-    //     let editCard = { ...card }
-    //     if (card.id === payload.id) {
-    //         editCard[payload.field] = payload.value
-    //         editCard.isUpdated = true
-    //     }
-    //     return editCard;
-    // })
-    // return newCardList;
-
     const leftArrowSubmit = () => {
         if (activeCardIndex < 1) return;
+        amendShowAnswerFlag(activeCardIndex, true);
         setActiveCardIndex(activeCardIndex - 1);
-
     }
 
     const rightArrowSubmit = () => {
         if (activeCardIndex > cardList.length - 2) return;
+        amendShowAnswerFlag(activeCardIndex, true);
         setActiveCardIndex(activeCardIndex + 1);
-        //FLIP Previous Card Boolean Flag to False
-
     }
 
     const [cardList, setCardList] = useState([
@@ -72,9 +70,27 @@ const DeckPreviewPage = () => {
                     <RightArrowLogo />
                 </span>
             </div>
+            <h2>{`Questions in this set (${cardList.length})`}</h2>
+            <div className='preview-card-container'>
+                {cardList.map((card) => {
+                    const { term, definition } = card;
+                    return (
+                        <PreviewCard
+                            key={uuidv4()}
+                            term={term}
+                            definition={definition}
+                        />
+                    )
+                })}
+            </div>
+            <CustomButton onClick={() => navigate()}>
+                Add or Remove Questions
+            </CustomButton>
         </>
-
+        // <TermCardContainer />
         //=> Iterate over useState Hook and display list of cards
+        //Button to View Deck 
+
     );
 }
 
@@ -83,6 +99,7 @@ export default DeckPreviewPage;
 
 
     // useEffect(() => {
-        //res = await axios.get(deckID ENDPOINT)
-        // setDeck(res)
+    //     res = await axios.get(deckID ENDPOINT)
+    //     res.map(Add showAnswer: false)
+    //     setDeck(res)
     // }, [])
