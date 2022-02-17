@@ -111,7 +111,7 @@ const storeUser = (user) => {
 
 //! STOREDECK
 const storeDeck = async(deck) => {
-  const newDeck = await client.query(`INSERT INTO decks (user_id, name, description, category_id) VALUES
+  const newDeck = await client.query(`INSERT INTO decks (user_id, deck_name, deck_description, category_id) VALUES
   ($1, $2, $3, $4) RETURNING *;`, [deck.uuid, deck.deckTitle, deck.deckTitle, 1]);
   // console.log("result from await", newDeck.rows);
   return newDeck.rows;
