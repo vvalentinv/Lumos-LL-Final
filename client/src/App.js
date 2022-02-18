@@ -6,10 +6,12 @@ import HomePage from './pages/home-page/home-page.component';
 import ViewDeckPage from './pages/view-deck-page/view-deck-page.component';
 import DeckPreviewPage from './pages/deck-preview-page/deck-preview-page.component';
 
+import './App.css';
+
 const App = () => {
 
   return (
-    <div>
+    <div className='app'>
       <Header />
       <Routes>
         <Route exact path='/' element={<HomePage />} />
