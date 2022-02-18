@@ -51,22 +51,23 @@ const Card = (props) => {
                 </div>
             </div>
             <div className='card-input-container'>
-                <input
+            <input
                     type='text'
                     className='input-text'
-                    placeholder='Enter term'
-                    value={question}
-                    onChange={event => questionHandleChange(event)}
-                >
-                </input>
-                <input
-                    type='text'
-                    className='input-text'
-                    placeholder='Enter definition'
+                    placeholder='Card Front'
                     value={answer}
                     onChange={event => answerHandleChange(event)}
                 >
                 </input>
+                <input
+                    type='text'
+                    className='input-text'
+                    placeholder='Card Back'
+                    value={question}
+                    onChange={event => questionHandleChange(event)}
+                >
+                </input>
+                
             </div>
         </div>
 
@@ -74,9 +75,3 @@ const Card = (props) => {
 };
 
 export default Card;
-
-
-
-
-
-
