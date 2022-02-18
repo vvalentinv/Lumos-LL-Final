@@ -115,23 +115,25 @@ const DeckPreviewPage = () => {
 
   return (
     <>
-      <h2>Deck Preview</h2>
-      <div className='primary-card-container' onClick={() => amendShowAnswerFlag(activeCardIndex)}>
-        {!loading && !curCard.showAnswer
-          ? curCard.term
-          : curCard.definition
-        }
-      </div>
-      <div className='primary-card-nav'>
-        <span className='left-arrow-icon' onClick={() => leftArrowSubmit()} >
-          <LeftArrowLogo />
-        </span>
-        <span >
-          {`${activeCardIndex + 1}/${deckLength}`}
-        </span>
-        <span className='right-arrow-icon' onClick={() => rightArrowSubmit()}>
-          <RightArrowLogo />
-        </span>
+      <div className='main-div'>
+        <h2 className='deck'>Deck Preview</h2>
+        <div className='primary-card-container' onClick={() => amendShowAnswerFlag(activeCardIndex)}>
+          {!loading && !curCard.showAnswer
+            ? curCard.term
+            : curCard.definition
+          }
+        </div>
+        <div className='primary-card-nav'>
+          <span className='left-arrow-icon' onClick={() => leftArrowSubmit()} >
+            <LeftArrowLogo />
+          </span>
+          <span >
+            {`${activeCardIndex + 1}/${deckLength}`}
+          </span>
+          <span className='right-arrow-icon' onClick={() => rightArrowSubmit()}>
+            <RightArrowLogo />
+          </span>
+        </div>
       </div>
       <h2>{`Questions in this set (${cardList.length})`}</h2>
       <div className='preview-card-container'>
