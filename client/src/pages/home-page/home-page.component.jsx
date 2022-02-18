@@ -1,38 +1,26 @@
 import { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-
-import axios from "axios";
+import { useSelector } from "react-redux";
+import { getDeckListForUser } from "../../helpers/selectors";
 
 const HomePage = () => {
 
     const [deckList, setDeckList] = useState([]);
-    const [userId, setUserId] = useState();
-    const { user } = useAuth0();
+    const selUser = useSelector(state => state.user);
+    const { userUUID } = selUser;
 
     useEffect(() => {
-        if(!user){
-          return;
-        }
-        axios.post(`http://localhost:8080/api/users/`, { user })
-        .then(result => {
-            setUserId(result.data);
-        })
-        .catch(error => console.log(error));
-    }, [user]);
-
-    useEffect(() => {
-      if(!user){
+      if(!userUUID){
         return;
       }
-        axios.get(`http://localhost:8080/api/decks/${userId}` )
-        .then(result => {
+      getDeckListForUser(userUUID)  
+      .then(result => {
             setDeckList(result.data)
           })
           .catch(error => console.log(error));
-    }, [userId]);
+    }, [userUUID]);
 
     console.log("deckList:", deckList);
-    console.log("userId:", userId);
+    console.log("userId:", userUUID);
 
     return (
         <p>Home</p>

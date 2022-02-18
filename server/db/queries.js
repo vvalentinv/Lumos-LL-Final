@@ -35,12 +35,13 @@ const res = require('express/lib/response');
 // };
 
 //! DECK CARDS
-const getAllCardsByDeck = (userId, deckId) => {
+const getAllCardsByDeck = (userUUID, deckID) => {
+  console.log("params for DB:", userUUID, deckID);
   return client.query(`SELECT * FROM cards
-                JOIN decks_with_cards ON cards.id = card_id
-                WHERE user_id = $1 AND deck_id = $2;`, [userId, deckId])
+                JOIN decks_with_cards ON cards.id =  decks_with_cards.card_id
+                WHERE deck_id = $1;`, [deckID])
     .then((results) => {
-      // console.log("FROM THE DATABASE:", results.rows);
+      // console.log("cards FROM THE DATABASE:", results.rows);
       return (results.rows);
     })
     .catch((error) => console.log(error.message));
@@ -58,9 +59,9 @@ const getAllCategories = (cb) => {
 };
 
 //! GETALLDECKSFORUSER
-const getAllDecksForUser = (uuid) => {
+const getAllDecksForUser = (userUUID) => {
   return client.query(`SELECT * FROM decks
-                WHERE user_id = $1;`, [uuid])
+                WHERE user_id = $1;`, [userUUID])
     .then((results) => {
       // categories array of objects
       // console.log(results.rows);
@@ -81,22 +82,22 @@ const getAllCardsForDeck = (deck_id, cb) => {
     .catch((error) => console.log(error.message));
 };
 
-//! GET USER ID EMAIL
-//~ASYNC
-// const getUserIdByEmail = async(email) => {
-//   const exists = await client.query(`SELECT id FROM users
-//                 WHERE email = $1;`, [email]);
-// console.log("result from await", exists.rows);
-// return exists.rows;
-// };
-
-const getUserIdByEmail = (email) => {
-  return client.query(`SELECT id FROM users 
-                WHERE email = $1;`, [email])
-    .then((result) => result.rows)
-    .catch((error) => console.log(error));
-  // return exists.rows;
+// !GET USER ID EMAIL
+// ~ASYNC
+const getUserIdByEmail = async (email) => {
+  const exists = await client.query(`SELECT id FROM users
+                WHERE email = $1;`, [email]);
+  // console.log("result from await", exists.rows);
+  return exists.rows;
 };
+
+// const getUUIDByEmail = (email) => {
+//   return client.query(`SELECT id FROM users 
+//                 WHERE email = $1;`, [email])
+//     .then((result) => result.rows)
+//     .catch((error) => console.log(error));
+//   // return exists.rows;
+// };
 
 //! STORE USER
 const storeUser = (user) => {
@@ -104,7 +105,7 @@ const storeUser = (user) => {
   ($1, $2, $3, $4) RETURNING *;`, [user.nickname, user.email, user.password, user.email_verified])
     .then((results) => {
       // categories array of objects
-      // console.log("uuid:", results.rows[0].id);
+      // console.log("userUUID:", results.rows[0].id);
       results.rows[0].id;
     })
     .catch((error) => console.log(error.message));
@@ -113,7 +114,7 @@ const storeUser = (user) => {
 //! STOREDECK
 const storeDeck = async (deck) => {
   const newDeck = await client.query(`INSERT INTO decks (user_id, deck_name, deck_description, category_id) VALUES
-  ($1, $2, $3, $4) RETURNING *;`, [deck.uuid, deck.deckTitle, deck.deckTitle, 1]);
+  ($1, $2, $3, $4) RETURNING *;`, [deck.userUUID, deck.deckTitle, deck.deckTitle, 1]);
   // console.log("result from await", newDeck.rows);
   return newDeck.rows;
 };
@@ -121,36 +122,85 @@ const storeDeck = async (deck) => {
 //! STORECARD
 const storeCard = async (card, deck) => {
   const newCard = await client.query(`INSERT INTO cards (user_id, question, url, answer, all_answers, public) VALUES
-($1, $2, $3, $4, $5, $6) RETURNING *;`, [deck.uuid, card.definition,
+($1, $2, $3, $4, $5, $6) RETURNING *;`, [deck.userUUID, card.definition,
     'https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
   card.term, '{"F1", "F2", "F3"}', card.isPublic]);
   return newCard.rows;
 };
 
+//! UPDATE CARD
+const updateCard = async (card) => {
+  return client.query(`UPDATE cards
+                  SET question = $1,
+                      answer = $2,
+                      public = $3
+              WHERE card_id = $4;`, [card.definition, card.term, card.isPublic, card.id])
+    .then((results) => {
+      // console.log(":", results);
+      return (results.rows[0]);
+    })
+    .catch((error) => console.log(error.message));
+};
+
+//! REMOVE CARD
+const removeCard = async (cardID) => {
+  return client.query(`DELETE FROM cards
+                WHERE card_id = $1;`, [cardID])
+    .then(() => {
+      // console.log("FROM THE DATABASE:", results);
+      res.send(`deleted card with id ${cardID}`);
+    })
+    .catch((error) => console.log(error.message))
+};
+
 //! LINKCARDTODECK
-const linkCardToDeck = async (cardId, deckId) => {
+const linkCardToDeck = async (cardID, deckID) => {
   const newDeckAssociation = await client.query(`INSERT INTO decks_with_cards (card_id, deck_id) VALUES
-($1, $2) RETURNING *;`, [cardId, deckId]);
+($1, $2) RETURNING *;`, [cardID, deckID]);
   return newDeckAssociation.rows[0];
 };
 
-//! GET-UUID-BY-EMAIL
-const getUuidByEmail = async (user) => {
-  let uuid = '';
+//! REMOVE LINK
+const removeLink = async (deckID, cardID) => {
+  return client.query(`DELETE FROM decks_with_cards
+                WHERE card_id = $1 AND deck_id = $2;`, [cardID, deckID])
+    .then(() => {
+      // console.log("FROM THE DATABASE:", results);
+      res.send(`deleted link for flashcard id ${cardID}`);
+    })
+    .catch((error) => console.log(error.message))
+};
+
+//! GET-userUUID-BY-EMAIL
+const getUUIDByEmail = async (user) => {
+  let userUUID = '';
   const checkUser = await getUserIdByEmail(user.email);
 
   if (checkUser.length < 1) {
-    uuid = await storeUser(user);
+    userUUID = await storeUser(user);
+  } else {
+    userUUID = checkUser[0].id;
   }
-  uuid = checkUser[0].id;
-  return uuid;
+  return userUUID;
 };
 
 //! GET-SPECIFIC-DECK-USER
-const getDeckByUserIdDeckId = (uuid, deckId) => {
-  // console.log("params:", uuid, deckId);
+const getDeckByDeckID = (userUUID, deckID) => {
+  // console.log("params:", userUUID, deckID);
   return client.query(`SELECT * FROM decks
-                WHERE user_id = $1 AND id = $2;`, [uuid, deckId])
+                WHERE id = $2 AND user_id = $1;`, [userUUID, deckID])
+    .then((results) => {
+      // console.log("DECK ------------------------FROM THE DATABASE:", results);
+      return (results.rows[0]);
+    })
+    .catch((error) => console.log(error.message));
+};
+
+const updateDeck = (deckTitle, deckID) => {
+  // console.log("params:", userUUID, deckID);
+  return client.query(`UPDATE decks
+                  SET deck_name = $1
+              WHERE id = $2;`, [deckTitle, deckID])
     .then((results) => {
       // console.log("FROM THE DATABASE:", results);
       return (results.rows[0]);
@@ -158,4 +208,5 @@ const getDeckByUserIdDeckId = (uuid, deckId) => {
     .catch((error) => console.log(error.message));
 };
 
-module.exports = { getUuidByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUserIdByEmail, storeDeck, storeCard, linkCardToDeck, getDeckByUserIdDeckId, getAllCardsByDeck };
+
+module.exports = { getDeckByDeckID, removeCard, removeLink, updateCard, updateDeck, getUUIDByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUUIDByEmail, storeDeck, storeCard, linkCardToDeck, getAllCardsByDeck };

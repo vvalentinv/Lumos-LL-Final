@@ -1,5 +1,5 @@
 const res = require("express/lib/response");
-const { getAllUsers, getUuidByEmail } = require("../db/queries");
+const { getUUIDByEmail } = require("../db/queries");
 
 const router = require('express').Router();
 
@@ -14,7 +14,7 @@ const userRoutes = () => {
   router.post('/', (req, res) => {
     const { email, nickname, email_verified } = req.body.user;
     const user = { email, nickname, email_verified };
-    getUuidByEmail(user)
+    getUUIDByEmail(user)
       .then((result) => {
         res.send(result);
       })
