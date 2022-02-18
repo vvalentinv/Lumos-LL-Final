@@ -24,7 +24,7 @@ const ViewDeckPage = () => {
 
     const selCardList = useSelector(state => state.cardList);
     const { cardList } = selCardList;
-    const length = cardList.length;
+    // const length = cardList.length;
 
     const selUser = useSelector(state => state.user);
     const { userUUID } = selUser;
@@ -77,7 +77,7 @@ const ViewDeckPage = () => {
         
     }
 console.log("deckid",deckID);
-    const length = cardList.length;
+    const length = cardList.length || 0;
 
     return (
         <div className='view-deck-page'>
