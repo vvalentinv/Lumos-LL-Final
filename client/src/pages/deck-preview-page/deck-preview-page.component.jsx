@@ -37,8 +37,10 @@ const DeckPreviewPage = () => {
     if (!userUUID && !deckID) {
       return;
     }
+    console.log("DeckID:",deckID);
     axios.post(`http://localhost:8080/api/decks/${deckID}`, { userUUID, deckID })
       .then(result => {
+        console.log("RESULT:", result.data);
         setDeck(result.data);
       })
       .catch(error => console.log(error));
@@ -56,6 +58,9 @@ const DeckPreviewPage = () => {
       })
       .catch(error => console.log(error));
   }, [userUUID, deckID])
+
+  console.log("cardList:" ,cardList);
+  console.log("Deck:", deck);
 
   const amendShowAnswerFlag = (cardIndex, shouldBeHidden = false) => {
     if (!loading) {

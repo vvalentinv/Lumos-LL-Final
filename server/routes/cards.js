@@ -11,9 +11,9 @@ const cardRoutes = () => {
   // });
 
   router.post('/:id', (req, res) => {
-    const { userId, deckID } = req.body;
-    console.log("carlist params:", userId, deckID);
-    return getAllCardsByDeck(userId, deckID)
+    const { userUUID, deckID } = req.body;
+    console.log("carlist params:", userUUID, deckID);
+    return getAllCardsByDeck(userUUID, deckID)
       .then((data) => {
         const changeForFrontEnd = [];
         data.forEach((c) => {

@@ -23,10 +23,10 @@ const deckRoutes = () => {
   //! GET SPECIFIC DECK
   router.post('/:id', (req, res) => {
     console.log(req.body);
-    const { userId, deckID } = req.body;
-    // console.log("UUID:", userId);
-    // console.log("DECKID:", deckId);
-    return getDeckByUserIdDeckId(userId, deckID)
+    const { userUUID, deckID } = req.body;
+    console.log("UUID:", userUUID);
+    console.log("DECKID:", deckID);
+    return getDeckByUserIdDeckId(userUUID, deckID)
       .then((data) => {
         // console.log(data);
         return res.send(data);
@@ -35,7 +35,7 @@ const deckRoutes = () => {
   });
 
   //! STORE DECKS
-  router.post('/', async (req, res) => {
+  router.post('/', async(req, res) => {
     const { email, nickname, email_verified } = req.body.user;
     const user = { email, nickname, email_verified, password: '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.' };
     const { deckTitle } = req.body;
