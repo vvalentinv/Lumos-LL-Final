@@ -1,9 +1,126 @@
+// test font
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+
+// web page body
+.vsc-initialized {
+  background: #090820;
+  font-family: 'Source Sans Pro';
+  color:#ffffff;
+}
+
 .main-div {
   display: grid;
   align-items: center;
 }
 
-h2.deck {
- align-self: center;
- font-size: 5em;
+.deck-preview {
+ font-size: 8vh;
+ text-align: center;
+ margin: 1vh auto 0 auto;
 }
+
+.primary-card-container {
+  display: flex;
+  overflow-wrap: break-word;
+  font-size: 6vmin;
+  text-align: center;
+  // margin: 1em auto;
+  margin: 2vh auto 1.6vh auto;
+  background: var(--grad-one);
+  background: #292f41;
+  height: 50vh;
+  width: 45vw;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  // font-weight: 400;
+  border-radius: 0.5em;
+  box-shadow: 0px 2px 4px #ffafaf1a, 0px 4px 8px rgba(255, 255, 255, 0.1),
+    0px 8px 16px rgba(252, 189, 189, 0.1), 0px 16px 32px rgba(255, 255, 255, 0.1);
+  position: relative;
+  cursor: pointer;
+  /* animated interactivity */
+  transition: 700ms;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateY(var(--rotate-y, 0))
+    translateY(var(--translate-y, 0));
+}
+
+.primary-card-container .front,
+.primary-card-container .back {
+  position: absolute;
+  padding: 1rem;
+  backface-visibility: hidden;
+}
+
+.primary-card-container.side.front {
+  opacity: 0;
+  display:none;
+  position: absolute;
+  // transform: rotateY(0deg);
+}
+
+.side.back {
+  position: absolute;
+  // transform: rotateY(180deg);
+  -webkit-backface-visibility: hidden; 
+  backface-visibility: hidden;
+}
+
+.front {
+  position: absolute;
+  // transform: rotateY(180deg);
+  // -webkit-backface-visibility: hidden;
+  // backface-visibility: hidden;
+}
+
+.back {
+  position: absolute;
+  transform: rotateY(180deg);
+  // -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.side {
+  transform: rotateY(180deg);
+  background: #292f41;
+}
+
+div.primary-card-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color:#ffffff;
+    .right-arrow:hover {
+      color: #eb952c;
+    }
+    .left-arrow:hover {
+      color: #eb952c;
+    }
+}
+
+span.deck-length {
+  margin: 0 4vw 0 4vw;
+ align-self: center;
+}
+
+.questions-answers {
+  display: grid;
+  // width: 100%;
+  color:#ffffff;
+  align-items: center;
+  // flex-direction: row;
+  // align-items: center;
+  justify-content: center;
+  .preview-card-container {
+    word-wrap:break-word;
+    display: grid;
+    background-color: #292f41;
+    grid-template-columns: auto auto;
+    text-align: center;
+    border-color: #ffffff;
+    border: 1em;
+  }
+
+}
+
