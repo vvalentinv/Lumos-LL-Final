@@ -17,20 +17,17 @@ export const updateCard = card => ({
   payload: card
 });
 
-export const fetchCardList = async (UUID, deckID, setLoading) => (
+export const fetchCardList = (UUID, deckID, setLoading) => (
   async (dispatch) => {
     try {
       const res = await getCardsByDeckForUser(UUID, deckID)
-      res.then(data => {
-        setLoading(false);
-        console.log("actions ", data)
-      });
-
-
+      const { data } = res
+      console.log(data)
+      setLoading(false);
 
       dispatch({
         type: CardListActionTypes.FETCH_CARD_LIST,
-        payload: res
+        payload: data
       })
     } catch (error) {
       console.log(`Error: ${error}`)
@@ -38,19 +35,9 @@ export const fetchCardList = async (UUID, deckID, setLoading) => (
   }
 )
 
-// export function createDeck(values) {
-//   return function (dispatch) {
-//     return axios.post('localhost:8080/api/decks/createdeck', values)
-//       .then((response) => {
-//         dispatch({ type: DeckListActionTypes.ADD_DECK })
-//         console.log(response);
-//       })
-//   }
-// }
-
-// export const fetchCardList = async (deckID, setLoading) => {
+// export const fetchCardList = async (deckID, UUID, setLoading) => {
 //   try {
-//     const res = await axios.get(`https://localhost:8080/api/decks/${deckID}`);
+//     const res = await getCardsByDeckForUser(UUID, deckID);
 //     setLoading(false);
 
 //     return {
@@ -61,3 +48,5 @@ export const fetchCardList = async (UUID, deckID, setLoading) => (
 //     console.log(`Error: ${error}`)
 //   }
 // }
+
+
