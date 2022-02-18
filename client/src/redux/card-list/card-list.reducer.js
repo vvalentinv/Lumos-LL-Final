@@ -9,8 +9,6 @@ const INITIAL_STATE = {
     ]
 };
 
-//set public status for all
-
 const cardListReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case CardListActionTypes.FETCH_CARD_LIST:

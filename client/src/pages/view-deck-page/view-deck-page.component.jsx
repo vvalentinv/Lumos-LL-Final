@@ -31,13 +31,17 @@ const ViewDeckPage = () => {
     const { user } = useAuth0();
     const { deckID } = useParams();
 
+    //Does deckID exist? If so, we should turn Edit Mode on.
+    //If Edit Mode is on, we invoke the fetchCardList Redux action
+    //to fetch current Deck from DB into Redux.
+
     useEffect(() => {
         const isDeckID = deckID ? true : false;
         setEditMode(isDeckID);
 
         if (editMode) {
             setLoading(true);
-            // dispatch(fetchCardList(userUUID, deckID, setLoading)) 
+            dispatch(fetchCardList(userUUID, deckID, setLoading))
             // setDeckTitle()
         }
     }, [deckID, editMode])
