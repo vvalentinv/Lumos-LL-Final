@@ -36,19 +36,19 @@ const ViewDeckPage = () => {
         const isDeckID = deckID ? true : false;
         setEditMode(isDeckID);
 
-        if (editMode) {
+        if (deckID) {
             setLoading(true);
-            dispatch(fetchCardList(userUUID, deckID, setLoading)) 
+            dispatch(fetchCardList(userUUID, deckID, setLoading))
             // setDeckTitle()
         }
     }, []);//deckID, editMode])
 
     useEffect(() => {
-      // getDeckListForUser(userUUID)
-      //   .then(result => setExistingDeckTitles(
-      //     result.map(d => d.deck_name)))
-      //    .catch(error => console.log(error));
-    },[existingDeckTitles,userUUID])
+        // getDeckListForUser(userUUID)
+        //   .then(result => setExistingDeckTitles(
+        //     result.map(d => d.deck_name)))
+        //    .catch(error => console.log(error));
+    }, [existingDeckTitles, userUUID])
 
     const addNewCard = () => {
         const newCard = {
@@ -63,20 +63,20 @@ const ViewDeckPage = () => {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        if(!deckID){// && existingDeckTitles.includes(deckTitle)){
-          return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
-          .then(result => console.log(result))
-          .catch(error => console.log(error));
-        }else if(deckID) {
-          return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
-            .then(result => console.log(result))
-            .catch(error => console.log(error));
+        if (!deckID) {// && existingDeckTitles.includes(deckTitle)){
+            return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
+                .then(result => console.log(result))
+                .catch(error => console.log(error));
+        } else if (deckID) {
+            return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
+                .then(result => console.log(result))
+                .catch(error => console.log(error));
         }
 
         // if (!deckTitle) return
-        
+
     }
-console.log("deckid",deckID);
+    console.log("deckid", deckID);
     const length = cardList.length;
 
     return (
@@ -101,7 +101,7 @@ console.log("deckid",deckID);
                 </input>
             </div>
             <div className='card-container'>
-                {!loading && cardList.map((card) => {
+                {!isLoading && cardList.map((card) => {
                     const { id, term, definition } = card;
                     return (
                         <Card
