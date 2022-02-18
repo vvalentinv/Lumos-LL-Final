@@ -63,20 +63,23 @@ const ViewDeckPage = () => {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
+       if (!isLoading){ 
         if (!deckID) {// && existingDeckTitles.includes(deckTitle)){
             return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
-                .then(result => console.log(result))
+                .then(result => console.log("result from axios create deck:",result))
                 .catch(error => console.log(error));
         } else if (deckID) {
             return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
                 .then(result => console.log(result))
                 .catch(error => console.log(error));
         }
+      }
 
         // if (!deckTitle) return
 
     }
     console.log("deckid", deckID);
+    console.log("cardlist", cardList);
     const length = cardList.length;
 
     return (
