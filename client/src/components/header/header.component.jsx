@@ -1,12 +1,15 @@
+import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch } from "react-redux";
+
+import axios from "axios";
+
+import { setUser } from '../../redux/user/user.actions';
+
+import CustomButton from "../custom-button/custom-button.component";
 
 import './header.styles.scss';
 
-import CustomButton from "../custom-button/custom-button.component";
-import { setUser } from '../../redux/user/user.actions';
-import axios from "axios";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -40,12 +43,6 @@ const Header = () => {
                     <CustomButton onClick={() => logout()}>
                         Sign Out
                     </CustomButton>
-                }
-
-                {user
-                    ?
-                    <h2>Welcome {user.given_name}</h2>
-                    : ''
                 }
             </div>
 

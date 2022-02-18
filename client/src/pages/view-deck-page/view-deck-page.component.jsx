@@ -8,6 +8,9 @@ import axios from "axios";
 
 import CustomButton from "../../components/custom-button/custom-button.component";
 import Card from "../../components/card/card.component";
+import AddCardRow from '../../components/add-card-row/add-card-row.component';
+
+import './view-deck-page.styles.scss';
 
 const ViewDeckPage = () => {
 
@@ -17,9 +20,11 @@ const ViewDeckPage = () => {
     const [existingDeckTitles, setExistingDeckTitles] = useState([]);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const selCardList = useSelector(state => state.cardList);
     const { cardList } = selCardList;
+    const length = cardList.length;
 
     const selUser = useSelector(state => state.user);
     const { userUUID } = selUser;
@@ -76,8 +81,11 @@ console.log("deckid",deckID);
 
     return (
         <div className='view-deck-page'>
+            <div className='back-link'>
+                <span className='back-link-text' onClick={() => navigate(-1)}>Back to set</span>
+            </div>
             {editMode
-                ? <h1 className='title-header'>Edit Deck</h1>
+                ? ''
                 : <h1 className='title-header'>Create a new deck</h1>
             }
             <span>Title</span>
@@ -85,7 +93,7 @@ console.log("deckid",deckID);
                 <input
                     type='text'
                     className='title-input-text'
-                    placeholder='Enter a title'
+                    placeholder='Enter a title, like "Notable Battles of World War II"'
                     value={deckTitle}
                     onChange={event => setDeckTitle(event.target.value)}
                     required
@@ -105,6 +113,7 @@ console.log("deckid",deckID);
                         />
                     )
                 })}
+                <AddCardRow onClick={() => addNewCard()} />
             </div>
             <CustomButton className='add-card-button' onClick={() => addNewCard()}>
                 Add Card

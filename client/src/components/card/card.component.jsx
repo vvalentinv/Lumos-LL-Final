@@ -27,6 +27,8 @@ const Card = (props) => {
         }));
     }
 
+    console.log(length)
+
     const answerHandleChange = (event) => {
         setAnswer(event.target.value);
 
@@ -40,12 +42,11 @@ const Card = (props) => {
     return (
         <div className='card'>
             <div className='card-toolbar'>
-                <span>Card {id}</span>
+                <span className='card-number'>{id}</span>
                 <div className='delete-logo-container'>
                     <TrashLogo
-                        disabled={length <= 2 ? true : false}
                         className='delete-logo'
-                        onClick={() => dispatch(deleteCard(id))}
+                        onClick={() => length <= 2 ? null : dispatch(deleteCard(id))}
                     />
                 </div>
             </div>
