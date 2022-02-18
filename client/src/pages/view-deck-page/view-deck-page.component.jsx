@@ -38,10 +38,10 @@ const ViewDeckPage = () => {
 
         if (editMode) {
             setLoading(true);
-            // dispatch(fetchCardList(userUUID, deckID, setLoading)) 
+            dispatch(fetchCardList(userUUID, deckID, setLoading)) 
             // setDeckTitle()
         }
-    }, [deckID, editMode])
+    }, []);//deckID, editMode])
 
     useEffect(() => {
       // getDeckListForUser(userUUID)
@@ -77,7 +77,7 @@ const ViewDeckPage = () => {
         
     }
 console.log("deckid",deckID);
-    const length = cardList.length || 0;
+    const length = cardList.length;
 
     return (
         <div className='view-deck-page'>
@@ -101,7 +101,7 @@ console.log("deckid",deckID);
                 </input>
             </div>
             <div className='card-container'>
-                {cardList.map((card) => {
+                {!loading && cardList.map((card) => {
                     const { id, term, definition } = card;
                     return (
                         <Card

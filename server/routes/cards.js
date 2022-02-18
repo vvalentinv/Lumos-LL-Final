@@ -18,7 +18,9 @@ const cardRoutes = () => {
         // console.log("raw cards:", data);
         const changeForFrontEnd = [];
         data.forEach((c) => {
+          let id = 1;
           const card = {};
+          card.id = id++;
           card.term = c.question;
           card.definition = c.answer;
           card.showAnswer = false;
