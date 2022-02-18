@@ -1,24 +1,30 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCardList, addCard } from "../../redux/card-list/card-list.actions";
-
+import { getDeckListForUser } from '../../helpers/selectors';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
 import CustomButton from "../../components/custom-button/custom-button.component";
 import Card from "../../components/card/card.component";
+import AddCardRow from '../../components/add-card-row/add-card-row.component';
+
+import './view-deck-page.styles.scss';
 
 const ViewDeckPage = () => {
 
     const [deckTitle, setDeckTitle] = useState('');
     const [isLoading, setLoading] = useState(false);
     const [editMode, setEditMode] = useState(false);
+    const [existingDeckTitles, setExistingDeckTitles] = useState([]);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const selCardList = useSelector(state => state.cardList);
     const { cardList } = selCardList;
+    // const length = cardList.length;
 
     const selUser = useSelector(state => state.user);
     const { userUUID } = selUser;
@@ -30,13 +36,19 @@ const ViewDeckPage = () => {
         const isDeckID = deckID ? true : false;
         setEditMode(isDeckID);
 
-        if (editMode) {
+        if (deckID) {
             setLoading(true);
-            // dispatch(fetchCardList(userUUID, deckID, setLoading)) 
+            dispatch(fetchCardList(userUUID, deckID, setLoading))
             // setDeckTitle()
         }
-    }, [deckID, editMode])
+    }, []);//deckID, editMode])
 
+    useEffect(() => {
+        // getDeckListForUser(userUUID)
+        //   .then(result => setExistingDeckTitles(
+        //     result.map(d => d.deck_name)))
+        //    .catch(error => console.log(error));
+    }, [existingDeckTitles, userUUID])
 
     const addNewCard = () => {
         const newCard = {
@@ -51,18 +63,29 @@ const ViewDeckPage = () => {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        // if (!deckTitle) return
-        return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
-            .then(result => console.log(result))
-            .catch(error => console.log(error));
-    }
+        if (!deckID) {// && existingDeckTitles.includes(deckTitle)){
+            return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
+                .then(result => console.log(result))
+                .catch(error => console.log(error));
+        } else if (deckID) {
+            return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
+                .then(result => console.log(result))
+                .catch(error => console.log(error));
+        }
 
+        // if (!deckTitle) return
+
+    }
+    console.log("deckid", deckID);
     const length = cardList.length;
 
     return (
         <div className='view-deck-page'>
+            <div className='back-link'>
+                <span className='back-link-text' onClick={() => navigate(-1)}>Back to set</span>
+            </div>
             {editMode
-                ? <h1 className='title-header'>Edit Deck</h1>
+                ? ''
                 : <h1 className='title-header'>Create a new deck</h1>
             }
             <span>Title</span>
@@ -70,7 +93,7 @@ const ViewDeckPage = () => {
                 <input
                     type='text'
                     className='title-input-text'
-                    placeholder='Enter a title'
+                    placeholder='Enter a title, like "Notable Battles of World War II"'
                     value={deckTitle}
                     onChange={event => setDeckTitle(event.target.value)}
                     required
@@ -78,7 +101,7 @@ const ViewDeckPage = () => {
                 </input>
             </div>
             <div className='card-container'>
-                {cardList.map((card) => {
+                {!isLoading && cardList.map((card) => {
                     const { id, term, definition } = card;
                     return (
                         <Card
@@ -90,6 +113,7 @@ const ViewDeckPage = () => {
                         />
                     )
                 })}
+                <AddCardRow onClick={() => addNewCard()} />
             </div>
             <CustomButton className='add-card-button' onClick={() => addNewCard()}>
                 Add Card
@@ -104,5 +128,3 @@ const ViewDeckPage = () => {
 };
 
 export default ViewDeckPage;
-
-

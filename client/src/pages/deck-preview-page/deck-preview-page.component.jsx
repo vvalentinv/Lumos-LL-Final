@@ -7,29 +7,23 @@ import "./deck-preview.page-styles.scss";
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
+import { getDeckBydeckID, getCardsByDeckForUser } from "../../helpers/selectors";
 import { useSelector } from "react-redux";
-
-import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
 
 import PreviewCard from "../../components/preview-card/preview-card.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
 
-import { ReactComponent as LeftArrowLogo } from '../../assets/left-arrow.svg';
-import { ReactComponent as RightArrowLogo } from '../../assets/right-arrow.svg';
+// import { ReactComponent as LeftArrowLogo } from '../../assets/left-arrow.svg';
+// import { ReactComponent as RightArrowLogo } from '../../assets/right-arrow.svg';
 
 const DeckPreviewPage = () => {
-
-  const selUser = useSelector(state => state.user);
-  const { userUUID } = selUser;
-
-  console.log('UUID', userUUID);
 
   const [loading, setLoading] = useState(true);
   const [deck, setDeck] = useState();
   const [cardList, setCardList] = useState([]);
-  const { user } = useAuth0();
   const { deckID } = useParams();
+  const selUser = useSelector(state => state.user);
+  const { userUUID } = selUser;
 
   useEffect(() => {
     if (deck && cardList.length > 0) {
@@ -37,28 +31,22 @@ const DeckPreviewPage = () => {
     }
   }, [deck, cardList]);
 
-  //get deck obj
+  
   useEffect(() => {
-    if (!userUUID && !deckID) {
+    //get deck obj
+    if(!userUUID){
       return;
     }
-    console.log("DeckID:",deckID);
-    axios.post(`http://localhost:8080/api/decks/${deckID}`, { userUUID, deckID })
+    getDeckBydeckID(userUUID,deckID) 
       .then(result => {
-        console.log("RESULT:", result.data);
+        // console.log("RESULT:", result.data);
         setDeck(result.data);
       })
       .catch(error => console.log(error));
-  }, [userUUID, deckID])
-
-  //cardlist
-  useEffect(() => {
-    if (!userUUID && !deckID) {
-      return;
-    }
-    axios.post(`http://localhost:8080/api/cards/${deckID}`, { userUUID, deckID })
-      .then(result => {
-
+    // cards list
+    getCardsByDeckForUser(userUUID, deckID) 
+    .then(result => {
+        console.log("resolved promise:",result.data)
         setCardList(result.data);
       })
       .catch(error => console.log(error));
@@ -98,20 +86,6 @@ const DeckPreviewPage = () => {
       setActiveCardIndex(activeCardIndex + 1);
     }
   }
-
-  // const [cardList, setCardList] = useState([
-  //     { term: 'First Question', definition: 'Monday', showAnswer: false },
-  //     { term: 'Second Question', definition: 'Tuesday', showAnswer: false },
-  //     { term: 'Third Question', definition: 'Wednesday', showAnswer: false },
-  //     { term: 'Fourth Question', definition: 'Thursday', showAnswer: false },
-  //     { term: 'Fifth Question', definition: 'Friday', showAnswer: false }
-  // ]);
-
-  // const [cardList, setCardList] = useState([
-  //   { term: 'Monday', definition: 'Placeholder 1', showAnwser: false },
-  //   { term: 'Tuesday', definition: 'Placeholder 2', showAnwser: false },
-  //   { term: 'kjkj', definition: 'kjkj', showAnwser: false }
-  // ]);
 
   const [activeCardIndex, setActiveCardIndex] = useState(0);
 
@@ -174,11 +148,3 @@ const DeckPreviewPage = () => {
 }
 
 export default DeckPreviewPage;
-
-
-
-    // useEffect(() => {
-    //     res = await axios.get(deckID ENDPOINT)
-    //     res.map(Add showAnswer: false)
-    //     setDeck(res)
-    // }, [])

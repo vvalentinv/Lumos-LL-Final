@@ -1,0 +1,22 @@
+
+
+    .add-row-card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 10px;
+        background-color: #2e3856;
+        border-radius: 10px;
+        height: 120px;
+        font-weight: bold;
+        
+
+        &:hover{ 
+            color:#ffce25; 
+        }
+        
+        .add-card-row-text {
+            border-color: #3dcfcf ;
+            border-width: 0 0 1.5px 0;
+        }
+    }

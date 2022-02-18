@@ -4,16 +4,15 @@ import { updateCardInCardList } from './card-list.utils';
 
 const INITIAL_STATE = {
     cardList: [
-        { id: 1, term: 'Placeholder 1', definition: 'Monday', isUpdated: false, isPublic: false },
-        { id: 2, term: 'Placeholder 2', definition: 'Tuesday', isUpdated: false, isPublic: false }
+        { id: 1, term: '', definition: '', isUpdated: false, isPublic: false },
+        { id: 2, term: '', definition: '', isUpdated: false, isPublic: false }
     ]
 };
-
-//set public status for all
 
 const cardListReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case CardListActionTypes.FETCH_CARD_LIST:
+            console.log('ACTION', action)
             return {
                 ...state,
                 cardList: [...action.payload]

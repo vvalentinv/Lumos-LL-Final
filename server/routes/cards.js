@@ -12,18 +12,22 @@ const cardRoutes = () => {
 
   router.post('/:id', (req, res) => {
     const { userUUID, deckID } = req.body;
-    console.log("carlist params:", userUUID, deckID);
+    // console.log("cardList params--------------:", userUUID, deckID);
     return getAllCardsByDeck(userUUID, deckID)
       .then((data) => {
+        // console.log("raw cards:", data);
         const changeForFrontEnd = [];
-        data.forEach((c) => {
+        data.forEach((c, index) => {
+          let id = index + 1;
           const card = {};
+          card.id = id;
           card.term = c.question;
           card.definition = c.answer;
           card.showAnswer = false;
           changeForFrontEnd.push(card);
         });
-
+        // console.log("changeForFrontEnd:", changeForFrontEnd);
+        console.log(changeForFrontEnd);
         return res.send(changeForFrontEnd);
       })
       .catch((error) => console.log(error));
