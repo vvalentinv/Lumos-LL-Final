@@ -1,5 +1,6 @@
 import CardListActionTypes from "./card-list.types.js";
-import axios from 'axios';
+// import axios from 'axios';
+import { getCardsByDeckForUser } from "../../helpers/selectors.js";
 
 export const addCard = newCard => ({
   type: CardListActionTypes.ADD_CARD,
@@ -19,8 +20,13 @@ export const updateCard = card => ({
 export const fetchCardList = async (UUID, deckID, setLoading) => (
   async (dispatch) => {
     try {
-      const res = await axios.post(`https://localhost:8080/api/decks/${deckID}`, { UUID, deckID });
-      setLoading(false);
+      const res = await getCardsByDeckForUser(UUID, deckID)
+      res.then(data => {
+        setLoading(false);
+        console.log("actions ", data)
+      });
+
+
 
       dispatch({
         type: CardListActionTypes.FETCH_CARD_LIST,
@@ -55,4 +61,3 @@ export const fetchCardList = async (UUID, deckID, setLoading) => (
 //     console.log(`Error: ${error}`)
 //   }
 // }
-
