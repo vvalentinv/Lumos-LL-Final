@@ -17,16 +17,17 @@ const cardRoutes = () => {
       .then((data) => {
         // console.log("raw cards:", data);
         const changeForFrontEnd = [];
-        data.forEach((c) => {
-          let id = 1;
+        data.forEach((c, index) => {
+          let id = index + 1;
           const card = {};
-          card.id = id++;
+          card.id = id;
           card.term = c.question;
           card.definition = c.answer;
           card.showAnswer = false;
           changeForFrontEnd.push(card);
         });
         // console.log("changeForFrontEnd:", changeForFrontEnd);
+        console.log(changeForFrontEnd);
         return res.send(changeForFrontEnd);
       })
       .catch((error) => console.log(error));
