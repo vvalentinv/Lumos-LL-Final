@@ -1,5 +1,4 @@
 import CardListActionTypes from "./card-list.types.js";
-// import axios from 'axios';
 import { getCardsByDeckForUser } from "../../helpers/selectors.js";
 
 export const addCard = newCard => ({
@@ -20,9 +19,9 @@ export const updateCard = card => ({
 export const fetchCardList = (UUID, deckID, setLoading) => (
   async (dispatch) => {
     try {
-      const res = await getCardsByDeckForUser(UUID, deckID)
-      const { data } = res
-      console.log(data)
+      const res = await getCardsByDeckForUser(UUID, deckID);
+      const { data } = res;
+      console.log(data);
       setLoading(false);
 
       dispatch({
