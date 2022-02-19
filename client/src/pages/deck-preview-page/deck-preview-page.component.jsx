@@ -46,7 +46,7 @@ const DeckPreviewPage = () => {
     // cards list
     getCardsByDeckForUser(userUUID, deckID) 
     .then(result => {
-        console.log("resolved promise:",result.data)
+        // console.log("resolved promise:",result.data)
         setCardList(result.data);
       })
       .catch(error => console.log(error));
