@@ -4,6 +4,8 @@ import { fetchCardList, addCard } from "../../redux/card-list/card-list.actions"
 import { getDeckListForUser } from '../../helpers/selectors';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
+import { v4 as uuidv4 } from 'uuid';
+
 import axios from "axios";
 
 import CustomButton from "../../components/custom-button/custom-button.component";
@@ -24,7 +26,7 @@ const ViewDeckPage = () => {
 
     const selCardList = useSelector(state => state.cardList);
     const { cardList } = selCardList;
-    // const length = cardList.length;
+    const deckLength = cardList.length;
 
     const selUser = useSelector(state => state.user);
     const { userUUID } = selUser;
@@ -39,20 +41,13 @@ const ViewDeckPage = () => {
         if (deckID) {
             setLoading(true);
             dispatch(fetchCardList(userUUID, deckID, setLoading))
-            // setDeckTitle()
+            // Another API call to get setDeckTitle()
         }
-    }, []);//deckID, editMode])
-
-    useEffect(() => {
-        // getDeckListForUser(userUUID)
-        //   .then(result => setExistingDeckTitles(
-        //     result.map(d => d.deck_name)))
-        //    .catch(error => console.log(error));
-    }, [existingDeckTitles, userUUID])
+    }, []);
 
     const addNewCard = () => {
         const newCard = {
-            id: cardList.length + 1,
+            id: uuidv4(),
             term: '',
             definition: '',
             isUpdated: false,
@@ -63,24 +58,18 @@ const ViewDeckPage = () => {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
-       if (!isLoading){ 
-        if (!deckID) {// && existingDeckTitles.includes(deckTitle)){
-            return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
-                .then(result => console.log("result from axios create deck:",result))
-                .catch(error => console.log(error));
-        } else if (deckID) {
-            return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
-                .then(result => console.log(result))
-                .catch(error => console.log(error));
+        if (!isLoading) {
+            if (!deckID) {// && existingDeckTitles.includes(deckTitle)){
+                return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
+                    .then(result => console.log("result from axios create deck:", result))
+                    .catch(error => console.log(error));
+            } else if (deckID) {
+                return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
+                    .then(result => console.log(result))
+                    .catch(error => console.log(error));
+            }
         }
-      }
-
-        // if (!deckTitle) return
-
     }
-    console.log("deckid", deckID);
-    console.log("cardlist", cardList);
-    const length = cardList.length;
 
     return (
         <div className='view-deck-page'>
@@ -104,23 +93,22 @@ const ViewDeckPage = () => {
                 </input>
             </div>
             <div className='card-container'>
-                {!isLoading && cardList.map((card) => {
+                {!isLoading && cardList.map((card, index) => {
                     const { id, term, definition } = card;
                     return (
                         <Card
-                            length={length}
+                            length={deckLength}
                             key={id}
                             id={id}
                             term={term}
                             definition={definition}
+                            number={index + 1}
                         />
                     )
                 })}
-                <AddCardRow onClick={() => addNewCard()} />
+                <AddCardRow addCardHandler={() => addNewCard()} />
             </div>
-            <CustomButton className='add-card-button' onClick={() => addNewCard()}>
-                Add Card
-            </CustomButton>
+
             <div className='submit-deck-button-container'>
                 <CustomButton className='submit-deck-button' onClick={handleOnSubmit}>
                     {editMode ? 'Save Deck' : 'Submit Deck'}
@@ -129,5 +117,6 @@ const ViewDeckPage = () => {
         </div>
     );
 };
+
 
 export default ViewDeckPage;
