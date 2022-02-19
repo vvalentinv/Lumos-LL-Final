@@ -1,11 +1,13 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import CardListActionTypes from "./card-list.types";
 
 import { updateCardInCardList } from './card-list.utils';
 
 const INITIAL_STATE = {
     cardList: [
-        { id: 1, term: '', definition: '', isUpdated: false, isPublic: false },
-        { id: 2, term: '', definition: '', isUpdated: false, isPublic: false }
+        { id: uuidv4(), term: '', definition: '', isUpdated: false, isPublic: false },
+        { id: uuidv4(), term: '', definition: '', isUpdated: false, isPublic: false }
     ]
 };
 

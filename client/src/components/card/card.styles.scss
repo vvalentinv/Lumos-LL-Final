@@ -24,6 +24,23 @@
     .input-text {
         color: #f6f7fb;
         font-size: 16px;
+        height: fit-content;
+        border-color: #f6f7fb;
+        border-style: solid;
+        border-width: 0 0 1.5px 0;
+        margin-right: 30px;
+        background-color: #2e3856;
+        width: 60%;
+
+        &:focus{ 
+            border-bottom: 3px solid #ffce25;
+            outline: none;
+        } 
+    }
+
+    .input-text-a {
+        color: #f6f7fb;
+        font-size: 16px;
         border-color: #f6f7fb;
         border-style: solid;
         border-width: 0 0 1.5px 0;

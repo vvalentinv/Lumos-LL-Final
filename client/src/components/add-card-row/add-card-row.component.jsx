@@ -1,8 +1,9 @@
+
 import './add-card-row.styles.scss';
 
-const AddCardRow = () => {
+const AddCardRow = ({ addCardHandler }) => {
     return (
-        <div className='add-row-card-container'>
+        <div className='add-row-card-container' onClick={addCardHandler}>
             <span className='add-card-row-text'>+ ADD CARD</span>
         </div>
     )
