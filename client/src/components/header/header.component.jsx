@@ -25,6 +25,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { red } from "@mui/material/colors";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -148,28 +149,17 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+      <Box>Lumos-LL-Final/client/public/favicon.ico</Box>
+        <IconButton size="small" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
-          size="large"
+          size="small"
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
@@ -179,12 +169,45 @@ export default function Header() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+      <Box >
+        {!isAuthenticated
+            ?
+        <MenuItem
+
+        onClick={() => loginWithRedirect()}>    
+            <IconButton
+            size="small"
+            aria-label="show 17 new notifications"
+            color="inherit"
+            >
+            <Badge badgeContent={0} color="error">
+                <NotificationsIcon />
+            </Badge>
+            </IconButton>
+            <p>Sign In</p>
+        </MenuItem>
+        :
+        <MenuItem
+        onClick={() => logout()}>
+            <IconButton
+            size="small"
+            aria-label="show 17 new notifications"
+            color="inherit"
+            >
+            <Badge badgeContent={0} color="error">
+                <NotificationsIcon />
+            </Badge>
+            </IconButton>
+            <p>Sign Out</p>
+        </MenuItem>
+        }
+      </Box>
     </Menu>
   );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor: "#292f41"}}>
         <Toolbar>
           {/* <IconButton
             size="large"
@@ -229,7 +252,7 @@ export default function Header() {
               </Badge>
             </IconButton> */}
             <IconButton
-              size="large"
+              size="small"
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
@@ -239,18 +262,20 @@ export default function Header() {
             >
               <AccountCircle />
             </IconButton>
-            <div className='header-right'>
+            {/* <div className='header-right'> */}
+            <Box ml={3} mt={0.5}>
                 {!isAuthenticated
                     ?
-                    <Button variant='contained' onClick={() => loginWithRedirect()}>
+                    <Button  variant='contained' size="small" onClick={() => loginWithRedirect()}>
                         Sign In
                     </Button >
                     :
-                    <Button variant='contained' onClick={() => logout()}>
+                    <Button variant='contained' size="small" onClick={() => logout()}>
                         Sign Out
                     </Button>
                 }
-            </div>
+            </Box>
+            {/* </div> */}
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
