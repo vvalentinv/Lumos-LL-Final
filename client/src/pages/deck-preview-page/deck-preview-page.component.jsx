@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import Stack from '@mui/material/Stack';
+import SnackbarContent from '@mui/material/SnackbarContent';
+
 
 import "./deck-preview.page-styles.scss";
 // import Icon from '@mui/material/Icon';
@@ -99,39 +102,43 @@ const DeckPreviewPage = () => {
           }
         </div>
         <div className='primary-card-nav'>
-          <span className="left-arrow">
+          <span className='left-arrow'>
             <ArrowBack className='left-arrow-icon' sx={{ fontSize: 35 }} onClick={() => leftArrowSubmit()}></ArrowBack>
           </span>
           <span className='deck-length'>
             {`${activeCardIndex + 1}/${deckLength}`}
           </span>
-          <span className="right-arrow" onClick={() => rightArrowSubmit()}>
+          <span className='right-arrow' onClick={() => rightArrowSubmit()}>
             <ArrowForwardIcon className='right-arrow-icon' sx={{ fontSize: 35 }} onClick={() => rightArrowSubmit()}></ArrowForwardIcon>
           </span>
-        </div>
       </div>
-      <div className="questions-answers">
-        <h2>{`Questions in this set (${cardList.length})`}</h2>
+      <h2 className='sub-head'>{`Questions in this set (${cardList.length})`}</h2>
+      <div className='questions-answers'>
         <div className='preview-card-container'>
           {cardList.length && cardList.map((card) => {
             const { term, definition } = card;
             return (
-              <PreviewCard
-                className="preview-card"
-                key={uuidv4()}
-                term={term}
-                definition={definition}
-              />
+              <div>
+                <PreviewCard
+                  className="preview-card"
+                  key={uuidv4()}
+                  term={term}
+                  definition={definition}
+                  />
+              </div>
             )
           })}
-        </div>
+         <div>
+        </div> 
+        <Link to={`/editdeck/${deckID}`}>
+          <CustomButton>
+            Add or Remove Questions
+          </CustomButton>
+        </Link>
       </div>
-      <Link to={`/editdeck/${deckID}`}>
-        <CustomButton>
-          Add or Remove Questions
-        </CustomButton>
-      </Link>
-    </>
+    </div>
+  </div>
+  </>
   );
 }
 

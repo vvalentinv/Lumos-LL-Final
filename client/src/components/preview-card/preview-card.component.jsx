@@ -4,9 +4,12 @@ const PreviewCard = (props) => {
 
     return (
         <>
-            
-            <p>{definition}</p>
-            <p>{term}</p>
+           <div className='definition'>
+                <p>{definition}</p> 
+            </div>
+            <div className='term'>
+                <p>{term}</p>
+            </div> 
         </>
     )
 
