@@ -69,52 +69,54 @@ const ViewDeckPage = () => {
                     .catch(error => console.log(error));
             }
         }
+    }
 
-        return (
-            <div className='view-deck-page'>
-                <div className='back-link'>
-                    <span className='back-link-text' onClick={() => navigate(-1)}>Back to set</span>
-                </div>
-                {editMode
-                    ? ''
-                    : <h1 className='title-header'>Create a new deck</h1>
-                }
-                <span>Title</span>
-                <div className='deck-title'>
-                    <input
-                        type='text'
-                        className='title-input-text'
-                        placeholder='Enter a title, like "Notable Battles of World War II"'
-                        value={deckTitle}
-                        onChange={event => setDeckTitle(event.target.value)}
-                        required
-                    >
-                    </input>
-                </div>
-                <div className='card-container'>
-                    {!isLoading && cardList.map((card, index) => {
-                        const { id, term, definition } = card;
-                        return (
-                            <Card
-                                length={deckLength}
-                                key={id}
-                                id={id}
-                                term={term}
-                                definition={definition}
-                                number={index + 1}
-                            />
-                        )
-                    })}
-                    <AddCardRow addCardHandler={() => addNewCard()} />
-                </div>
-
-                <div className='submit-deck-button-container'>
-                    <CustomButton className='submit-deck-button' onClick={handleOnSubmit}>
-                        {editMode ? 'Save Deck' : 'Submit Deck'}
-                    </CustomButton>
-                </div>
+    return (
+        <div className='view-deck-page'>
+            <div className='back-link'>
+                <span className='back-link-text' onClick={() => navigate(-1)}>Back to set</span>
             </div>
-        );
-    };
+            {editMode
+                ? ''
+                : <h1 className='title-header'>Create a new deck</h1>
+            }
+            <span>Title</span>
+            <div className='deck-title'>
+                <input
+                    type='text'
+                    className='title-input-text'
+                    placeholder='Enter a title, like "Notable Battles of World War II"'
+                    value={deckTitle}
+                    onChange={event => setDeckTitle(event.target.value)}
+                    required
+                >
+                </input>
+            </div>
+            <div className='card-container'>
+                {!isLoading && cardList.map((card, index) => {
+                    const { id, term, definition } = card;
+                    return (
+                        <Card
+                            length={deckLength}
+                            key={id}
+                            id={id}
+                            term={term}
+                            definition={definition}
+                            number={index + 1}
+                        />
+                    )
+                })}
+                <AddCardRow addCardHandler={() => addNewCard()} />
+            </div>
 
-    export default ViewDeckPage;
+            <div className='submit-deck-button-container'>
+                <CustomButton className='submit-deck-button' onClick={handleOnSubmit}>
+                    {editMode ? 'Save Deck' : 'Submit Deck'}
+                </CustomButton>
+            </div>
+        </div>
+    );
+};
+
+
+export default ViewDeckPage;
