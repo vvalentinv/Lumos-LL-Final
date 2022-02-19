@@ -4,29 +4,44 @@ import { getDeckListForUser } from "../../helpers/selectors";
 
 const HomePage = () => {
 
-    const [deckList, setDeckList] = useState([]);
-    const selUser = useSelector(state => state.user);
-    const { userUUID } = selUser;
+  const [deckList, setDeckList] = useState([]);
+  const selUser = useSelector(state => state.user);
+  const { userUUID } = selUser;
 
-    useEffect(() => {
-      if(!userUUID){
-        return;
-      }
-      getDeckListForUser(userUUID)  
+  const getDeckNames = (result) => {
+    const res = [];
+
+    result.forEach((deck) => {
+      res.push(deck.deck_name);
+    })
+
+    return res;
+  }
+
+  useEffect(() => {
+    if (!userUUID) {
+      return;
+    }
+    getDeckListForUser(userUUID)
       .then(result => {
-            setDeckList(result.data)
-          })
-          .catch(error => console.log(error));
-    }, [userUUID]);
+        let allDeckNames = getDeckNames(result.data);
+        setDeckList(allDeckNames);
+      })
+      .catch(error => console.log(error));
+  }, [userUUID]);
 
-    console.log("deckList:", deckList);
-    console.log("userId:", userUUID);
+  console.log("deckList:", deckList);
 
-    return (
-        <p>Home</p>
-        // { deckList.map((decks) => ) }
-        //=> Iterate over useState Hook and display list of decks
-    );
+
+  return (
+    <>
+      <p>Home</p>
+      <div className='deck-container'>
+
+
+      </div>
+    </>
+  );
 }
 
 export default HomePage;
