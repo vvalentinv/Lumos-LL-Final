@@ -6,11 +6,19 @@ const deckRoutes = () => {
   //! GET ALL DECKS FOR USER
   router.get('/:id', (req, res) => {
     const userUUID = req.params.id;
-    console.log('userUUID:', userUUID);
     getAllDecksForUser(userUUID)
       .then((data) => res.send(data))
       .catch((error) => console.log(error));
   });
+
+  //! delete DECK
+  router.delete('/:id', (req, res) => {
+    const deckID = req.params.id;
+    deleteDeck(deckID)
+      .then((data) => res.send(data))
+      .catch((error) => console.log(error));
+  });
+
 
   //! GET SPECIFIC DECK
   router.post('/:id', (req, res) => {

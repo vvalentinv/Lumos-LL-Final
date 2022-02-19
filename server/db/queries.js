@@ -210,5 +210,33 @@ const updateDeck = (deckTitle, deckID) => {
     .catch((error) => console.log(error.message));
 };
 
+const deleteDeckAssociations = (deckID) => {
+  // console.log("params:", userUUID, deckID);
+  return client.query(`DELET FROM  decks_with_cards
+              WHERE deck_id = $1;`, [deckID])
+    .then((results) => {
+      // console.log("FROM THE DATABASE:", results);
+      return res.send({ status: `Deck ID:${deckID} has no cards associated with it` });
+    })
+    .catch((error) => console.log(error.message));
+};
 
-module.exports = { getDeckByDeckID, removeCard, removeLink, updateCard, updateDeck, getUUIDByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUUIDByEmail, storeDeck, storeCard, linkCardToDeck, getAllCardsByDeck };
+
+const deleteDeck = (deckID) => {
+  // console.log("params:", userUUID, deckID);
+  const clearLinks = deleteDeckAssociations(deckID)
+    .then(() => {
+      return client.query(`DELET FROM  decks
+      WHERE deck_id = $1;`, [deckID])
+        .then((results) => {
+          // console.log("FROM THE DATABASE:", results);
+          return res.send({ status: `Deck ID:${deckID} has been deleted` });
+        })
+        .catch((error) => console.log(error.message));
+    })
+
+
+};
+
+
+module.exports = { deleteDeckAssociations, deleteDeck, getDeckByDeckID, removeCard, removeLink, updateCard, updateDeck, getUUIDByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUUIDByEmail, storeDeck, storeCard, linkCardToDeck, getAllCardsByDeck };
