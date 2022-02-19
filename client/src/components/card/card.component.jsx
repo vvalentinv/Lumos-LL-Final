@@ -52,7 +52,7 @@ const Card = (props) => {
                     type='text'
                     className='input-text'
                     placeholder='Card Front'
-                    value={question}
+                    value={answer}
                     onChange={event => questionHandleChange(event)}
                 >
                 </textarea>
@@ -60,7 +60,7 @@ const Card = (props) => {
                     type='text'
                     className='input-text-a'
                     placeholder='Enter definition'
-                    value={answer}
+                    value={question}
                     onChange={event => answerHandleChange(event)}
                 >
                 </input>
