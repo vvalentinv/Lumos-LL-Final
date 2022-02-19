@@ -85,11 +85,13 @@ const DeckPreviewPage = () => {
   let curCard = cardList[activeCardIndex] || {};
   const deckLength = cardList.length;
 
-  const [side, setSide] = useState();
+  const [side, setSide] = useState(true);
+  const [flip, setFlip] = useState();
 
   function handleClick() {
     amendShowAnswerFlag(activeCardIndex)
     setSide(!side);
+    setFlip(side);
   }
 
   return (
@@ -116,11 +118,13 @@ const DeckPreviewPage = () => {
     </Stack> */}
       <div className='main-div'>
         <h2 className='deck-preview'>Deck Preview</h2>
-        <div className='primary-card-container' onClick={() => handleClick()}>
-          {curCard.showAnswer
-            ? curCard.term
-            : curCard.definition
-          }
+        <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()}>
+          <div className={!flip ? 'card-flip' : ''}>
+            {curCard.showAnswer
+              ? curCard.term
+              : curCard.definition
+            }
+          </div>
         </div>
         <div className='primary-card-nav'>
           <span className="left-arrow">

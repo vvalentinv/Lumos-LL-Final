@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
 
@@ -73,6 +73,24 @@ export default function Header() {
     const dispatch = useDispatch();
 
     const { user, isAuthenticated, loginWithRedirect, logout, } = useAuth0();
+
+    const [cardValue, setCardValue] = useState({
+        'searchCardInput': ''
+    });
+
+    const handleSearchCard = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setCardValue({...cardValue, [name]:value})
+        console.log("Card Value Is:", cardValue)
+        axios.post(`http://localhost,`, {cardValue})
+            .then(response => {
+                response.data.map(item => {
+                    const abc = `<div>${item.whatever}</div>`
+                    return abc
+                })
+            })
+    }
 
     useEffect(() => {
         if (user) {
@@ -228,14 +246,23 @@ export default function Header() {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Search>
+          <Search style={{position:'relative'}}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleSearchCard}
+              value={cardValue.searchCardInput}
+              name='searchCardInput'
             />
+            <div  style={{position:'absolute', backgroundColor:'red'}}>
+                <p>abc</p>
+                <p>abc</p>
+                <p>abc</p>
+                <p>abc</p>
+            </div>
           </Search>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
