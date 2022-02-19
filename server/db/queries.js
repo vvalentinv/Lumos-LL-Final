@@ -36,7 +36,7 @@ const res = require('express/lib/response');
 
 //! DECK CARDS
 const getAllCardsByDeck = (userUUID, deckID) => {
-  console.log("params for DB:", userUUID, deckID);
+  // console.log("params for DB:", userUUID, deckID);
   return client.query(`SELECT * FROM cards
                 JOIN decks_with_cards ON cards.id =  decks_with_cards.card_id
                 WHERE deck_id = $1;`, [deckID])
@@ -120,11 +120,12 @@ const storeDeck = async (deck) => {
 };
 
 //! STORECARD
-const storeCard = async (card, deck) => {
+const storeCard = async (card, userUUID) => {
+  // console.log("store card params", card, userUUID);
   const newCard = await client.query(`INSERT INTO cards (user_id, question, url, answer, all_answers, public) VALUES
-($1, $2, $3, $4, $5, $6) RETURNING *;`, [deck.userUUID, card.definition,
+($1, $2, $3, $4, $5, $6) RETURNING *;`, [userUUID, card.definition,
     'https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
-  card.term, '{"F1", "F2", "F3"}', card.isPublic]);
+    card.term, '{"F1", "F2", "F3"}', card.isPublic]);
   return newCard.rows;
 };
 
@@ -134,9 +135,9 @@ const updateCard = async (card) => {
                   SET question = $1,
                       answer = $2,
                       public = $3
-              WHERE card_id = $4;`, [card.definition, card.term, card.isPublic, card.id])
+              WHERE id = $4;`, [card.definition, card.term, card.isPublic, card.cid])
     .then((results) => {
-      // console.log(":", results);
+      // console.log("update card resolved:", results);
       return (results.rows[0]);
     })
     .catch((error) => console.log(error.message));
@@ -155,6 +156,7 @@ const removeCard = async (cardID) => {
 
 //! LINKCARDTODECK
 const linkCardToDeck = async (cardID, deckID) => {
+  // console.log("new link params:", cardID, deckID);
   const newDeckAssociation = await client.query(`INSERT INTO decks_with_cards (card_id, deck_id) VALUES
 ($1, $2) RETURNING *;`, [cardID, deckID]);
   return newDeckAssociation.rows[0];
@@ -208,5 +210,33 @@ const updateDeck = (deckTitle, deckID) => {
     .catch((error) => console.log(error.message));
 };
 
+const deleteDeckAssociations = (deckID) => {
+  // console.log("params:", userUUID, deckID);
+  return client.query(`DELET FROM  decks_with_cards
+              WHERE deck_id = $1;`, [deckID])
+    .then((results) => {
+      // console.log("FROM THE DATABASE:", results);
+      return res.send({ status: `Deck ID:${deckID} has no cards associated with it` });
+    })
+    .catch((error) => console.log(error.message));
+};
 
-module.exports = { getDeckByDeckID, removeCard, removeLink, updateCard, updateDeck, getUUIDByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUUIDByEmail, storeDeck, storeCard, linkCardToDeck, getAllCardsByDeck };
+
+const deleteDeck = (deckID) => {
+  // console.log("params:", userUUID, deckID);
+  const clearLinks = deleteDeckAssociations(deckID)
+    .then(() => {
+      return client.query(`DELET FROM  decks
+      WHERE deck_id = $1;`, [deckID])
+        .then((results) => {
+          // console.log("FROM THE DATABASE:", results);
+          return res.send({ status: `Deck ID:${deckID} has been deleted` });
+        })
+        .catch((error) => console.log(error.message));
+    })
+
+
+};
+
+
+module.exports = { deleteDeckAssociations, deleteDeck, getDeckByDeckID, removeCard, removeLink, updateCard, updateDeck, getUUIDByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUUIDByEmail, storeDeck, storeCard, linkCardToDeck, getAllCardsByDeck };
