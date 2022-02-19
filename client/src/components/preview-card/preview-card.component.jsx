@@ -6,6 +6,7 @@ const PreviewCard = (props) => {
         <>
             <p>{term}</p>
             <p>{definition}</p>
+            
         </>
     )
 

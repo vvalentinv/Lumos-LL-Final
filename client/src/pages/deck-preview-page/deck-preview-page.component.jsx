@@ -106,8 +106,8 @@ const DeckPreviewPage = () => {
         {/* <div className={`primary-card-container ${activeCardIndex ? "activeCardIndex" : ""}`} onClick={() => [amendShowAnswerFlag(activeCardIndex), handleClick()]}> */}
         <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => [amendShowAnswerFlag(activeCardIndex), handleClick()]}>
           {!loading && !curCard.showAnswer
-            ? <div className='front'>{curCard.term}</div>
-            : <div className='back'>{curCard.definition}</div>
+            ? <div className='back'>{curCard.definition}</div>
+            : <div className='front'>{curCard.term}</div>
           }
         </div>
         <div className='primary-card-nav'>
