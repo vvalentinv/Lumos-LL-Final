@@ -51,20 +51,21 @@ const Card = (props) => {
                 </div>
             </div>
             <div className='card-input-container'>
-            <input
+           
+                <input
                     type='text'
                     className='input-text'
                     placeholder='Card Front'
-                    value={answer}
-                    onChange={event => answerHandleChange(event)}
+                    value={question}
+                    onChange={event => questionHandleChange(event)}
                 >
                 </input>
                 <input
                     type='text'
                     className='input-text'
                     placeholder='Card Back'
-                    value={question}
-                    onChange={event => questionHandleChange(event)}
+                    value={answer}
+                    onChange={event => answerHandleChange(event)}
                 >
                 </input>
                 
