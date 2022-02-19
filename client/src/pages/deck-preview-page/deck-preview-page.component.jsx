@@ -6,6 +6,10 @@ import "./deck-preview.page-styles.scss";
 // import Icon from '@mui/material/Icon';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import SnackbarContent from '@mui/material/SnackbarContent';
+import Box from '@mui/material/Box';
 
 import { getDeckBydeckID, getCardsByDeckForUser } from "../../helpers/selectors";
 import { useSelector } from "react-redux";
@@ -81,22 +85,46 @@ const DeckPreviewPage = () => {
   let curCard = cardList[activeCardIndex] || {};
   const deckLength = cardList.length;
 
-  const [side, setSide] = useState();
+  const [side, setSide] = useState(true);
+  const [flip, setFlip] = useState();
 
   function handleClick() {
     amendShowAnswerFlag(activeCardIndex)
     setSide(!side);
+    setFlip(side);
   }
 
   return (
     <>
+      {/* <Stack spacing={2} sx={{ maxWidth: 600 }}>
+      <SnackbarContent message="I love snacks." />
+      <SnackbarContent
+        message={
+          'I love candy. I love cookies. I love cupcakes. \
+          I love cheesecake. I love chocolate.'
+        }
+      />
+      <SnackbarContent
+        message="I love candy. I love cookies. I love cupcakes."
+
+      />
+      <SnackbarContent
+        message={
+          'I love candy. I love cookies. I love cupcakes. \
+          I love cheesecake. I love chocolate.'
+        }
+
+      />
+    </Stack> */}
       <div className='main-div'>
         <h2 className='deck-preview'>Deck Preview</h2>
-        <div className='primary-card-container' onClick={() => handleClick()}>
-          {curCard.showAnswer
-            ? curCard.term
-            : curCard.definition
-          }
+        <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()}>
+          <div className={!flip ? 'card-flip' : ''}>
+            {curCard.showAnswer
+              ? curCard.term
+              : curCard.definition
+            }
+          </div>
         </div>
         <div className='primary-card-nav'>
           <span className="left-arrow">
@@ -110,27 +138,31 @@ const DeckPreviewPage = () => {
           </span>
         </div>
       </div>
+      <h2 className="q-in-set">{`Questions in this set (${cardList.length})`}</h2>
       <div className="questions-answers">
-        <h2>{`Questions in this set (${cardList.length})`}</h2>
         <div className='preview-card-container'>
           {cardList.length && cardList.map((card) => {
             const { term, definition } = card;
             return (
-              <PreviewCard
-                className="preview-card"
-                key={uuidv4()}
-                term={term}
-                definition={definition}
-              />
+                <PreviewCard
+                  className="preview-card"
+                  key={uuidv4()}
+                  term={term}
+                  definition={definition}
+                />
             )
           })}
         </div>
       </div>
-      <Link to={`/editdeck/${deckID}`}>
-        <CustomButton>
-          Add or Remove Questions
-        </CustomButton>
-      </Link>
+      <div style={{ width: '100%' }}>
+    </div>
+      <div className="button">
+        <Box textAlign='center'>
+              <Button size="large" variant="contained" href={`/editdeck/${deckID}`}>
+                Add or Remove Questions
+              </Button>
+        </Box>
+      </div>
     </>
   );
 }

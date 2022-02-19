@@ -22,14 +22,14 @@
 .primary-card-container {
   display: flex;
   overflow-wrap: break-word;
-  font-size: 6vmin;
+  font-size: 5vmin;
   text-align: center;
   // margin: 1em auto;
   margin: 2vh auto 1.6vh auto;
   background: var(--grad-one);
   background: #292f41;
   height: 50vh;
-  width: 45vw;
+  width: 50vw;
   justify-content: center;
   align-items: center;
   color: #ffffff;
@@ -43,23 +43,39 @@
   transition: 700ms;
   transform-style: preserve-3d;
   transform: perspective(1000px) rotateY(var(--rotate-y, 0))
-  translateY(var(--translate-y, 0));
+  translateY(var(--translate-y, 180deg));
+}
+
+.card-flip {
+  height:100%;
+  display:flex;
+  align-items: center;
+  text-align: center;
+  // position: absolute;
+  // transition: 700ms;
+  // transform-style: preserve-3d;
+  // transform: perspective(1000px) rotateY(90, 0);
+  // translateY:(90, 0);
+  transform: rotateY(-180deg);
 }
 
 .side {
+  position: relative;
   transform: rotateY(180deg);
   background: #292f41;
 }
 
-
-.primary-card-container.front,
-.primary-card-container.back {
-  position: absolute;
-  padding: 1rem;
+// .primary-card-container.front,
+// .primary-card-container.back {
+//   position: absolute;
+//   padding: 1rem;
   // backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
+//   -webkit-backface-visibility: hidden;
+// }
 
+.side .back {
+  transform: rotateY(-180deg);
+}
 // .primary-card-container.front {
 //   position: absolute;
 //   transform: rotateX(0deg);
@@ -74,9 +90,6 @@
 //   // transform: rotateY(0deg);
 // }
 
-.side .back {
-  transform: rotateY(180deg);
-}
 
 
 // .primary-card-container.back {
@@ -105,23 +118,32 @@ span.deck-length {
  align-self: center;
 }
 
-.questions-answers {
-  display: grid;
-  width: 85%;
-  color:#ffffff;
-  align-items: center;
-  // flex-direction: row;
-  // align-items: center;
-  justify-content: center;
-  .preview-card-container {
-    word-wrap:break-word;
-    display: grid;
-    background-color: #292f41;
-    grid-template-columns: auto auto;
-    text-align: center;
-    border-color: #ffffff;
-    border: 1em;
-  }
-
+.q-in-set {
+  text-align: center;
 }
 
+.questions-answers {
+  display: flex;
+  //  grid-template-columns: 1fr;
+  // width: 100%;
+  flex-wrap: wrap;
+  color:#ffffff;
+  align-items: center;
+  justify-content: center;
+  .preview-card-container {
+    // word-wrap:break-word;
+    // display: grid;
+    background-color: 0a082e;
+    // grid-template-columns: 1fr;
+    // grid-template-rows: 1fr 1fr;
+    text-align: center;
+  }
+}
+
+
+
+.button {
+  display:grid;
+  margin-top: 1em;
+  align-items: center;
+}
