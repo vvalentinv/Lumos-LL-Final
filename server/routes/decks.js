@@ -6,11 +6,19 @@ const deckRoutes = () => {
   //! GET ALL DECKS FOR USER
   router.get('/:id', (req, res) => {
     const userUUID = req.params.id;
-    console.log('userUUID:', userUUID);
     getAllDecksForUser(userUUID)
       .then((data) => res.send(data))
       .catch((error) => console.log(error));
   });
+
+  //! delete DECK
+  router.delete('/:id', (req, res) => {
+    const deckID = req.params.id;
+    deleteDeck(deckID)
+      .then((data) => res.send(data))
+      .catch((error) => console.log(error));
+  });
+
 
   //! GET SPECIFIC DECK
   router.post('/:id', (req, res) => {
@@ -56,10 +64,11 @@ const deckRoutes = () => {
     return res.send({ status: `for user ${userUUID} stored deck ${newDeck[0].id} associated cards with ids ${cards} with it` });
   });
 
+
   //! UPDATE DECKS
   router.put('/', async (req, res) => {
-    // console.log("------------------------------------------", req.body);
-    const { userUUID, deckID, deckTitle } = req.body;
+    console.log("------------------------------------------", req.body);
+    const { userUUID, deckID, deckTitle, cardList } = req.body;
 
     //~ UPDATE DECK
     const newDeck = await updateDeck(deckTitle, deckID);
@@ -71,33 +80,41 @@ const deckRoutes = () => {
     const oldCardsIDs = [];
     oldCards.forEach((c) => oldCardsIDs.push(c.card_id));
     // console.log("oldCardsIDs =>", oldCardsIDs);
-    if (oldCardsIDs.length <= req.body.cardList.length) {
-      const newCards = req.body.cardList.slice(oldCardsIDs.length);
-      // console.log("newCards =>", newCards);
-      for (const card of newCards) {
+    // console.log("cardsList", cardList);
+
+    const unchangedCardIDs = [];
+    const updatedCardIDs = [];
+    const newCards = [];
+    const deletedCards = [];
+
+    for (const card of cardList) {
+      if (typeof card.id === 'number' && card.isUpdated) {
+        const update = await updateCard(card);
+        updatedCardIDs.push(card.cid);
+      } else if (typeof card.id === 'number' && !card.isUpdated) {
+        unchangedCardIDs.push(card.cid);
+      } else if (typeof card.id !== 'number' && card.isUpdated) {
+
         const newCard = await storeCard(card, userUUID);
         const newLink = await linkCardToDeck(newCard[0].id, deckID);
-      }
-      const newforUpdateCards = req.body.cardList.splice(0, -newCards.length);
-      for (let i = 0; i < newforUpdateCards.length; i++) {
-        newforUpdateCards[i].id = oldCardsIDs[i];
-        const update = await updateCard(newforUpdateCards[i]);
-      }
-    } else {
-      const toBeUpdated = req.body.cardList;
-      const tobeRemoved = oldCardsIDs.slice(toBeUpdated.length);
-
-      for (let i = 0; i < toBeUpdated.length; i++) {
-        toBeUpdated[i].card_id = oldCardsIDs[i];
-        // console.log("card for update on less cards branch:", toBeUpdated[i]);
-        const updateCurrentExistingCard = await updateCard(toBeUpdated[i])
-      }
-      for (const cardID of tobeRemoved) {
-        const deleteLink = await removeLink(deckID, cardID);
-        const deletecard = await removeCard(cardID);
+        newCards.push(newCard);
       }
     }
-
+    //check if existing card was deleted
+    const deleted = oldCards.length > unchangedCardIDs.length + updatedCardIDs.length;
+    // console.log("will delete", deleted);
+    if (deleted) {
+      for (const id of oldCardsIDs) {
+        if (!unchangedCardIDs.includes(id) && !updatedCardIDs.includes(id)) {
+          const deleteLink = await removeLink(deckID, id);
+          const deleteCard = await removeCard(id);
+          deletedCards.push(deleteCard);
+        }
+      }
+    }
+    // check that all front-end cards were processed
+    const allProcessed = cardList.length === unchangedCardIDs.length + updatedCardIDs.length + newCards.length;
+    // console.log("processed all cards", allProcessed);
 
     return res.send({ status: `for user ${userUUID} updated deck ${deckID} ` });
   });

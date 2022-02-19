@@ -20,10 +20,13 @@ const cardRoutes = () => {
         data.forEach((c, index) => {
           let id = index + 1;
           const card = {};
+          card.cid = c.card_id;
           card.id = id;
           card.term = c.question;
           card.definition = c.answer;
           card.showAnswer = false;
+          card.isPublic = false;
+          card.isUpdated = false;
           changeForFrontEnd.push(card);
         });
         // console.log("changeForFrontEnd:", changeForFrontEnd);
