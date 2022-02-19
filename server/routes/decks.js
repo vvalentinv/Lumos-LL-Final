@@ -58,8 +58,8 @@ const deckRoutes = () => {
 
   //! UPDATE DECKS
   router.put('/', async (req, res) => {
-    // console.log("------------------------------------------", req.body);
-    const { userUUID, deckID, deckTitle } = req.body;
+    console.log("------------------------------------------", req.body);
+    const { userUUID, deckID, deckTitle, cardList } = req.body;
 
     //~ UPDATE DECK
     const newDeck = await updateDeck(deckTitle, deckID);
@@ -70,15 +70,19 @@ const deckRoutes = () => {
     // console.log("oldCards =>", oldCards);
     const oldCardsIDs = [];
     oldCards.forEach((c) => oldCardsIDs.push(c.card_id));
-    // console.log("oldCardsIDs =>", oldCardsIDs);
+    console.log("oldCardsIDs =>", oldCardsIDs);
     if (oldCardsIDs.length <= req.body.cardList.length) {
-      const newCards = req.body.cardList.slice(oldCardsIDs.length);
+      const newCards = cardList.slice(oldCardsIDs.length);
       // console.log("newCards =>", newCards);
       for (const card of newCards) {
         const newCard = await storeCard(card, userUUID);
         const newLink = await linkCardToDeck(newCard[0].id, deckID);
       }
-      const newforUpdateCards = req.body.cardList.splice(0, -newCards.length);
+      console.log("cardlist:", cardList);
+      const newforUpdateCards = cardList.filter((c) => c.isUpdated === true);
+
+      console.log("newForUPDATE CARDS:", newforUpdateCards);
+
       for (let i = 0; i < newforUpdateCards.length; i++) {
         newforUpdateCards[i].id = oldCardsIDs[i];
         const update = await updateCard(newforUpdateCards[i]);

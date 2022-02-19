@@ -134,9 +134,9 @@ const updateCard = async (card) => {
                   SET question = $1,
                       answer = $2,
                       public = $3
-              WHERE card_id = $4;`, [card.definition, card.term, card.isPublic, card.id])
+              WHERE id = $4;`, [card.definition, card.term, card.isPublic, card.id])
     .then((results) => {
-      // console.log(":", results);
+      console.log("update card resolved:", results);
       return (results.rows[0]);
     })
     .catch((error) => console.log(error.message));
