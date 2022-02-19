@@ -29,7 +29,7 @@
   background: var(--grad-one);
   background: #292f41;
   height: 50vh;
-  width: 45vw;
+  width: 50vw;
   justify-content: center;
   align-items: center;
   color: #ffffff;
@@ -105,23 +105,32 @@ span.deck-length {
  align-self: center;
 }
 
-.questions-answers {
-  display: grid;
-  width: 85%;
-  color:#ffffff;
-  align-items: center;
-  // flex-direction: row;
-  // align-items: center;
-  justify-content: center;
-  .preview-card-container {
-    word-wrap:break-word;
-    display: grid;
-    background-color: #292f41;
-    grid-template-columns: auto auto;
-    text-align: center;
-    border-color: #ffffff;
-    border: 1em;
-  }
-
+.q-in-set {
+  text-align: center;
 }
 
+.questions-answers {
+  display: flex;
+  //  grid-template-columns: 1fr;
+  // width: 100%;
+  flex-wrap: wrap;
+  color:#ffffff;
+  align-items: center;
+  justify-content: center;
+  .preview-card-container {
+    // word-wrap:break-word;
+    // display: grid;
+    background-color: 0a082e;
+    // grid-template-columns: 1fr;
+    // grid-template-rows: 1fr 1fr;
+    text-align: center;
+  }
+}
+
+
+
+.button {
+  display:grid;
+  margin-top: 1em;
+  align-items: center;
+}

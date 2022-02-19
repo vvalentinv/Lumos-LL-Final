@@ -1,0 +1,32 @@
+.q-a {
+  display: flex;
+  border-radius: 0.2em;
+  margin: 0.2em;
+  background-color: #292f41;
+
+  .container-q {
+    align-self: center;
+    overflow-wrap: break-word;
+    width: 15vw;
+    // height: 3vw;
+    // flex-grow: 50;
+  }
+
+  .vertical {
+    Float:left;
+    border: 1px solid #897f6e;
+    // height: 100%;
+    // width: 0.2vw; /* edit this if you want */
+    // margin: 0 1 em;
+    // background-color: #ffff;
+  }
+
+  .container-a {
+    text-align: start;
+    align-self: center;
+    overflow-wrap: break-word;
+    width: 35vw;
+    height: 3vw em;
+  }
+
+}
