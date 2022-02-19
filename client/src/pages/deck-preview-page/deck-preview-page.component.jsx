@@ -76,6 +76,7 @@ const DeckPreviewPage = () => {
       if (activeCardIndex < 1) return;
       amendShowAnswerFlag(activeCardIndex, true);
       setActiveCardIndex(activeCardIndex - 1);
+      setSide(false);
     }
   }
 
@@ -84,6 +85,7 @@ const DeckPreviewPage = () => {
       if (activeCardIndex > cardList.length - 2) return;
       amendShowAnswerFlag(activeCardIndex, true);
       setActiveCardIndex(activeCardIndex + 1);
+      setSide(false);
     }
   }
 

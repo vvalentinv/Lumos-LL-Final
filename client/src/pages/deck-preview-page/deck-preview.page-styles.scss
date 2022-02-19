@@ -43,48 +43,49 @@
   transition: 700ms;
   transform-style: preserve-3d;
   transform: perspective(1000px) rotateY(var(--rotate-y, 0))
-    translateY(var(--translate-y, 0));
-}
-
-.primary-card-container .front,
-.primary-card-container .back {
-  position: absolute;
-  padding: 1rem;
-  backface-visibility: hidden;
-}
-
-.primary-card-container.side.front {
-  opacity: 0;
-  display:none;
-  position: absolute;
-  // transform: rotateY(0deg);
-}
-
-.side.back {
-  position: absolute;
-  // transform: rotateY(180deg);
-  -webkit-backface-visibility: hidden; 
-  backface-visibility: hidden;
-}
-
-.front {
-  position: absolute;
-  // transform: rotateY(180deg);
-  // -webkit-backface-visibility: hidden;
-  // backface-visibility: hidden;
-}
-
-.back {
-  position: absolute;
-  transform: rotateY(180deg);
-  // -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  translateY(var(--translate-y, 0));
 }
 
 .side {
   transform: rotateY(180deg);
   background: #292f41;
 }
+
+
+.primary-card-container.front,
+.primary-card-container.back {
+  position: absolute;
+  padding: 1rem;
+  // backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+// .primary-card-container.front {
+//   position: absolute;
+//   transform: rotateX(0deg);
+//   // transform: rotateY(180deg);
+//   // -webkit-backface-visibility: hidden;
+//   backface-visibility: hidden;
+// }
+
+// .primary-card-container.side.front {
+//   opacity: 0;
+//   display:none;
+//   // transform: rotateY(0deg);
+// }
+
+.side .back {
+  transform: rotateY(180deg);
+}
+
+
+// .primary-card-container.back {
+//   position: absolute;
+//   transform: rotateY(0deg);
+//   -webkit-backface-visibility: hidden;
+//   backface-visibility: hidden;
+// }
+
 
 div.primary-card-nav {
   display: flex;
@@ -106,7 +107,7 @@ span.deck-length {
 
 .questions-answers {
   display: grid;
-  // width: 100%;
+  width: 85%;
   color:#ffffff;
   align-items: center;
   // flex-direction: row;
