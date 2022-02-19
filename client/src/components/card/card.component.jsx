@@ -51,7 +51,8 @@ const Card = (props) => {
                 </div>
             </div>
             <div className='card-input-container'>
-            <input
+           
+                <input
                     type='text'
                     className='input-text'
                     placeholder='Card Front'
@@ -65,7 +66,6 @@ const Card = (props) => {
                     placeholder='Card Back'
                     value={answer}
                     onChange={event => answerHandleChange(event)}
-                    
                 >
                 </input>
                 
