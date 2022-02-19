@@ -1,14 +1,16 @@
 .header {
     display: flex;
     justify-content: space-between;
-    width: 100%;
     border-color: #f6f7fb;
     border-width: 0 0 1.5px 0;
+    margin: 0.4em;
 
 
     .header-right {
         align-items: center;
-        display: inline-flex;
-        font-size: 10px;
+        align-self: center;
+        display: inline-block;
+        // font-size: 10px;
+        // margin: 0.5em;
     }
 }

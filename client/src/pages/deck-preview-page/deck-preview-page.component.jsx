@@ -154,11 +154,9 @@ const DeckPreviewPage = () => {
     </div>
       <div className="button">
         <Box textAlign='center'>
-            <Link to={`/editdeck/${deckID}`}>
-              <Button variant="contained">
+              <Button size="large" variant="contained" href={`/editdeck/${deckID}`}>
                 Add or Remove Questions
               </Button>
-            </Link>
         </Box>
       </div>
     </>
