@@ -51,7 +51,7 @@ const Card = (props) => {
                 <textarea
                     type='text'
                     className='input-text'
-                    placeholder='Enter term'
+                    placeholder='Card Front'
                     value={question}
                     onChange={event => questionHandleChange(event)}
                 >
@@ -64,6 +64,7 @@ const Card = (props) => {
                     onChange={event => answerHandleChange(event)}
                 >
                 </input>
+
             </div>
         </div>
 
@@ -71,9 +72,3 @@ const Card = (props) => {
 };
 
 export default Card;
-
-
-
-
-
-

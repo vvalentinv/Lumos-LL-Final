@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+
+import "./deck-preview.page-styles.scss";
+// import Icon from '@mui/material/Icon';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
 import { getDeckBydeckID, getCardsByDeckForUser } from "../../helpers/selectors";
 import { useSelector } from "react-redux";
 
 import PreviewCard from "../../components/preview-card/preview-card.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
 
-import { ReactComponent as LeftArrowLogo } from '../../assets/left-arrow.svg';
-import { ReactComponent as RightArrowLogo } from '../../assets/right-arrow.svg';
+// import { ReactComponent as LeftArrowLogo } from '../../assets/left-arrow.svg';
+// import { ReactComponent as RightArrowLogo } from '../../assets/right-arrow.svg';
 
 const DeckPreviewPage = () => {
 
@@ -86,38 +92,51 @@ const DeckPreviewPage = () => {
   let curCard = cardList[activeCardIndex] || {};
   const deckLength = cardList.length;
 
+  const [side, setSide] = useState();
+  function handleClick() {
+    console.log("clicked!");
+    setSide(!side);
+    console.log(side);
+  }
+
   return (
     <>
-      <h2>Deck Preview</h2>
-      <div className='primary-card-container' onClick={() => amendShowAnswerFlag(activeCardIndex)}>
-        {!loading && !curCard.showAnswer
-          ? curCard.term
-          : curCard.definition
-        }
+      <div className='main-div'>
+        <h2 className='deck-preview'>Deck Preview</h2>
+        {/* <div className={`primary-card-container ${activeCardIndex ? "activeCardIndex" : ""}`} onClick={() => [amendShowAnswerFlag(activeCardIndex), handleClick()]}> */}
+        <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => [amendShowAnswerFlag(activeCardIndex), handleClick()]}>
+          {!loading && !curCard.showAnswer
+            ? <div className='back'>{curCard.definition}</div>
+            : <div className='front'>{curCard.term}</div>
+          }
+        </div>
+        <div className='primary-card-nav'>
+          <span className="left-arrow">
+            <ArrowBack className='left-arrow-icon' sx={{ fontSize: 35 }} onClick={() => leftArrowSubmit()}></ArrowBack>
+          </span>
+          <span className='deck-length'>
+            {`${activeCardIndex + 1}/${deckLength}`}
+          </span>
+          <span className="right-arrow">
+            <ArrowForwardIcon className='right-arrow-icon' sx={{ fontSize: 35 }} onClick={() => rightArrowSubmit()}></ArrowForwardIcon>
+          </span>
+        </div>
       </div>
-      <div className='primary-card-nav'>
-        <span className='left-arrow-icon' onClick={() => leftArrowSubmit()} >
-          <LeftArrowLogo />
-        </span>
-        <span >
-          {`${activeCardIndex + 1}/${deckLength}`}
-        </span>
-        <span className='right-arrow-icon' onClick={() => rightArrowSubmit()}>
-          <RightArrowLogo />
-        </span>
-      </div>
-      <h2>{`Questions in this set (${cardList.length})`}</h2>
-      <div className='preview-card-container'>
-        {cardList.length && cardList.map((card) => {
-          const { term, definition } = card;
-          return (
-            <PreviewCard
-              key={uuidv4()}
-              term={term}
-              definition={definition}
-            />
-          )
-        })}
+      <div className="questions-answers">
+        <h2>{`Questions in this set (${cardList.length})`}</h2>
+        <div className='preview-card-container'>
+          {cardList.length && cardList.map((card) => {
+            const { term, definition } = card;
+            return (
+              <PreviewCard
+                className="preview-card"
+                key={uuidv4()}
+                term={term}
+                definition={definition}
+              />
+            )
+          })}
+        </div>
       </div>
       <Link to={`/editdeck/${deckID}`}>
         <CustomButton>
