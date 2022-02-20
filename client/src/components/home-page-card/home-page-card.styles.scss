@@ -1,3 +1,11 @@
 .deck-name-container{
-    
+    padding: 10px;
+    margin: 5px;
+    background-color: #2e3856;
+    cursor: pointer;
+    border-radius: 5px;
+
+    &:hover{ 
+        border-bottom: 6px solid #bec2d0;
+    }
 }
