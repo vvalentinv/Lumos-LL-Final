@@ -14,7 +14,6 @@ const INITIAL_STATE = {
 const cardListReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case CardListActionTypes.FETCH_CARD_LIST:
-            console.log('ACTION', action)
             return {
                 ...state,
                 cardList: [...action.payload]
@@ -29,13 +28,11 @@ const cardListReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 cardList: state.cardList.filter((card) => card.id !== action.payload)
             };
-
         case CardListActionTypes.UPDATE_CARD:
             return {
                 ...state,
                 cardList: updateCardInCardList(state.cardList, action.payload)
             };
-
         default:
             return state;
     }
