@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useSelector } from "react-redux";
 import HomePageCard from "../../components/home-page-card/home-page-card";
 import { getDeckListForUser } from "../../helpers/selectors";
+import PublicCardsContext from "../../context/public-cards/public-cards.context";
+
 
 const HomePage = () => {
 
   const [deckList, setDeckList] = useState([]);
   const selUser = useSelector(state => state.user);
   const { userUUID } = selUser;
+
 
   useEffect(() => {
     if (!userUUID) {
@@ -20,8 +23,6 @@ const HomePage = () => {
       .catch(error => console.log(error));
   }, [userUUID]);
 
-  console.log('HOOK', deckList);
-
   return (
     <>
       <p>YOUR DECKS</p>
@@ -33,6 +34,8 @@ const HomePage = () => {
               key={id}
               deckID={id}
               deckName={deck_name}
+              deckList={deckList}
+              setDeckList={setDeckList}
             />
           )
         })}
