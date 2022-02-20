@@ -1,6 +1,7 @@
 
 
     .add-row-card-container {
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -10,14 +11,19 @@
         height: 120px;
         font-weight: bold;
         cursor: pointer;
-        
 
         &:hover{ 
-            color:#ffce25; 
+            color:#ffce25;
+            .add-card-div {
+                border-bottom: 5px solid #ffce25;  
+            }
         }
-        
-        .add-card-row-text {
-            border-color: #3dcfcf ;
-            border-width: 0 0 1.5px 0;
+
+        .add-card-div {
+            display:flex;
+            text-align: center;
+            border-width: thick;
+            padding: 0 0 0.8em 0;
+            border-bottom: 5px solid #ffffff;
         }
     }

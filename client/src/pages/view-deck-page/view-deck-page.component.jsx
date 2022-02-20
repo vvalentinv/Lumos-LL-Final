@@ -83,7 +83,7 @@ const ViewDeckPage = () => {
     return (
         <div className='view-deck-page'>
             <div className='back-link'>
-                <span className='back-link-text' onClick={() => navigate(-1)}>Back to set</span>
+                <span className='back-link-text' onClick={() => navigate(`/deckpreview/${deckID}`)}>Back to set</span>
             </div>
             {editMode
                 ? ''
