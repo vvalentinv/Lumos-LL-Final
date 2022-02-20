@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import HomePageCard from "../../components/home-page-card/home-page-card";
 import { getDeckListForUser } from "../../helpers/selectors";
 
 const HomePage = () => {
@@ -8,36 +9,33 @@ const HomePage = () => {
   const selUser = useSelector(state => state.user);
   const { userUUID } = selUser;
 
-  const getDeckNames = (result) => {
-    const res = [];
-
-    result.forEach((deck) => {
-      res.push(deck.deck_name);
-    })
-
-    return res;
-  }
-
   useEffect(() => {
     if (!userUUID) {
       return;
     }
     getDeckListForUser(userUUID)
       .then(result => {
-        let allDeckNames = getDeckNames(result.data);
-        setDeckList(allDeckNames);
+        setDeckList(result.data);
       })
       .catch(error => console.log(error));
   }, [userUUID]);
 
-  console.log("deckList:", deckList);
-
+  console.log('HOOK', deckList);
 
   return (
     <>
-      <p>Home</p>
+      <p>YOUR DECKS</p>
       <div className='deck-container'>
-
+        {deckList.length && deckList.map((deck) => {
+          const { id, deck_name } = deck
+          return (
+            <HomePageCard
+              key={id}
+              deckID={id}
+              deckName={deck_name}
+            />
+          )
+        })}
 
       </div>
     </>

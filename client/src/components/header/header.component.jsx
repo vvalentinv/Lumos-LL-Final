@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 import axios from "axios";
 
@@ -69,40 +70,39 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Header() {
 
-    //LOGIN
-    const dispatch = useDispatch();
+  const { user, isAuthenticated, loginWithRedirect, logout, } = useAuth0();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const { user, isAuthenticated, loginWithRedirect, logout, } = useAuth0();
+  const [cardValue, setCardValue] = useState({
+    'searchCardInput': ''
+  });
 
-    const [cardValue, setCardValue] = useState({
-        'searchCardInput': ''
-    });
+  const handleSearchCard = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setCardValue({ ...cardValue, [name]: value })
+    console.log("Card Value Is:", cardValue)
+    axios.post(`http://localhost,`, { cardValue })
+      .then(response => {
+        response.data.map(item => {
+          const abc = `<div>${item.whatever}</div>`
+          return abc
+        })
+      })
+  }
 
-    const handleSearchCard = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        setCardValue({...cardValue, [name]:value})
-        console.log("Card Value Is:", cardValue)
-        axios.post(`http://localhost,`, {cardValue})
-            .then(response => {
-                response.data.map(item => {
-                    const abc = `<div>${item.whatever}</div>`
-                    return abc
-                })
-            })
+  useEffect(() => {
+    if (user) {
+      axios.post(`http://localhost:8080/api/users/`, { user })
+        .then(result => {
+          dispatch(setUser(result.data));
+        })
+        .catch(error => console.log(error));
     }
+  }, [user])
 
-    useEffect(() => {
-        if (user) {
-            axios.post(`http://localhost:8080/api/users/`, { user })
-                .then(result => {
-                    dispatch(setUser(result.data));
-                })
-                .catch(error => console.log(error));
-        }
-    }, [user])
-
-    //-----------------------------------------------------
+  //-----------------------------------------------------
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -167,7 +167,7 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-      <Box>Lumos-LL-Final/client/public/favicon.ico</Box>
+        <Box>Lumos-LL-Final/client/public/favicon.ico</Box>
         <IconButton size="small" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <MailIcon />
@@ -189,35 +189,35 @@ export default function Header() {
       </MenuItem>
       <Box >
         {!isAuthenticated
-            ?
-        <MenuItem
+          ?
+          <MenuItem
 
-        onClick={() => loginWithRedirect()}>    
+            onClick={() => loginWithRedirect()}>
             <IconButton
-            size="small"
-            aria-label="show 17 new notifications"
-            color="inherit"
+              size="small"
+              aria-label="show 17 new notifications"
+              color="inherit"
             >
-            <Badge badgeContent={0} color="error">
+              <Badge badgeContent={0} color="error">
                 <NotificationsIcon />
-            </Badge>
+              </Badge>
             </IconButton>
             <p>Sign In</p>
-        </MenuItem>
-        :
-        <MenuItem
-        onClick={() => logout()}>
+          </MenuItem>
+          :
+          <MenuItem
+            onClick={() => logout()}>
             <IconButton
-            size="small"
-            aria-label="show 17 new notifications"
-            color="inherit"
+              size="small"
+              aria-label="show 17 new notifications"
+              color="inherit"
             >
-            <Badge badgeContent={0} color="error">
+              <Badge badgeContent={0} color="error">
                 <NotificationsIcon />
-            </Badge>
+              </Badge>
             </IconButton>
             <p>Sign Out</p>
-        </MenuItem>
+          </MenuItem>
         }
       </Box>
     </Menu>
@@ -225,7 +225,7 @@ export default function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{backgroundColor: "#292f41"}}>
+      <AppBar position="static" style={{ backgroundColor: "#292f41" }}>
         <Toolbar>
           {/* <IconButton
             size="large"
@@ -241,29 +241,30 @@ export default function Header() {
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
+            onClick={() => navigate('/')}
           >
             lumos
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Search style={{position:'relative'}}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={handleSearchCard}
-              value={cardValue.searchCardInput}
-              name='searchCardInput'
-            />
-            <div  style={{position:'absolute', backgroundColor:'red'}}>
+            <Search style={{ position: 'relative' }}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={handleSearchCard}
+                value={cardValue.searchCardInput}
+                name='searchCardInput'
+              />
+              <div style={{ position: 'absolute', backgroundColor: 'red' }}>
                 <p>abc</p>
                 <p>abc</p>
                 <p>abc</p>
                 <p>abc</p>
-            </div>
-          </Search>
+              </div>
+            </Search>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -291,16 +292,16 @@ export default function Header() {
             </IconButton>
             {/* <div className='header-right'> */}
             <Box ml={3} mt={0.5}>
-                {!isAuthenticated
-                    ?
-                    <Button  variant='contained' size="small" onClick={() => loginWithRedirect()}>
-                        Sign In
-                    </Button >
-                    :
-                    <Button variant='contained' size="small" onClick={() => logout()}>
-                        Sign Out
-                    </Button>
-                }
+              {!isAuthenticated
+                ?
+                <Button variant='contained' size="small" onClick={() => loginWithRedirect()}>
+                  Sign In
+                </Button >
+                :
+                <Button variant='contained' size="small" onClick={() => logout()}>
+                  Sign Out
+                </Button>
+              }
             </Box>
             {/* </div> */}
           </Box>
@@ -320,7 +321,7 @@ export default function Header() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </Box>
+    </Box >
   );
 }
 
