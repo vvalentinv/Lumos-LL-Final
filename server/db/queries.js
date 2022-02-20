@@ -1,39 +1,6 @@
 const client = require('./connection');
 const res = require('express/lib/response');
 
-//! USERS
-// const getAllUsers = (cb) => {
-//   client.query("SELECT * FROM users;")
-//     .then((results) => {
-// users array of objects
-// console.log(results.rows);
-//       cb(results.rows);
-//     })
-//     .catch((error) => console.log(error.message));
-// };
-
-//! DECKS
-// const getAllDecks = (cb) => {
-//   client.query("SELECT * FROM decks;")
-//     .then((results) => {
-// decks array of objects
-// console.log(results.rows);
-//       cb(results.rows);
-//     })
-//     .catch((error) => console.log(error.message));
-// };
-
-//! CARDS
-// const getAllCards = (cb) => {
-//   client.query("SELECT * FROM cards;")
-//     .then((results) => {
-// cards array of objects
-// console.log(results.rows);
-//       cb(results.rows);
-//     })
-//     .catch((error) => console.log(error.message));
-// };
-
 //! DECK CARDS
 const getAllCardsByDeck = (userUUID, deckID) => {
   // console.log("params for DB:", userUUID, deckID);
@@ -212,7 +179,7 @@ const updateDeck = (deckTitle, deckID) => {
 
 const deleteDeckAssociations = (deckID) => {
   // console.log("params:", userUUID, deckID);
-  return client.query(`DELET FROM  decks_with_cards
+  return client.query(`DELETE FROM  decks_with_cards
               WHERE deck_id = $1;`, [deckID])
     .then((results) => {
       // console.log("FROM THE DATABASE:", results);
@@ -226,7 +193,7 @@ const deleteDeck = (deckID) => {
   // console.log("params:", userUUID, deckID);
   const clearLinks = deleteDeckAssociations(deckID)
     .then(() => {
-      return client.query(`DELET FROM  decks
+      return client.query(`DELETE FROM  decks
       WHERE deck_id = $1;`, [deckID])
         .then((results) => {
           // console.log("FROM THE DATABASE:", results);

@@ -45,6 +45,15 @@ const ViewDeckPage = () => {
         }
     }, []);
 
+    useEffect(() => {
+      if (userUUID) {
+         getDeckListForUser(userUUID)
+         .then(data => setExistingDeckTitles(data.map(deck => deck.deck_name))         )
+         .catch(error => console.log(error.message))
+      }
+  }, []);
+      console.log("existingDeckTitles:",existingDeckTitles);
+
     const addNewCard = () => {
         const newCard = {
             id: uuidv4(),
