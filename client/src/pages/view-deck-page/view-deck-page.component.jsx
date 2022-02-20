@@ -41,18 +41,18 @@ const ViewDeckPage = () => {
         if (deckID) {
             setLoading(true);
             dispatch(fetchCardList(userUUID, deckID, setLoading))
-            // Another API call to get setDeckTitle()
+            // Implement AXIOS Call to get Current Deck Title and populate Deck Title Area
         }
     }, []);
 
     useEffect(() => {
-      if (userUUID) {
-         getDeckListForUser(userUUID)
-         .then(data => setExistingDeckTitles(data.map(deck => deck.deck_name))         )
-         .catch(error => console.log(error.message))
-      }
-  }, []);
-      console.log("existingDeckTitles:",existingDeckTitles);
+        if (userUUID) {
+            getDeckListForUser(userUUID)
+                .then(data => setExistingDeckTitles(data.map(deck => deck.deck_name)))
+                .catch(error => console.log(error.message))
+        }
+    }, []);
+    console.log("existingDeckTitles:", existingDeckTitles);
 
     const addNewCard = () => {
         const newCard = {
