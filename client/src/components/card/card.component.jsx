@@ -38,34 +38,35 @@ const Card = (props) => {
     }
 
     return (
-        <div className='card'>
-            <div className='card-toolbar'>
-                <span className='card-number'>{number}</span>
-                <div className='delete-logo-container'>
-                    <DeleteIcon
-                        className='delete-logo'
-                        onClick={() => length <= 2 ? null : dispatch(deleteCard(id))}
-                    />
+        <div className='main-card-div'>       
+            <div className='card'>
+                <div className='card-toolbar'>
+                    <span className='card-number'>{number}</span>
+                    <div className='delete-logo-container'>
+                        <DeleteIcon
+                            className='delete-logo'
+                            onClick={() => length <= 2 ? null : dispatch(deleteCard(id))}
+                        />
+                    </div>
                 </div>
-            </div>
-            <div className='card-input-container'>
-                <textarea
-                    type='text'
-                    className='input-text'
-                    placeholder='Card Front'
-                    value={answer}
-                    onChange={event => answerHandleChange(event)}
-                >
-                </textarea>
-                <input
-                    type='text'
-                    className='input-text-a'
-                    placeholder='Enter definition'
-                    value={question}
-                    onChange={event => questionHandleChange(event)}
-                >
-                </input>
-
+                <div className='card-input-container'>
+                    <textarea
+                        type='text'
+                        className='input-text'
+                        placeholder='Enter term'
+                        value={answer}
+                        onChange={event => answerHandleChange(event)}
+                    >
+                    </textarea>
+                    <textarea
+                        type='text'
+                        className='input-text'
+                        placeholder='Enter definition'
+                        value={question}
+                        onChange={event => questionHandleChange(event)}
+                    >
+                    </textarea>
+                </div>
             </div>
         </div>
 
