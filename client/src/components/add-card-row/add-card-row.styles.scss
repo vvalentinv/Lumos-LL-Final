@@ -5,12 +5,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 10px 10px;
+        // margin: 10px 10px;
         background-color: #2e3856;
         border-radius: 10px;
-        height: 120px;
+        height: 18vh;
         font-weight: bold;
         cursor: pointer;
+
+        .add-card-main {
+            margin: 0;
+        }
 
         &:hover{ 
             color:#ffce25;
@@ -19,11 +23,16 @@
             }
         }
 
+
         .add-card-div {
             display:flex;
             text-align: center;
             border-width: thick;
-            padding: 0 0 0.8em 0;
+            // padding: 0 0 0.8em 0;
             border-bottom: 5px solid #3dcfcf;
+        }
+
+        .add-card-row-text {
+            margin-bottom: 0.8em;
         }
     }
