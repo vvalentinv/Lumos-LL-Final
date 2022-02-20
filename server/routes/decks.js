@@ -1,4 +1,4 @@
-const { getDeckByDeckID, removeCard, getUUIDByEmail, getAllCardsByDeck, updateDeck, getAllDecksForUser, storeDeck, storeCard, linkCardToDeck, updateCard, removeLink } = require('../db/queries');
+const { deleteDeck, getDeckByDeckID, removeCard, getUUIDByEmail, getAllCardsByDeck, updateDeck, getAllDecksForUser, storeDeck, storeCard, linkCardToDeck, updateCard, removeLink } = require('../db/queries');
 
 const router = require('express').Router();
 
@@ -36,7 +36,7 @@ const deckRoutes = () => {
 
   //! STORE new DECKS
   router.post('/', async (req, res) => {
-    console.log("------------------------------------------", req.body);
+    // console.log("------------------------------------------", req.body);
 
     const { email, nickname, email_verified } = req.body.user;
     const user = { email, nickname, email_verified, password: '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.' };
