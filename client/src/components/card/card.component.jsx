@@ -5,7 +5,8 @@ import { deleteCard, updateCard } from '../../redux/card-list/card-list.actions'
 
 import './card.styles.scss';
 
-import { ReactComponent as TrashLogo } from '../../assets/trash.svg';
+// import { ReactComponent as TrashLogo } from '../../assets/trash.svg';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Card = (props) => {
 
@@ -41,7 +42,7 @@ const Card = (props) => {
             <div className='card-toolbar'>
                 <span className='card-number'>{number}</span>
                 <div className='delete-logo-container'>
-                    <TrashLogo
+                    <DeleteIcon
                         className='delete-logo'
                         onClick={() => length <= 2 ? null : dispatch(deleteCard(id))}
                     />

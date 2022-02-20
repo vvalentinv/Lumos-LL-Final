@@ -1,7 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
 
+.font-link {
+    font-family: 'Russo One', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+#root{
+    font-family: 'Source Sans Pro';
+}
 
 .card {
-    margin: 10px 10px;
+    margin: 15px 10px;
     background-color: #2e3856;
     border-radius: 10px;
     height: 120px;
@@ -17,11 +26,18 @@
         color: #bec2d0;
     }
 
+    
     .delete-logo-container{
         cursor: pointer;
+        &:hover {
+            color: 	#FF0000;
+        }
     }
     
     .input-text {
+        margin: 1vh 1vh 0 0;
+        font-family: 'Russo One', sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;
         color: #f6f7fb;
         font-size: 16px;
         height: fit-content;
@@ -31,6 +47,7 @@
         margin-right: 30px;
         background-color: #2e3856;
         width: 60%;
+        resize: none;
 
         &:focus{ 
             border-bottom: 3px solid #ffce25;
@@ -39,6 +56,7 @@
     }
 
     .input-text-a {
+        margin: 0 5em 0 0;
         color: #f6f7fb;
         font-size: 16px;
         border-color: #f6f7fb;
@@ -47,6 +65,7 @@
         margin-right: 30px;
         background-color: #2e3856;
         width: 60%;
+        resize: none;
 
         &:focus{ 
             border-bottom: 3px solid #ffce25;
@@ -55,7 +74,7 @@
     }
 
     .card-input-container {
-        padding: 30px;
+        // padding: 30px;
     }
 
     
