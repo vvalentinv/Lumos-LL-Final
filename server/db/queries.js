@@ -80,19 +80,20 @@ const storeUser = (user) => {
 
 //! STOREDECK
 const storeDeck = async (deck) => {
+  // console.log("params for store deck insert:", deck)
   const newDeck = await client.query(`INSERT INTO decks (user_id, deck_name, deck_description, category_id) VALUES
   ($1, $2, $3, $4) RETURNING *;`, [deck.userUUID, deck.deckTitle, deck.deckTitle, 1]);
-  // console.log("result from await", newDeck.rows);
+  // console.log("result from await store deck", newDeck.rows);
   return newDeck.rows;
 };
 
 //! STORECARD
-const storeCard = async (card, userUUID) => {
-  // console.log("store card params", card, userUUID);
+const storeCard = async (card) => {
+  console.log("store card params", card);
   const newCard = await client.query(`INSERT INTO cards (user_id, question, url, answer, all_answers, public) VALUES
-($1, $2, $3, $4, $5, $6) RETURNING *;`, [userUUID, card.definition,
+($1, $2, $3, $4, $5, $6) RETURNING *;`, [card.user_id, card.definition,
     'https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
-    card.term, '{"F1", "F2", "F3"}', card.isPublic]);
+  card.term, '{"F1", "F2", "F3"}', card.isPublic]);
   return newCard.rows;
 };
 
