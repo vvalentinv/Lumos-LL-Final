@@ -1,4 +1,5 @@
 import CardListActionTypes from "./card-list.types.js";
+
 import { getCardsByDeckForUser } from "../../helpers/selectors.js";
 
 export const addCard = newCard => ({
@@ -21,7 +22,6 @@ export const fetchCardList = (UUID, deckID, setLoading) => (
     try {
       const res = await getCardsByDeckForUser(UUID, deckID);
       const { data } = res;
-      console.log(data);
       setLoading(false);
 
       dispatch({
@@ -34,18 +34,6 @@ export const fetchCardList = (UUID, deckID, setLoading) => (
   }
 )
 
-// export const fetchCardList = async (deckID, UUID, setLoading) => {
-//   try {
-//     const res = await getCardsByDeckForUser(UUID, deckID);
-//     setLoading(false);
 
-//     return {
-//       type: CardListActionTypes.FETCH_CARD_LIST,
-//       payload: res
-//     }
-//   } catch (error) {
-//     console.log(`Error: ${error}`)
-//   }
-// }
 
 

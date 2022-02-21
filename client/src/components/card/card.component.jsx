@@ -24,7 +24,6 @@ const Card = (props) => {
         setQuestion(event.target.value);
         setReplicatedQuestion(event.target.value);
 
-
         dispatch(updateCard({
             id,
             field: 'term',
