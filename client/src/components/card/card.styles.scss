@@ -1,20 +1,12 @@
 
-.font-link {
-    font-family: 'Russo One', sans-serif;
-    font-family: 'Source Sans Pro', sans-serif;
-}
-
 .main-card-div {
     margin: 1.0vw 0;
 }
 
 .card {
-    // margin: 15px 10px;
-    // margin: 1.5vw 8vw 1.5vw 8vw;
     background-color: #2e3856;
     border-radius: 10px;
-    height: 18vh;
-    // height: 10vmin;
+
     
     .card-toolbar {
         border-bottom: 2px solid #0a082e;
@@ -57,54 +49,65 @@
 
     .input-text {
         margin: 0.7vh 1.6vh 0.2vh 1.5vw;
-        font-family: 'Russo One', sans-serif;
-        font-family: 'Source Sans Pro', sans-serif;
         color: #f6f7fb;
-        font-size: 1.1em;
         border-color: #f6f7fb;
-        // border-style: solid;
         border-width: 0 0 0.2vw 0;
-        // margin-right: 30px;
         margin-right: 2vw;
         background-color: #2e3856;
-        height: 6vh;
-        width: 60%;
+        width: auto;
         resize: none;
         
         @media (max-width: 720px) {
             font-size: 0.7em;
-            height: 4vh;
         }
 
         @media (max-height: 500px) {
             font-size: 0.3em;
-            height: 2vh;
         }
 
         &:focus{ 
             border-bottom: 0.3vw solid #ffce25;
             outline: none;
         } 
-    }
-
-    // .input-text-a {
-    //     margin: 0 0 0 1vw;
-    //     font-family: 'Russo One', sans-serif;
-    //     font-family: 'Source Sans Pro', sans-serif;
-    //     color: #f6f7fb;
-    //     font-size: 17px;
-    //     border-color: #f6f7fb;
-    //     border-style: solid;
-    //     border-width: 0 0 1.5px 0;
-    //     margin-right: 30px;
-    //     background-color: #2e3856;
-    //     width: 60%;
-
-    //     &:focus{ 
-    //         border-bottom: 3px solid #ffce25;
-    //         outline: none;
-    //     } 
-    // }
-    
+    }    
 }
 
+.grow-wrap {
+    /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+    display: grid;
+  }
+
+  .grow-wrap-answer::after {
+    /* Note the weird space! Needed to preventy jumpy behavior */
+    content: attr(data-replicated-answer) " ";
+  }
+
+  .grow-wrap-question::after {
+    /* Note the weird space! Needed to preventy jumpy behavior */
+    content: attr(data-replicated-question) " ";
+  }
+
+  .grow-wrap::after {
+    /* This is how textarea text behaves */
+    white-space: pre-wrap;
+  
+    /* Hidden from view, clicks, and screen readers */
+    visibility: hidden;
+  }
+  .grow-wrap > textarea {
+    /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+    resize: none;
+  
+    /* Firefox shows scrollbar on growth, you can hide like this. */
+    overflow: hidden;
+  }
+  .grow-wrap > textarea,
+  .grow-wrap::after {
+    /* Identical styling required!! */
+    border: 1px solid black;
+    padding: 0.5rem;
+    font-family: inherit;
+
+    /* Place on top of each other */
+    grid-area: 1 / 1 / 2 / 2;
+  }
