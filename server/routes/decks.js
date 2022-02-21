@@ -43,7 +43,7 @@ const deckRoutes = () => {
 
     const { email, nickname, email_verified } = req.body.user;
     const user = { email, nickname, email_verified, password: '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.' };
-    const { deckTitle } = req.body;
+    const { deckTitle, cardList } = req.body;
     const userUUID = await getUUIDByEmail(user);
     // console.log("returned UUID:", userUUID);
     //~ STORE DECK
@@ -51,20 +51,21 @@ const deckRoutes = () => {
     const newDeck = await storeDeck(deck);
 
     //~ STORE FLASHCARDS
-    const cards = [];
-    for (const card of req.body.cardList) {
+    const cardIDs = [];
+    for (const card of cardList) {
       console.log("cardToStore:", card);
-      const newCard = await storeCard(card, deck);
-      console.log("storedCard:", newCard);
-      cards.push(newCard[0].id);
+      card.user_id = userUUID;
+      const newCard = await storeCard(card);
+      console.log("stored Card:", newCard);
+      cardIDs.push(newCard[0].id);
     }
 
     //~ STORE CARD ASSOCIATION
-    for (const cardId of cards) {
+    for (const cardId of cardIDs) {
       const newLink = await linkCardToDeck(cardId, newDeck[0].id);
     }
 
-    return res.send({ status: `for user ${userUUID} stored deck ${newDeck[0].id} associated cards with ids ${cards} with it` });
+    return res.send({ status: `for user ${userUUID} stored deck ${newDeck[0].id} associated cards with ids ${cardIDs} with it` });
   });
 
 
