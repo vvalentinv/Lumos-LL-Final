@@ -31,7 +31,7 @@ const getAllDecksForUser = (userUUID) => {
                 WHERE user_id = $1;`, [userUUID])
     .then((results) => {
       // categories array of objects
-      // console.log(results.rows);
+      console.log("all decks from DB", results.rows);
       return (results.rows);
     })
     .catch((error) => console.log(error.message));

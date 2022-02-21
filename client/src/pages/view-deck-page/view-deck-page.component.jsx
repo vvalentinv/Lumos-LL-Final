@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCardList, addCard } from "../../redux/card-list/card-list.actions";
-import { getDeckListForUser } from '../../helpers/selectors';
+import { getDeckListForUser, getDeckBydeckID } from '../../helpers/selectors';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import { v4 as uuidv4 } from 'uuid';
@@ -40,22 +40,29 @@ const ViewDeckPage = () => {
         const isDeckID = deckID ? true : false;
         setEditMode(isDeckID);
 
-        if (deckID) {
+        if (deckID && userUUID) {
             setLoading(true);
             dispatch(fetchCardList(userUUID, deckID, setLoading))
+            getDeckBydeckID( userUUID, deckID)
+              .then((result) => setDeckTitle(result.data.deck_name))
+              .catch(error => console.log(error.message))
             // Implement AXIOS Call to get Current Deck Title and populate Deck Title Area
         }
-    }, []);
+    }, [deckID, userUUID]);
+
 
     useEffect(() => {
-        if (userUUID) {
-            getDeckListForUser(userUUID)
-                .then(data => setExistingDeckTitles(data.map(deck => deck.deck_name)))
-                .catch(error => console.log(error.message))
-        }
-    }, []);
+      if (!userUUID) {
+        return;
+      }
+      getDeckListForUser(userUUID)
+        .then(result => {
+          setExistingDeckTitles(result.data.map(d => d.deck_name));
+        })
+        .catch(error => console.log(error));
+    }, [userUUID]);
     console.log("existingDeckTitles:", existingDeckTitles);
-
+    console.log("deck title:", deckTitle);
     const addNewCard = () => {
         const newCard = {
             id: uuidv4(),
@@ -82,6 +89,15 @@ const ViewDeckPage = () => {
         }
     }
 
+    const checkTitles = (e) => {
+      if (existingDeckTitles.includes(e.target.value)){
+        alert("whoops, this title is already in use on a different deck that belongs to you")
+      }else{
+        setDeckTitle(e.target.value)
+      }
+    }
+
+
     return (
         <div className='view-deck-page-container'>
             <div className='view-deck-page'>
@@ -100,7 +116,7 @@ const ViewDeckPage = () => {
                             className='title-input-text'
                             placeholder='Enter a title, like "Notable Battles of World War II"'
                             value={deckTitle}
-                            onChange={event => setDeckTitle(event.target.value)}
+                            onChange={checkTitles}
                             required
                         >
                         </input>
@@ -125,7 +141,7 @@ const ViewDeckPage = () => {
 
                 <div className='submit-deck-button-container'>
                     <CustomButton className='submit-deck-button' onClick={handleOnSubmit}>
-                        {editMode ? 'Save Deck' : 'Submit Deck'}
+                        {editMode ? 'Save Deck' : 'Submit New Deck'}
                     </CustomButton>
                 </div>
             </div>
