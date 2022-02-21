@@ -178,11 +178,11 @@ const updateDeck = (deckTitle, deckID) => {
 };
 
 const deleteDeckAssociations = (deckID) => {
-  // console.log("params:", userUUID, deckID);
+  // console.log("params delete links:", deckID);
   return client.query(`DELETE FROM  decks_with_cards
               WHERE deck_id = $1;`, [deckID])
     .then((results) => {
-      // console.log("FROM THE DATABASE:", results);
+      // console.log("FROM THE DATABASE delete links:", results);
       return res.send({ status: `Deck ID:${deckID} has no cards associated with it` });
     })
     .catch((error) => console.log(error.message));
@@ -190,13 +190,13 @@ const deleteDeckAssociations = (deckID) => {
 
 
 const deleteDeck = (deckID) => {
-  // console.log("params:", userUUID, deckID);
+  // console.log("params delete deck and links:", deckID);
   const clearLinks = deleteDeckAssociations(deckID)
     .then(() => {
       return client.query(`DELETE FROM  decks
-      WHERE deck_id = $1;`, [deckID])
+      WHERE id = $1;`, [deckID])
         .then((results) => {
-          // console.log("FROM THE DATABASE:", results);
+          // console.log("FROM THE DATABASE delete deck:", results);
           return res.send({ status: `Deck ID:${deckID} has been deleted` });
         })
         .catch((error) => console.log(error.message));
@@ -205,5 +205,21 @@ const deleteDeck = (deckID) => {
 
 };
 
+const getAllPublicCardsByDeckTitle = (title) => {
+  // console.log("params:", userUUID, deckID);
+  return client.query(`SELECT * FROM decks
+                        JOIN decks_with_cards ON decks.id = decks_with_cards.deck_id
+                        JOIN cards ON decks_with_cards.card_id = cards.id
+                        WHERE cards.public IS TRUE AND deck.deck_name = '%${$1}%';`, [userUUID, deckID])
+    .then((results) => {
+      // console.log("DECKS with public cards FROM THE DATABASE:", results);
+      return (results.rows[0]);
+    })
+    .catch((error) => console.log(error.message))
 
-module.exports = { deleteDeckAssociations, deleteDeck, getDeckByDeckID, removeCard, removeLink, updateCard, updateDeck, getUUIDByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUUIDByEmail, storeDeck, storeCard, linkCardToDeck, getAllCardsByDeck };
+
+
+};
+
+
+module.exports = { getAllPublicCardsByDeckTitle, deleteDeckAssociations, deleteDeck, getDeckByDeckID, removeCard, removeLink, updateCard, updateDeck, getUUIDByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUUIDByEmail, storeDeck, storeCard, linkCardToDeck, getAllCardsByDeck };
