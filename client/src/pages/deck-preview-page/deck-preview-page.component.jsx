@@ -98,18 +98,41 @@ const DeckPreviewPage = () => {
   const baseFontSize = 250;
 
   // TERM
+
+  // if (curCard.term && curCard.showAnswer && curCard.term.length > 10) {
+  //   fontSize = 40;
+  // } else if (curCard.term && curCard.showAnswer && curCard.term.length > 40) {
+  //   fontSize = 0.01;
+  // } else {
+  //   fontSize = baseFontSize;
+  // }
+
+  // DEFINITION
+  
+  // if (curCard.definition && !curCard.showAnswer && curCard.definition.length > 8) {
+  //   fontSize = 40;
+  // } else if (curCard.defintion && !curCard.showAnswer && curCard.definition.length > 30) {
+  //   fontSize = 0.01;
+  // } else {
+  //   fontSize = baseFontSize ;
+  // } 
+
+// BOTH
+
   if (curCard.term && curCard.showAnswer && curCard.term.length > 10) {
     fontSize = 40;
   } else if (curCard.term && curCard.showAnswer && curCard.term.length > 40) {
     fontSize = 0.01;
+  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length > 8) {
+    fontSize = 40;
+  } else if (curCard.defintion && !curCard.showAnswer && curCard.definition.length > 30) {
+    fontSize = 0.01;
   } else {
-    fontSize = baseFontSize;
+    fontSize = baseFontSize ;
   }
-
-  // // DEFINITION
-  // if (!curCard.showAnswer && curCard.defintion.length > 8) {
+  // if (curCard.definition && !curCard.showAnswer && curCard.definition.length > 8) {
   //   fontSize = 40;
-  // } else if (curCard.showAnswer && curCard.definition.length > 40) {
+  // } else if (curCard.defintion && !curCard.showAnswer && curCard.definition.length > 30) {
   //   fontSize = 0.01;
   // } else {
   //   fontSize = baseFontSize ;
@@ -118,9 +141,11 @@ const DeckPreviewPage = () => {
 
   const stringFontSize = fontSize;
 
-  console.log(curCard);
-  console.log('StringFont', stringFontSize);
-  console.log('curCard:', curCard.showAnswer);
+  console.log('curCard:', curCard);
+  console.log('StringFont:', stringFontSize);
+  console.log('curCard.showAnser:', curCard.showAnswer);
+  console.log('curCard.term: ', curCard.term);
+  console.log('curCard.definition: ', curCard.definition);
 
   return (
     <>
