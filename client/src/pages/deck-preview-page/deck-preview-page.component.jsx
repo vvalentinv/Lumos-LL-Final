@@ -94,6 +94,20 @@ const DeckPreviewPage = () => {
     setFlip(side);
   }
 
+  let fontSize;
+  const baseFontSize = 150;
+  if (curCard.term && curCard.showAnswer && curCard.term.length > 10) {
+    fontSize = 40;
+  } else {
+    fontSize = baseFontSize ;
+  }
+  const stringFontSize = fontSize;
+
+  console.log(curCard);
+  console.log('StringFont',stringFontSize);
+  console.log(curCard.showAnswer);
+
+
   return (
     <>
       {/* <Stack spacing={2} sx={{ maxWidth: 600 }}>
@@ -119,7 +133,7 @@ const DeckPreviewPage = () => {
       <div className='main-div'>
         <h2 className='deck-preview'>Deck Preview</h2>
         <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()}>
-          <div className={!flip ? 'card-flip' : ''}>
+          <div className={!flip ? 'card-flip' : ''} style={{fontSize: stringFontSize}}>
             {curCard.showAnswer
               ? curCard.term
               : curCard.definition

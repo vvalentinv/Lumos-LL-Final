@@ -9,21 +9,27 @@
 .main-div {
   display: grid;
   align-items: center;
+  // font-size: 10vw;
+  color:red;
+  overflow-wrap: break-word;
+  height: 100%;
+  width: 100%;
 }
 
 .deck-preview {
- font-size: 8vh;
+//  font-size: 8vh;
  text-align: center;
  margin: 1vh auto 0 auto;
 }
 
 .primary-card-container {
+  background: #eb952c;
   display: flex;
   overflow-wrap: break-word;
-  font-size: 5vmin;
+  // font-size: 5vmin;
   text-align: center;
   margin: 2vh auto 1.6vh auto;
-  background: #292f41;
+  // background: #292f41;
   height: 50vh;
   width: 50vw;
   justify-content: center;
@@ -38,10 +44,12 @@
   transform-style: preserve-3d;
   transform: perspective(1000px) rotateY(var(--rotate-y, 0))
   translateY(var(--translate-y, 180deg));
+  
 }
 
 .card-flip {
   height: 100%;
+  // font-size: 10vmin;
   display:flex;
   align-items: center;
   text-align: center;
@@ -52,6 +60,7 @@
   position: relative;
   transform: rotateY(180deg);
   background: #292f41;
+  // font-size: 10vw;
 }
 
 div.primary-card-nav {
@@ -59,6 +68,7 @@ div.primary-card-nav {
   flex-direction: row;
   justify-content: center;
   color: #ffffff;
+  // font-size: 3vw;
     .right-arrow:hover {
       color: #eb952c;
     }
@@ -69,7 +79,8 @@ div.primary-card-nav {
 
 span.deck-length {
   margin: 0 4vw 0 4vw;
- align-self: center;
+  align-self: center;
+  // font-size: 4vh;
 }
 
 .q-in-set {
