@@ -19,10 +19,18 @@ export function getDeckListForUser(userUUID) {
 }
 
 export function deleteDeck(deckID) {
-  console.log("deleteD params:", deckID);
+  // console.log("deleteD params:", deckID);
   return axios.delete(`http://localhost:8080/api/decks/`, { data: { deckID } });
 }
 
 export function getAllPublicCardsByDecksWithTitle(title) {
   return axios.get(`http://localhost:8080/api/cards/${title}`);
+}
+
+export function setCardVisibilityByUser(card, userUUID) {
+  return axios.post(`http://localhost:8080/api/cards/change`, { card, userUUID });
+}
+
+export function isUserTheCardsAuthor(card, userUUID) {
+  return axios.post(`http://localhost:8080/api/cards/user`, { card, userUUID });
 }
