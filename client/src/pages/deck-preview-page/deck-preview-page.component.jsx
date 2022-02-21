@@ -95,50 +95,44 @@ const DeckPreviewPage = () => {
   }
 
   let fontSize;
-  const baseFontSize = 150;
+  const baseFontSize = 250;
+
+  // TERM
   if (curCard.term && curCard.showAnswer && curCard.term.length > 10) {
     fontSize = 40;
+  } else if (curCard.term && curCard.showAnswer && curCard.term.length > 40) {
+    fontSize = 0.01;
   } else {
     fontSize = baseFontSize ;
   }
+
+  // // DEFINITION
+  // if (!curCard.showAnswer && curCard.defintion.length > 8) {
+  //   fontSize = 40;
+  // } else if (curCard.showAnswer && curCard.definition.length > 40) {
+  //   fontSize = 0.01;
+  // } else {
+  //   fontSize = baseFontSize ;
+  // } 
+
+
   const stringFontSize = fontSize;
 
   console.log(curCard);
   console.log('StringFont',stringFontSize);
-  console.log(curCard.showAnswer);
-
+  console.log('curCard:', curCard.showAnswer);
 
   return (
     <>
-      {/* <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <SnackbarContent message="I love snacks." />
-      <SnackbarContent
-        message={
-          'I love candy. I love cookies. I love cupcakes. \
-          I love cheesecake. I love chocolate.'
-        }
-      />
-      <SnackbarContent
-        message="I love candy. I love cookies. I love cupcakes."
-
-      />
-      <SnackbarContent
-        message={
-          'I love candy. I love cookies. I love cupcakes. \
-          I love cheesecake. I love chocolate.'
-        }
-
-      />
-    </Stack> */}
       <div className='main-div'>
         <h2 className='deck-preview'>Deck Preview</h2>
         <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()}>
-          <div className={!flip ? 'card-flip' : ''} style={{fontSize: stringFontSize}}>
+          <span className={!flip ? 'card-flip' : ''} style={{fontSize: stringFontSize}}>
             {curCard.showAnswer
               ? curCard.term
               : curCard.definition
             }
-          </div>
+          </span>
         </div>
         <div className='primary-card-nav'>
           <span className="left-arrow">
