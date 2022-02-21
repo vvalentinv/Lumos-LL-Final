@@ -44,7 +44,6 @@ const DeckPreviewPage = () => {
     }
     getDeckBydeckID(userUUID, deckID)
       .then(result => {
-        // console.log("RESULT:", result.data);
         setDeck(result.data);
       })
       .catch(error => console.log(error));
@@ -103,7 +102,7 @@ const DeckPreviewPage = () => {
   } else if (curCard.term && curCard.showAnswer && curCard.term.length > 40) {
     fontSize = 0.01;
   } else {
-    fontSize = baseFontSize ;
+    fontSize = baseFontSize;
   }
 
   // // DEFINITION
@@ -119,7 +118,7 @@ const DeckPreviewPage = () => {
   const stringFontSize = fontSize;
 
   console.log(curCard);
-  console.log('StringFont',stringFontSize);
+  console.log('StringFont', stringFontSize);
   console.log('curCard:', curCard.showAnswer);
 
   return (
@@ -127,7 +126,7 @@ const DeckPreviewPage = () => {
       <div className='main-div'>
         <h2 className='deck-preview'>Deck Preview</h2>
         <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()}>
-          <span className={!flip ? 'card-flip' : ''} style={{fontSize: stringFontSize}}>
+          <span className={!flip ? 'card-flip' : ''} style={{ fontSize: stringFontSize }}>
             {curCard.showAnswer
               ? curCard.term
               : curCard.definition
@@ -152,23 +151,23 @@ const DeckPreviewPage = () => {
           {cardList.length && cardList.map((card) => {
             const { term, definition } = card;
             return (
-                <PreviewCard
-                  className="preview-card"
-                  key={uuidv4()}
-                  term={term}
-                  definition={definition}
-                />
+              <PreviewCard
+                className="preview-card"
+                key={uuidv4()}
+                term={term}
+                definition={definition}
+              />
             )
           })}
         </div>
       </div>
       <div style={{ width: '100%' }}>
-    </div>
+      </div>
       <div className="button">
         <Box textAlign='center'>
-              <Button size="large" variant="contained" href={`/editdeck/${deckID}`}>
-                Add or Remove Questions
-              </Button>
+          <Button size="large" variant="contained" href={`/editdeck/${deckID}`}>
+            Add or Remove Questions
+          </Button>
         </Box>
       </div>
     </>
