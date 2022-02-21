@@ -1,8 +1,24 @@
-const { getAllCardsByDeck, getAllPublicCardsByDeckTitle } = require("../db/queries");
+const { changeCardsVisibility, checkCardAuthor, getAllCardsByDeck, getAllPublicCardsByDeckTitle } = require("../db/queries");
 
 const router = require('express').Router();
 
 const cardRoutes = () => {
+
+  // change a card's public column true or false
+  router.post('/change', (req, res) => {
+    const { card, userUUID } = req.body;
+    return changeCardsVisibility(card, userUUID)
+      .then((data) => res.send(data))
+      .catch((error) => console.log(error));
+  });
+
+  // check if current user is the author of the card (used in rendering the delete button)
+  router.post('/change', (req, res) => {
+    const { card, userUUID } = req.body;
+    return checkCardAuthor(card, userUUID)
+      .then((data) => res.send(data))
+      .catch((error) => console.log(error));
+  })
 
   router.post('/:id', (req, res) => {
     const { userUUID, deckID } = req.body;

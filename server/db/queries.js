@@ -217,10 +217,28 @@ const getAllPublicCardsByDeckTitle = (title) => {
       return (results.rows[0]);
     })
     .catch((error) => console.log(error.message))
-
-
-
 };
 
+const changeCardsVisibility = (card, userUUID) => {
+  // console.log("params card visibility change:", card, userUUID);
+  return client.query(`UPDATE cards
+                  SET public = $1
+              WHERE user_id = $2 RETURNING *;`, [card.isPublic, userUUID])
+    .then((results) => {
+      // console.log("change card visibility FROM THE DATABASE:", results);
+      return (results.rows[0]);
+    })
+    .catch((error) => console.log(error.message));
+};
 
-module.exports = { getAllPublicCardsByDeckTitle, deleteDeckAssociations, deleteDeck, getDeckByDeckID, removeCard, removeLink, updateCard, updateDeck, getUUIDByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUUIDByEmail, storeDeck, storeCard, linkCardToDeck, getAllCardsByDeck };
+const checkCardAuthor = (card, userUUID) => {
+  // console.log("params check card author:", card, userUUID);
+  return client.query(`SELECT user_id FROM cards WHERE id = $1;`, [card.cid, userUUID])
+    .then((results) =>
+      // console.log("change card visibility FROM THE DATABASE:", results);
+      results.rows[0] === userUUID ? true : false)
+    .catch((error) => console.log(error.message));
+}
+
+
+module.exports = { changeCardsVisibility, checkCardAuthor, getAllPublicCardsByDeckTitle, deleteDeckAssociations, deleteDeck, getDeckByDeckID, removeCard, removeLink, updateCard, updateDeck, getUUIDByEmail, getAllCategories, getAllDecksForUser, getAllCardsForDeck, storeUser, getUUIDByEmail, storeDeck, storeCard, linkCardToDeck, getAllCardsByDeck };
