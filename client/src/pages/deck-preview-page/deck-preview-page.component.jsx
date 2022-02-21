@@ -3,7 +3,6 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
 import "./deck-preview.page-styles.scss";
-// import Icon from '@mui/material/Icon';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Button from '@mui/material/Button';
@@ -16,9 +15,6 @@ import { useSelector } from "react-redux";
 
 import PreviewCard from "../../components/preview-card/preview-card.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
-
-// import { ReactComponent as LeftArrowLogo } from '../../assets/left-arrow.svg';
-// import { ReactComponent as RightArrowLogo } from '../../assets/right-arrow.svg';
 
 const DeckPreviewPage = () => {
 
@@ -95,26 +91,7 @@ const DeckPreviewPage = () => {
   }
 
   let fontSize;
-  const baseFontSize = 18;
-
-  // if (curCard.term && curCard.showAnswer && curCard.term.length >= 20) {
-  //   fontSize = 5;
-  // } else if ((curCard.term && curCard.showAnswer && curCard.term.length >= 10)) {
-  //   fontSize = 13;
-  // } else {
-  //   fontSize = baseFontSize;
-  // } 
-
-  // if (curCard.definition && curCard.showAnswer && curCard.definition.length >= 20) {
-  //   fontSize = 5;
-  // } else if (curCard.definition && curCard.showAnswer && curCard.definition.length >=10) {
-  // // } else if ((curCard.definition && !curCard.showAnswer) && ((curCard.definition.length > 6  && curCard.definition.length <= 15))) {
-  //   fontSize = 13;
-  // } else {
-  //   fontSize = baseFontSize;
-  // }
-// BOTH
-
+  const baseFontSize = 22;
 
   if (curCard.term && curCard.showAnswer && curCard.term.length >= 20) {
     fontSize = 6;
@@ -123,48 +100,16 @@ const DeckPreviewPage = () => {
   } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 20) {
     fontSize = 6;
   } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >=10) {
-  // } else if ((curCard.definition && !curCard.showAnswer) && ((curCard.definition.length > 6  && curCard.definition.length <= 15))) {
     fontSize = 11;
   } else {
     fontSize = baseFontSize;
   }
 
-  // if (curCard.definition && curCard.definition) {
-  //   if ((curCard.term.length > 10 ||  curCard.definition.length > 10 )) {
-  //     fontSize = 40;
-  //   } else if (curCard.term.length > 30 || curCard.definition.length > 30) {
-  //     fontSize = 1;
-  //   } else {
-  //     fontSize = baseFontSize
-  //   }
-  //   fontSize = baseFontSize
-  // }
-  
-
-
-
-
-  // if (curCard.definition && !curCard.showAnswer && curCard.definition.length > 8) {
-  //   fontSize = 40;
-  // } else if (curCard.defintion && !curCard.showAnswer && curCard.definition.length > 30) {
-  //   fontSize = 0.01;
-  // } else {
-  //   fontSize = baseFontSize ;
-  // } 
-
-
   const stringFontSize = fontSize;
-
-  // console.log('curCard:', curCard);
-  console.log('StringFont:', stringFontSize);
-  // console.log('curCard.showAnser:', curCard.showAnswer);
-  // console.log('curCard.term: ', curCard.term);
-  // console.log('curCard.definition: ', curCard.definition);
-
+ 
   return (
     <>
     <h2 className='deck-preview'>Deck Preview</h2>
-      {/* <div > */}
         <div className='main-div'> 
           <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()} >
             <span className={!flip ? 'card-flip' : 'test'} style={{ fontSize: `${stringFontSize}vmin`}}>
@@ -176,7 +121,6 @@ const DeckPreviewPage = () => {
               </div>
             </span>
           </div>
-        {/* </div> */}
         <div className='primary-card-nav'>
           <span className="left-arrow">
             <ArrowBack className='left-arrow-icon' sx={{ fontSize: 35 }} onClick={() => leftArrowSubmit()}></ArrowBack>
