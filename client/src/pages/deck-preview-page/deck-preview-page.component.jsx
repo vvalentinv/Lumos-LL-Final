@@ -129,8 +129,8 @@ const DeckPreviewPage = () => {
         <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()}>
           <span className={!flip ? 'card-flip' : ''} style={{ fontSize: stringFontSize }}>
             {curCard.showAnswer
-              ? curCard.term
-              : curCard.definition
+              ? curCard.definition
+              : curCard.term
             }
           </span>
         </div>
