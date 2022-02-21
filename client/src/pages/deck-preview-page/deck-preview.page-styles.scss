@@ -13,20 +13,16 @@
   word-break: break-all !important;
   align-items: center;
   justify-items: center;
- 
 }
 
 .deck-preview {
- font-size: 8vmin;
- text-align: center;
- margin: 1vh auto 1vh auto;
-  @media only screen and (min-width: 300px) {
-    font-size: 3rem;
-  }
+  font-size: 4vmin;
+  width: 50vw;
+  align-self: center;
 }
 
 .primary-card-container {
-  background: #eb952c;
+  background: #292f41;
   display: flex;
   text-align: center;
   margin: 0;
@@ -81,6 +77,8 @@
   justify-content: center;
   margin: 1.2vmin 1.2vmin;
   color: #ffffff;
+  cursor: pointer;
+
     .right-arrow:hover {
       color: #eb952c;
     }
@@ -95,8 +93,15 @@
   font-size: 1.2rem;
 }
 
-.q-in-set {
-  text-align: center;
+.q-in-set-div {
+  font-size: 3vmin;
+  width: 50vw;
+  align-self: center;
+
+  .q-in-set {
+    margin-top: 1.5vw;
+    border-top-style: inset
+  }
 }
 
 .questions-answers {
@@ -105,11 +110,34 @@
   color:#ffffff;
   align-items: center;
   justify-content: center;
+
   .preview-card-container {
     background-color: 0a082e;
     text-align: center;
   }
+
+  @media only screen and (max-width: 400px) {
+    
+    display: grid;
+    align-items: stretch;
+    justify-content: center;
+
+  .q-a {
+    display: grid;
+    width: 70vw;
+    align-self: center;
+    justify-content: space-evenly;
+
+      .css-jskou6 {
+        font-size: 5vmin;
+      }
+      .css-15wj3gn {
+        font-size: 4vmin;
+      }
+    }
+  }
 }
+
 
 .button {
   display: grid;

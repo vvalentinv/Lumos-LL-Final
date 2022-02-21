@@ -91,7 +91,7 @@ const DeckPreviewPage = () => {
   }
 
   let fontSize;
-  const baseFontSize = 22;
+  const baseFontSize = 15;
 
   if (curCard.term && curCard.showAnswer && curCard.term.length >= 20) {
     fontSize = 6;
@@ -109,7 +109,9 @@ const DeckPreviewPage = () => {
  
   return (
     <>
-    <h2 className='deck-preview'>Deck Preview</h2>
+      <div className='deck-preview'>
+        <h2>Deck Preview</h2>
+      </div>
         <div className='main-div'> 
           <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()} >
             <span className={!flip ? 'card-flip' : 'test'} style={{ fontSize: `${stringFontSize}vmin`}}>
@@ -123,17 +125,19 @@ const DeckPreviewPage = () => {
           </div>
         <div className='primary-card-nav'>
           <span className="left-arrow">
-            <ArrowBack className='left-arrow-icon' sx={{ fontSize: 35 }} onClick={() => leftArrowSubmit()}></ArrowBack>
+            <ArrowBack className='left-arrow-icon' sx={{ fontSize: 45 }} onClick={() => leftArrowSubmit()}></ArrowBack>
           </span>
           <span className='deck-length'>
             {`${activeCardIndex + 1}/${deckLength}`}
           </span>
           <span className="right-arrow" onClick={() => rightArrowSubmit()}>
-            <ArrowForwardIcon className='right-arrow-icon' sx={{ fontSize: 35 }} onClick={() => rightArrowSubmit()}></ArrowForwardIcon>
+            <ArrowForwardIcon className='right-arrow-icon' sx={{ fontSize: 45 }} onClick={() => rightArrowSubmit()}></ArrowForwardIcon>
           </span>
         </div>
       </div>
-      <h2 className="q-in-set">{`Questions in this set (${cardList.length})`}</h2>
+      <div className='q-in-set-div'>
+        <h2 className="q-in-set">{`Questions in this set (${cardList.length})`}</h2>
+      </div>
       <div className="questions-answers">
         <div className='preview-card-container'>
           {cardList.length && cardList.map((card) => {
