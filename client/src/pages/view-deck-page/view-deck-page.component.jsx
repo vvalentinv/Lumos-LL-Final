@@ -16,10 +16,11 @@ import './view-deck-page.styles.scss';
 
 const ViewDeckPage = () => {
 
-    const [deckTitle, setDeckTitle] = useState('');
     const [isLoading, setLoading] = useState(false);
     const [editMode, setEditMode] = useState(false);
+    const [deckTitle, setDeckTitle] = useState('');
     const [existingDeckTitles, setExistingDeckTitles] = useState([]);
+    const [deckTitleError, setDeckTitleError] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -42,27 +43,28 @@ const ViewDeckPage = () => {
 
         if (deckID && userUUID) {
             setLoading(true);
-            dispatch(fetchCardList(userUUID, deckID, setLoading))
-            getDeckBydeckID( userUUID, deckID)
-              .then((result) => setDeckTitle(result.data.deck_name))
-              .catch(error => console.log(error.message))
-            // Implement AXIOS Call to get Current Deck Title and populate Deck Title Area
+            dispatch(fetchCardList(userUUID, deckID, setLoading));
+            getDeckBydeckID(userUUID, deckID)
+                .then((result) => setDeckTitle(result.data.deck_name))
+                .catch(error => console.log(error.message))
         }
     }, [deckID, userUUID]);
 
 
     useEffect(() => {
-      if (!userUUID) {
-        return;
-      }
-      getDeckListForUser(userUUID)
-        .then(result => {
-          setExistingDeckTitles(result.data.map(d => d.deck_name));
-        })
-        .catch(error => console.log(error));
+        if (!userUUID) {
+            return;
+        }
+        getDeckListForUser(userUUID)
+            .then(result => {
+                setExistingDeckTitles(result.data.map(d => d.deck_name));
+            })
+            .catch(error => console.log(error));
     }, [userUUID]);
+
     console.log("existingDeckTitles:", existingDeckTitles);
     console.log("deck title:", deckTitle);
+
     const addNewCard = () => {
         const newCard = {
             id: uuidv4(),
@@ -89,12 +91,12 @@ const ViewDeckPage = () => {
         }
     }
 
-    const checkTitles = (e) => {
-      if (existingDeckTitles.includes(e.target.value)){
-        alert("whoops, this title is already in use on a different deck that belongs to you")
-      }else{
-        setDeckTitle(e.target.value)
-      }
+    const checkTitles = (event) => {
+        if (existingDeckTitles.includes(event.target.value)) {
+            setDeckTitleError(true);
+        } else {
+            setDeckTitle(event.target.value);
+        }
     }
 
 
@@ -109,6 +111,9 @@ const ViewDeckPage = () => {
                     : <h1 className='title-header'>Create a new deck</h1>
                 }
                 <span>Title</span>
+                {deckTitleError && <p className='deck-title-error-message'>
+                    Whoops! This title is already in use on a different deck that belongs to you.
+                </p>}
                 <div className='deck-title-div'>
                     <span className='deck-title-span'>
                         <input
