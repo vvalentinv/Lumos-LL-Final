@@ -25,13 +25,13 @@ const deckRoutes = () => {
 
   //! GET SPECIFIC DECK
   router.post('/:id', (req, res) => {
-    // console.log(req.body);
-    const { userUUID, deckID } = req.body;
-    console.log("UUID:", userUUID);
-    console.log("DECKID:", deckID);
+    // console.log("BODY-------------------------------------------------------------", req.body);
+    const { deckID, userUUID } = req.body;
+    // console.log("UUID:", userUUID);
+    // console.log("DECKID:", deckID);
     return getDeckByDeckID(userUUID, deckID)
       .then((data) => {
-        // console.log(data);
+        // console.log("deck obj from db:", data);
         return res.send(data);
       })
       .catch((error) => console.log(error));
