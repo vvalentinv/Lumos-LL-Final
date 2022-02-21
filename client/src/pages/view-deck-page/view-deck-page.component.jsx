@@ -125,7 +125,7 @@ const ViewDeckPage = () => {
 
                 <div className='submit-deck-button-container'>
                     <CustomButton className='submit-deck-button' onClick={handleOnSubmit}>
-                        {editMode ? 'Save Deck' : 'Submit Deck'}
+                        {editMode ? 'Save Deck' : 'Submit New Deck'}
                     </CustomButton>
                 </div>
             </div>
