@@ -16,8 +16,8 @@ const cardRoutes = () => {
           const card = {};
           card.cid = c.card_id;
           card.id = id;
-          card.term = c.question;
-          card.definition = c.answer;
+          card.term = c.answer;
+          card.definition = c.question;
           card.showAnswer = false;
           card.isPublic = false;
           card.isUpdated = false;
