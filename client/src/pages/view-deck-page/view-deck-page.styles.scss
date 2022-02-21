@@ -1,57 +1,64 @@
 
-.view-deck-page {
+.view-deck-page-container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1140px;
 
-    .back-link-text {
-        color:#868dd1;
-        cursor: pointer;
+    .view-deck-page {
 
-        &:hover{ 
-            color:#4255ff;
-            
-        } 
-    }
-
-    .deck-title-div {
-
-        .deck-title-span {
-            // margin: 0 7em 6.5em;
-            width: 80%;
-            // margin-left: 6.5em;
-        }
-
-
-        .title-input-text {
-            outline: none;
-            // margin: 0.8vh 12.6vh;
-            margin: 1vh 12vh 1vh 1vh;
-            width: 100%;
-            height: 5vh;
-            background-color: #0a082e;
-            font-size: 1em;
-            color: #ffffff;
-            border: none;
-            &:focus{ 
-                outline: none;
-                border-bottom: 3px solid #ffce25;
+        .back-link-text {
+            color:#868dd1;
+            cursor: pointer;
+    
+            &:hover{ 
+                color:#4255ff;
+                
             } 
         }
-
-    }
-
-
-    .card-container {
-        margin: 1.0vw 8vw 1.0vw 8vw;
-    }
-
-    .card-input-container {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .submit-deck-button-container {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
+    
+        .deck-title-div {
+    
+            .deck-title-span {
+                // margin: 0 7em 6.5em;
+                width: 80%;
+                // margin-left: 6.5em;
+            }
+    
+            .title-input-text {
+                outline: none;
+                margin: 1vh 12vh 1vh 1vh;
+                width: 100%;
+                height: 5vh;
+                background-color: #0a082e;
+                font-size: 1em;
+                color: #ffffff;
+                border: none;
+                &:focus{ 
+                    outline: none;
+                    border-bottom: 3px solid #ffce25;
+                } 
+            }
+    
+        }
+    
+        .card-container {
+            margin: 1.0vw 8vw 1.0vw 8vw;
+        }
+    
+        .card-input-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-content: space-between;
+            padding: 1em 0;
+        }
+    
+        .submit-deck-button-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
     }
 }
+
+
 

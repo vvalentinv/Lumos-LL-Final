@@ -1,17 +1,26 @@
+.deck-container {
+    margin: 0 auto;
+    width: 96%;
+}
+
 .deck-name-container{
     padding: 10px;
-    margin: 5px;
+    margin-bottom: 10px;
     background-color: #2e3856;
     cursor: pointer;
     border-radius: 5px;
+    border-bottom: 6px solid #2e3856;
+    transition: all .12s cubic-bezier(.47,0,.745,.715);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    &:hover{ 
+    &:hover { 
         border-bottom: 6px solid #bec2d0;
     }
 
-    .delete-logo-container {
-        display: flex;
-        justify-content: right;
+    span {
+        font-weight: 700;
     }
 
     .delete-logo {
