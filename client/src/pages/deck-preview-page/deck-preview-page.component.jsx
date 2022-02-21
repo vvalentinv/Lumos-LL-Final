@@ -95,43 +95,41 @@ const DeckPreviewPage = () => {
   }
 
   let fontSize;
-  const baseFontSize = 250;
+  const baseFontSize = 18;
 
-  // TERM
+  // if (curCard.term && curCard.showAnswer && curCard.term.length >= 20) {
+  //   fontSize = 5;
+  // } else if ((curCard.term && curCard.showAnswer && curCard.term.length >= 10)) {
+  //   fontSize = 13;
+  // } else {
+  //   fontSize = baseFontSize;
+  // } 
 
-  // if (curCard.term && curCard.showAnswer && curCard.term.length > 10) {
-  //   fontSize = 40;
-  // } else if (curCard.term && curCard.showAnswer && curCard.term.length > 40) {
-  //   fontSize = 0.01;
+  // if (curCard.definition && curCard.showAnswer && curCard.definition.length >= 20) {
+  //   fontSize = 5;
+  // } else if (curCard.definition && curCard.showAnswer && curCard.definition.length >=10) {
+  // // } else if ((curCard.definition && !curCard.showAnswer) && ((curCard.definition.length > 6  && curCard.definition.length <= 15))) {
+  //   fontSize = 13;
   // } else {
   //   fontSize = baseFontSize;
   // }
-
-  // DEFINITION
-  
-  // if (curCard.definition && !curCard.showAnswer && curCard.definition.length > 8) {
-  //   fontSize = 40;
-  // } else if (curCard.defintion && !curCard.showAnswer && curCard.definition.length > 30) {
-  //   fontSize = 0.01;
-  // } else {
-  //   fontSize = baseFontSize ;
-  // } 
-
 // BOTH
 
-  if (curCard.term && curCard.showAnswer && curCard.term.length > 10) {
-    fontSize = 40;
-  } else if (curCard.term && curCard.showAnswer && curCard.term.length > 40) {
-    fontSize = 1;
-  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length > 8) {
-    fontSize = 40;
-  } else if (curCard.defintion && !curCard.showAnswer && curCard.definition.length > 30) {
-    fontSize = 1;
+
+  if (curCard.term && curCard.showAnswer && curCard.term.length >= 20) {
+    fontSize = 6;
+  } else if ((curCard.term && curCard.showAnswer && curCard.term.length >= 10)) {
+    fontSize = 11;
+  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 20) {
+    fontSize = 6;
+  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >=10) {
+  // } else if ((curCard.definition && !curCard.showAnswer) && ((curCard.definition.length > 6  && curCard.definition.length <= 15))) {
+    fontSize = 11;
   } else {
-    fontSize = baseFontSize ;
+    fontSize = baseFontSize;
   }
 
-  // if (curCard.term && curCard.definition) {
+  // if (curCard.definition && curCard.definition) {
   //   if ((curCard.term.length > 10 ||  curCard.definition.length > 10 )) {
   //     fontSize = 40;
   //   } else if (curCard.term.length > 30 || curCard.definition.length > 30) {
@@ -157,24 +155,28 @@ const DeckPreviewPage = () => {
 
   const stringFontSize = fontSize;
 
-  console.log('curCard:', curCard);
+  // console.log('curCard:', curCard);
   console.log('StringFont:', stringFontSize);
-  console.log('curCard.showAnser:', curCard.showAnswer);
-  console.log('curCard.term: ', curCard.term);
-  console.log('curCard.definition: ', curCard.definition);
+  // console.log('curCard.showAnser:', curCard.showAnswer);
+  // console.log('curCard.term: ', curCard.term);
+  // console.log('curCard.definition: ', curCard.definition);
 
   return (
     <>
-      <div className='main-div'>
-        <h2 className='deck-preview'>Deck Preview</h2>
-        <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()}>
-          <span className={!flip ? 'card-flip' : ''} style={{ fontSize: stringFontSize }}>
-            {curCard.showAnswer
-              ? curCard.definition
-              : curCard.term
-            }
-          </span>
-        </div>
+    <h2 className='deck-preview'>Deck Preview</h2>
+      {/* <div > */}
+        <div className='main-div'> 
+          <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()} >
+            <span className={!flip ? 'card-flip' : 'test'} style={{ fontSize: `${stringFontSize}vmin`}}>
+              <div className='flash-card-text' style={{ fontSize: `${stringFontSize}vmin`}}>
+                {curCard.showAnswer
+                  ? curCard.definition
+                  : curCard.term
+                }
+              </div>
+            </span>
+          </div>
+        {/* </div> */}
         <div className='primary-card-nav'>
           <span className="left-arrow">
             <ArrowBack className='left-arrow-icon' sx={{ fontSize: 35 }} onClick={() => leftArrowSubmit()}></ArrowBack>

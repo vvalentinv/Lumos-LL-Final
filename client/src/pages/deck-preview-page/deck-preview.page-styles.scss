@@ -9,16 +9,21 @@
 .main-div {
   display: grid;
   align-items: center;
-  // font-size: 10vw;
-  color:red;
+  // color:red;
   overflow-wrap: break-word;
-  word-wrap:break-word;
-  height: 100%;
-  width: 100%;
+  word-break: break-all !important;
+  // height: 90%;
+  // width: 90%;
+  // align-content: space-between;
+  // overflow: hidden;
+  align-items: center;
+  justify-items: center;
 }
 
+
+
 .deck-preview {
- font-size: 8vh;
+ font-size: 8vw;
  text-align: center;
  margin: 1vh auto 0 auto;
 }
@@ -26,53 +31,72 @@
 .primary-card-container {
   background: #eb952c;
   display: flex;
-  overflow-wrap: break-word;
+  // overflow-wrap: break-word;
+  // word-break: break-all;
   // font-size: 5vmin;
   text-align: center;
-  margin: 2vh auto 1.6vh auto;
+  margin: 0;
   // background: #292f41;
   height: 50vh;
   width: 50vw;
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  border-radius: 0.5em;
+  border-radius: 20px;
   box-shadow: 0px 2px 4px #ffafaf1a, 0px 4px 8px rgba(255, 255, 255, 0.1),
     0px 8px 16px rgba(252, 189, 189, 0.1), 0px 16px 32px rgba(255, 255, 255, 0.1);
   position: relative;
+  // backface-visibility: hidden;
   cursor: pointer;
-  transition: 1200ms;
+  transition: 800ms;
   transform-style: preserve-3d;
-  transform: perspective(1000px) rotateY(var(--rotate-y, 0))
-  translateY(var(--translate-y, 180deg));
-  
-}
-
-.card-flip {
-  // height: 10%;
-  // width: 3vmin;
-  // font-size: 10vmin;
-  // display:flex;
-  // align-items: center;
-  // text-align: center;
-  transform: rotateY(180deg);
-  word-wrap:break-word;
+  transform: perspective(1000px) rotateX(var(--rotate-y, 0))
+  translateY(var(--translate-x, 180deg));
 }
 
 .side {
   position: relative;
-  transform: rotateY(180deg);
+  transform-style: preserve-3d;
+  transform: rotateX(180deg);
   background: #292f41;
-  overflow-wrap: break-word;
+  // overflow-wrap: break-word;
+  // word-break: break-all;
   // font-size: 10vw;
 }
 
-div.primary-card-nav {
+.card-flip {
+  position: relative;
+  transform: rotateX(180deg);
+  // overflow-wrap: break-word;
+  // word-break: break-all;
+  width: 90%;
+  // height:100%;
+}
+
+.test {
+  position: relative;
+
+  // word-break: break-all;
+  width: 90%;
+  // height: 90%;
+}
+
+.flash-card-text {
+  // word-break: break-all !important;
+  overflow: hidden;
+  position: relative;
+}
+
+
+
+
+.primary-card-nav {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  // margin: 1vw 1vw;
   color: #ffffff;
-  // font-size: 3vw;
+  font-size: 1.5rem;
     .right-arrow:hover {
       color: #eb952c;
     }
