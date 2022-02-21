@@ -3,8 +3,9 @@ import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getDeckListForUser } from "../../helpers/selectors";
 
+import HomePageSkeleton from "../../components/home-page-skeleton/home-page-skeleton.component";
 import HomePageCard from "../../components/home-page-card/home-page-card";
-import DeletePopUp from "../../components/pop-up/pop-up.component";
+import DeletePopUp from "../../components/delete-pop-up/delete-pop-up.component";
 
 import { deleteDeck } from "../../helpers/selectors";
 
@@ -67,8 +68,7 @@ const HomePage = () => {
   return (
     <div className='deck-container'>
       <p>YOUR DECKS</p>
-      {!deckList.length}
-      {deckList.map((deck) => {
+      {deckList.length > 0 ? deckList.map((deck) => {
         const { id, deck_name } = deck
         return (
           <HomePageCard
@@ -78,7 +78,9 @@ const HomePage = () => {
             summonPopUp={summonPopUp}
           />
         )
-      })}
+      }) : (
+        <HomePageSkeleton />
+      )}
       {popup.showPopUp && (
         <DeletePopUp
           deckList={deckList}
