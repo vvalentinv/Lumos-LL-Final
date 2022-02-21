@@ -11,15 +11,36 @@
         } 
     }
 
-    .title-input-text {
-        outline: none;
-        width: 500px;
-        background-color: #292d3d;
-        color: #f6f7fb;
+    .deck-title-div {
 
-        &:focus{ 
+        .deck-title-span {
+            // margin: 0 7em 6.5em;
+            width: 80%;
+            // margin-left: 6.5em;
+        }
+
+
+        .title-input-text {
             outline: none;
-        } 
+            // margin: 0.8vh 12.6vh;
+            margin: 1vh 12vh 1vh 1vh;
+            width: 100%;
+            height: 5vh;
+            background-color: #0a082e;
+            font-size: 1em;
+            color: #ffffff;
+            border: none;
+            &:focus{ 
+                outline: none;
+                border-bottom: 3px solid #ffce25;
+            } 
+        }
+
+    }
+
+
+    .card-container {
+        margin: 1.0vw 8vw 1.0vw 8vw;
     }
 
     .card-input-container {
