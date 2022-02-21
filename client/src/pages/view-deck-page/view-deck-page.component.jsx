@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 
 import CustomButton from "../../components/custom-button/custom-button.component";
-import Card from "../../components/card/card.component";
+import Card from "../../components/card/view-deck-card.component";
 import AddCardRow from '../../components/add-card-row/add-card-row.component';
 
 import './view-deck-page.styles.scss';
@@ -45,6 +45,8 @@ const ViewDeckPage = () => {
         }
     }, []);
 
+    console.log('TEST', cardList);
+
     useEffect(() => {
         if (userUUID) {
             getDeckListForUser(userUUID)
@@ -52,7 +54,7 @@ const ViewDeckPage = () => {
                 .catch(error => console.log(error.message))
         }
     }, []);
-    console.log("existingDeckTitles:", existingDeckTitles);
+    // console.log("existingDeckTitles:", existingDeckTitles);
 
     const addNewCard = () => {
         const newCard = {
