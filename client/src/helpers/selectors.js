@@ -19,5 +19,10 @@ export function getDeckListForUser(userUUID) {
 }
 
 export function deleteDeck(deckID) {
-  return axios.delete(`http://localhost:8080/api/decks/${deckID}`);
+  console.log("deleteD params:", deckID);
+  return axios.delete(`http://localhost:8080/api/decks/`, { data: { deckID } });
+}
+
+export function getAllPublicCardsByDecksWithTitle(title) {
+  return axios.get(`http://localhost:8080/api/cards/${title}`);
 }

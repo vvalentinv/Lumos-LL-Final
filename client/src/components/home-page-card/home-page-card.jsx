@@ -11,10 +11,19 @@ const HomePageCard = ({ deckName, deckID, deckList, setDeckList }) => {
 
     const navigate = useNavigate();
 
-    const deleteDeckFromDeckList = (deckID) => {
-        let updatedDeckList = deckList.filter((deck) => deck.id !== deckID);
-        setDeckList(updatedDeckList);
-        //AXIOS DELETE DECK HELPER FUNCTION
+    // const deleteDeckFromDeckList = (deckID) => {
+    //     let updatedDeckList = deckList.filter((deck) => deck.id !== deckID);
+    //     setDeckList(updatedDeckList);
+    //     //AXIOS DELETE DECK HELPER FUNCTION
+    // }
+
+    const deleteD = (deckID) =>{
+      let updatedDeckList = deckList.filter((deck) => deck.id !== deckID);
+      setDeckList(updatedDeckList);
+      deleteDeck(deckID)
+      .then((result) => console.log("promise to delete deck resolved:", result))
+      .catch((error) => console.log(error))
+
     }
 
     return (
@@ -25,7 +34,7 @@ const HomePageCard = ({ deckName, deckID, deckList, setDeckList }) => {
             <div className='delete-logo-container'>
                 <DeleteIcon
                     className='delete-logo'
-                    onClick={() => deleteDeckFromDeckList(deckID)}
+                    onClick={() => deleteD(deckID)}
                 />
             </div>
         </div>

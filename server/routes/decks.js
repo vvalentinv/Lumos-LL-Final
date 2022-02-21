@@ -12,17 +12,20 @@ const deckRoutes = () => {
   });
 
   //! delete DECK
-  router.delete('/:id', (req, res) => {
-    const deckID = req.params.id;
-    deleteDeck(deckID)
-      .then((data) => res.send(data))
-      .catch((error) => console.log(error));
+  router.delete('/', (req, res) => {
+    const deckID = req.body.deckID;
+    // console.log("delete body", req.body);
+    // console.log("delete params in routes:", deckID);
+    deleteDeck(deckID);
+
+    return res.send({ status: ` deck ${deckID} is no longer associated with any cards, therefore was deleted form the decks table` })
+
   });
 
 
   //! GET SPECIFIC DECK
   router.post('/:id', (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { userUUID, deckID } = req.body;
     console.log("UUID:", userUUID);
     console.log("DECKID:", deckID);
