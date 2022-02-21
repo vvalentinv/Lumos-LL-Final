@@ -122,14 +122,30 @@ const DeckPreviewPage = () => {
   if (curCard.term && curCard.showAnswer && curCard.term.length > 10) {
     fontSize = 40;
   } else if (curCard.term && curCard.showAnswer && curCard.term.length > 40) {
-    fontSize = 0.01;
+    fontSize = 1;
   } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length > 8) {
     fontSize = 40;
   } else if (curCard.defintion && !curCard.showAnswer && curCard.definition.length > 30) {
-    fontSize = 0.01;
+    fontSize = 1;
   } else {
     fontSize = baseFontSize ;
   }
+
+  // if (curCard.term && curCard.definition) {
+  //   if ((curCard.term.length > 10 ||  curCard.definition.length > 10 )) {
+  //     fontSize = 40;
+  //   } else if (curCard.term.length > 30 || curCard.definition.length > 30) {
+  //     fontSize = 1;
+  //   } else {
+  //     fontSize = baseFontSize
+  //   }
+  //   fontSize = baseFontSize
+  // }
+  
+
+
+
+
   // if (curCard.definition && !curCard.showAnswer && curCard.definition.length > 8) {
   //   fontSize = 40;
   // } else if (curCard.defintion && !curCard.showAnswer && curCard.definition.length > 30) {
