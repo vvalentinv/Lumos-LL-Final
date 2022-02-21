@@ -60,16 +60,16 @@ const Card = (props) => {
                         <textarea
                             className='input-text'
                             placeholder='Enter term'
-                            value={answer}
-                            onChange={event => answerHandleChange(event)}
+                            value={question}
+                            onChange={event => questionHandleChange(event)}
                         />
                     </div>
                     <div className='grow-wrap grow-wrap-question' data-replicated-question={replicatedQuestion}>
                         <textarea
                             className='input-text'
                             placeholder='Enter definition'
-                            value={question}
-                            onChange={event => questionHandleChange(event)}
+                            value={answer}
+                            onChange={event => answerHandleChange(event)}
                         />
                     </div>
                 </div>

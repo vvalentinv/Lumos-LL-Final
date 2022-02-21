@@ -34,6 +34,8 @@ const ViewDeckPage = () => {
     const { user } = useAuth0();
     const { deckID } = useParams();
 
+    console.log('VIEW DECK CARDLIST', cardList);
+
     useEffect(() => {
         const isDeckID = deckID ? true : false;
         setEditMode(isDeckID);
