@@ -1,12 +1,12 @@
 .deck-container {
-    margin: auto;
+    margin: 0 auto;
     width: 80vw;
 }
 
 .deck-name-container{
     display: flex;
     flex-direction: row;
-    height: 120px;
+    height: 90px;
     width: 100%;
     margin-bottom: 25px;
     background-color: #2e3856;
@@ -23,12 +23,12 @@
     }
 
     .deck-click-container {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
         font-weight: 600;
         cursor: pointer;
         align-items: center;
         width: 90%;
-        padding: 2vmin 35vmin 2vmin 3vmin;
+        padding: 12px; 
         font-weight: 600;
 
         .deck-name {
@@ -38,7 +38,7 @@
     }
 
     .delete-logo-container {
-        margin-right: 3vw;
+        margin-right: 5px;
         .delete-logo {
             font-size: 2em;
             cursor: pointer;

@@ -2,6 +2,7 @@
     background-color: #0a082e;
     color:#f6f7fb;
     display: flex;
+    min-height: 100vh;
     flex-direction: column; 
 }
 
