@@ -5,7 +5,6 @@ import { deleteCard, updateCard } from '../../redux/card-list/card-list.actions'
 
 import './card.styles.scss';
 
-// import { ReactComponent as TrashLogo } from '../../assets/trash.svg';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Card = (props) => {

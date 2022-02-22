@@ -31,7 +31,7 @@ const getAllDecksForUser = (userUUID) => {
                 WHERE user_id = $1;`, [userUUID])
     .then((results) => {
       // categories array of objects
-      console.log("all decks from DB", results.rows);
+      // console.log("all decks from DB", results.rows);
       return (results.rows);
     })
     .catch((error) => console.log(error.message));
@@ -207,14 +207,17 @@ const deleteDeck = (deckID) => {
 };
 
 const getAllPublicCardsByDeckTitle = (title) => {
-  // console.log("params:", userUUID, deckID);
+
+  const param = `'%${title}%'`
+  console.log("DB params:", param);
+
   return client.query(`SELECT * FROM decks
-                        JOIN decks_with_cards ON decks.id = decks_with_cards.deck_id
+                        JOIN decks_with_cards ON decks_with_cards.deck_id = decks.id
                         JOIN cards ON decks_with_cards.card_id = cards.id
-                        WHERE cards.public IS TRUE AND deck.deck_name = '%${$1}%';`, [userUUID, deckID])
+                        WHERE cards.public IS TRUE;`)//  LOWER(decks.deck_name) LIKE $1;`, [param])
     .then((results) => {
-      // console.log("DECKS with public cards FROM THE DATABASE:", results);
-      return (results.rows[0]);
+      console.log("DECKS with public cards FROM THE DATABASE:", results.rows);
+      return (results.rows);
     })
     .catch((error) => console.log(error.message))
 };
