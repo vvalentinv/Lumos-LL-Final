@@ -3,11 +3,11 @@
     margin: 1.0vw 0;
 }
 
-.card {
+.deck-card {
     background-color: #2e3856;
     border-radius: 10px;
-
     
+
     .card-toolbar {
         border-bottom: 2px solid #0a082e;
         display: flex;
@@ -23,9 +23,7 @@
 
     .delete-logo-container {
         cursor: pointer;
-        margin: 0 0.5vw 0 0;
         @media (max-width: 720px),(max-height: 500px) {
-            color: 	#0dff8a;
         }
             
         &:hover {
@@ -33,29 +31,31 @@
         }
     }
     
-
     .delete-logo {
         cursor: pointer;
         margin: 0 0.5vw 0 0;
         @media (max-width: 720px),(max-height: 500px) {
-            font-size: 0.6em;
+            font-size: 1em;
         }
             
         &:hover {
-            color: 	#FF0000;
+            color:	#FF0000;
         }
     }
 
 
     .input-text {
-        margin: 0.7vh 1.6vh 0.2vh 1.5vw;
+        margin: 0 1.5vh 0 1.5vw;
+        font-size: 1.2em;
         color: #f6f7fb;
         border-color: #f6f7fb;
-        border-width: 0 0 0.2vw 0;
-        margin-right: 2vw;
+        border-width: 0 0 0.1vw 0;
+        // margin-right: 2vw;
         background-color: #2e3856;
-        width: auto;
+        // width: auto;
+        // height: 8vw;
         resize: none;
+        word-break: break-all;
         
         @media (max-width: 720px) {
             font-size: 0.7em;
@@ -91,7 +91,7 @@
     /* This is how textarea text behaves */
     white-space: pre-wrap;
   
-    /* Hidden from view, clicks, and screen readers */
+    /* Hidden from view, clicks, and s creen readers */
     visibility: hidden;
   }
   .grow-wrap > textarea {

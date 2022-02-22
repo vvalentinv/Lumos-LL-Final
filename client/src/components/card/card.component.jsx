@@ -44,7 +44,7 @@ const Card = (props) => {
 
     return (
         <div className='main-card-div'>
-            <div className='card'>
+            <div className='deck-card'>
                 <div className='card-toolbar'>
                     <span className='card-number'>{number}</span>
                     <div className='delete-logo-container'>

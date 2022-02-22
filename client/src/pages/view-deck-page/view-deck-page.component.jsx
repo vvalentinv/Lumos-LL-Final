@@ -35,8 +35,6 @@ const ViewDeckPage = () => {
     const { user } = useAuth0();
     const { deckID } = useParams();
 
-    console.log('VIEW DECK CARDLIST', cardList);
-
     useEffect(() => {
         const isDeckID = deckID ? true : false;
         setEditMode(isDeckID);
@@ -50,7 +48,6 @@ const ViewDeckPage = () => {
         }
     }, [deckID, userUUID]);
 
-
     useEffect(() => {
         if (!userUUID) {
             return;
@@ -62,8 +59,13 @@ const ViewDeckPage = () => {
             .catch(error => console.log(error));
     }, [userUUID]);
 
-    console.log("existingDeckTitles:", existingDeckTitles);
-    console.log("deck title:", deckTitle);
+    const validate = (str) => {
+        console.log('VALIDATE', str, existingDeckTitles);
+        if (existingDeckTitles.every(title => title !== str)) {
+            return false;
+        }
+        return true;
+    }
 
     const addNewCard = () => {
         const newCard = {
@@ -78,6 +80,13 @@ const ViewDeckPage = () => {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
+        const validationResult = validate(deckTitle);
+
+        if (validationResult) {
+            setDeckTitleError(true);
+            return;
+        }
+
         if (!isLoading) {
             if (!deckID) {// && existingDeckTitles.includes(deckTitle)){
                 return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
@@ -91,18 +100,10 @@ const ViewDeckPage = () => {
         }
     }
 
-    const checkTitles = (event) => {
-        if (existingDeckTitles.includes(event.target.value)) {
-            setDeckTitleError(true);
-        } else {
-            setDeckTitle(event.target.value);
-        }
-    }
-
-
     return (
         <div className='view-deck-page-container'>
             <div className='view-deck-page'>
+            <div className='deck-title-div'>
                 <div className='back-link'>
                     <span className='back-link-text' onClick={() => navigate(`/deckpreview/${deckID}`)}>Back to set</span>
                 </div>
@@ -110,18 +111,18 @@ const ViewDeckPage = () => {
                     ? ''
                     : <h1 className='title-header'>Create a new deck</h1>
                 }
-                <span>Title</span>
+                <div className='title-a'>Title</div>
                 {deckTitleError && <p className='deck-title-error-message'>
-                    Whoops! This title is already in use on a different deck that belongs to you.
+                    Whoops! This title is already in use. Try picking a different title.
                 </p>}
-                <div className='deck-title-div'>
+                
                     <span className='deck-title-span'>
                         <input
                             type='text'
                             className='title-input-text'
                             placeholder='Enter a title, like "Notable Battles of World War II"'
                             value={deckTitle}
-                            onChange={checkTitles}
+                            onChange={(event) => setDeckTitle(event.target.value)}
                             required
                         >
                         </input>
@@ -153,6 +154,5 @@ const ViewDeckPage = () => {
         </div>
     );
 };
-
 
 export default ViewDeckPage;
