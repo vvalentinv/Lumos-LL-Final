@@ -1,16 +1,24 @@
 
 .view-deck-page-container {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1140px;
+    // display: flex;
+    // flex-direction: column;
+    // margin: 0 auto;
+    // width: 75%;
+    align-items: center;
+    justify-self: center;
+    justify-items: center;
+    // max-width: 1200px;
+    margin: 1vw 10vw 0 10vw;
+
 
     .view-deck-page {
-
+        // width: 60%;
+    
         .back-link-text {
             border-bottom: 2px solid #0a082e;
             color:#868dd1;
             font-size: 1.5em;
-            font-weight: 600;
+            font-weight: 400;
             cursor: pointer;
     
             &:hover{ 
@@ -19,10 +27,10 @@
             } 
         }
 
-        .title-header {
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
+        // .title-header {
+        //     font-size: 5rem;
+        //     font-weight: 700;
+        // }
 
         .title-a {
             font-size: 1.5em;
@@ -33,20 +41,21 @@
             color: red;
         }
     
+        
         .deck-title-div {
-            margin:1vw 8vw 1vw 8vw;
+            // margin:1vw 8vw 1vw 8vw;
     
             .deck-title-span {
                 width: 80%;
             }
-    
+
             .title-input-text {
                 outline: none;
                 width: 100%;
                 height: 6vh;
                 background-color: #0a082e;
                 font-size: 1em;
-                font-weight: 600;
+                font-weight: 400;
                 color: #ffffff;
                 border: none;
                 &:focus{ 
@@ -54,22 +63,25 @@
                     border-bottom: 3px solid #ffce25;
                 } 
             }
-    
         }
     
         .card-container {
-            margin: 1.0vw 8vw 1.0vw 8vw;
+            // display: flex;
+            // flex-direction: column;
+
+            
         }
     
         .card-input-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             justify-content: space-between;
-            padding: 1em 0;
+            padding: 0 0 1.5em 0;
+            word-break: break-all;
         }
     
         .submit-deck-button-container {
-            margin: 1.0vw 8vw 1.0vw 8vw;
+            margin: 1.0vw 0 1.0vw 0;
             display: flex;
             justify-content: end;
         }
