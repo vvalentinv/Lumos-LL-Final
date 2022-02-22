@@ -18,7 +18,7 @@
 .deck-title{
  font-size: 8vh;
  text-align: center;
- margin: 1vh auto 0 auto;
+  margin-bottom: 15px;
 }
 .deck-preview {
   font-size: 4vmin;
@@ -100,7 +100,7 @@
 .deck-length {
   margin: 0 4vw 0 4vw;
   align-self: center;
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
 }
 
 
@@ -160,12 +160,17 @@
 }
 
 
-.a-r-button {
-  display: flex;
-  justify-content: end;
-  // margin-top: 5em;
-  margin: 0.5em 0 1em 0;
+// .a-r-button {
+//   display: flex;
+//   justify-content: end;
+//   // margin-top: 5em;
+//   margin: 0.5em 0 1em 0;
 
-  // grid-template-rows: 1f;
-  // align-items: flex-end;
-}
+//   // grid-template-rows: 1f;
+//   // align-items: flex-end;
+// .button {
+//   display: grid;
+//   margin-top: 1em;
+//   grid-template-rows: 1f;
+//   align-items: center;
+// }

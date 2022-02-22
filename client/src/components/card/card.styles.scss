@@ -50,13 +50,14 @@
         color: #f6f7fb;
         border-color: #f6f7fb;
         border-width: 0 0 0.1vw 0;
-        // margin-right: 2vw;
         background-color: #2e3856;
         // width: auto;
         // height: 8vw;
-        box-sizing: border-box;
-        overflow: hidden;
-        resize: none;
+
+        // box-sizing: border-box; //Different branch
+        // overflow: hidden;
+        // resize: none;
+        
         // word-break: break-all;
         resize: none;
         min-height: 80px;

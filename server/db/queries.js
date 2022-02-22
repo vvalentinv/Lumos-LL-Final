@@ -206,17 +206,14 @@ const deleteDeck = (deckID) => {
 
 };
 
-const getAllPublicCardsByDeckTitle = (title) => {
-
-  const param = `'%${title}%'`
-  console.log("DB params:", param);
+const getAllPublicCardsByDeckTitle = () => {
 
   return client.query(`SELECT * FROM decks
                         JOIN decks_with_cards ON decks_with_cards.deck_id = decks.id
                         JOIN cards ON decks_with_cards.card_id = cards.id
-                        WHERE cards.public IS TRUE;`)//  LOWER(decks.deck_name) LIKE $1;`, [param])
+                        WHERE cards.public IS TRUE;`)
     .then((results) => {
-      console.log("DECKS with public cards FROM THE DATABASE:", results.rows);
+      // console.log("DECKS with public cards FROM THE DATABASE:", results.rows);
       return (results.rows);
     })
     .catch((error) => console.log(error.message))

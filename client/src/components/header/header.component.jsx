@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useParams, useNavigate } from 'react-router-dom';
 
 import axios from "axios";
 
 import { setUser } from '../../redux/user/user.actions';
-import { v4 as uuidv4 } from 'uuid';
 import './header.styles.scss';
 import CustomButton from "../custom-button/custom-button.component";
+import SearchBarItem from "../search-bar-item/search-bar-item.component";
 import Button from '@mui/material/Button';
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
@@ -21,62 +21,57 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-// import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-// // import { red } from "@mui/material/colors";
 import { makeStyles } from '@material-ui/core';
+import zIndex from "@material-ui/core/styles/zIndex";
 import { getAllPublicCardsByDecksWithTitle } from "../../helpers/selectors";
 const useStyles = makeStyles({
 
   navi: {
-//     display: 'contents',
-//     // transition: 'all .12s cubic-bezier(.47,0,.745,.715)',
-//     // borderBottom: '2px solid #2e3856',
-//     //   '&:hover': { 
-//     //     borderBottom: '1.5px solid #bec2d0',
-//     //   },
+    display: 'flex',
+    alignItems: 'center'
   },
   lumosLogo: {
-//     color: 'gold',
-//     // component: 'div',
-//     cursor: 'pointer',
-//     // marginRight: '3vw',
-//     // marginLeft: '0.7vw',
-//     borderBottom: '2px solid #292f41',
-//     '&:hover': { 
-//       borderBottom: '2px solid #bec2d0',
-    },
-    
-//     // xs: 'none', 
-//     // sm: 'block', 
-//     fontSize: 40, 
-//   },
+    //     color: 'gold',
+    //     // component: 'div',
+    //     cursor: 'pointer',
+    //     // marginRight: '3vw',
+    //     // marginLeft: '0.7vw',
+    //     borderBottom: '2px solid #292f41',
+    //     '&:hover': { 
+    //       borderBottom: '2px solid #bec2d0',
+  },
+
+  //     // xs: 'none', 
+  //     // sm: 'block', 
+  //     fontSize: 40, 
+  //   },
   decks: {
- 
+
   },
   create: {
-//   //   backgroundColor: '#4255ff',
-//   //   textTransform: 'none',
-//   //   color: '#ffff',
-//   //   cursor: 'pointer',
-//   //   variant: 'contained',   
-//   //   component: 'div',
-//   //   fontSize: 20,
-//   //   // margin: '0.4vw 3vw',
-//   //   width: '5em',
-//   //   height: '1.9em',
-//   //   '&:hover': {
-//   //     backgroundColor: '#4245ff',
-//   //     // color: "#f00",
-//   //   },
-   },
+    //   //   backgroundColor: '#4255ff',
+    //   //   textTransform: 'none',
+    //   //   color: '#ffff',
+    //   //   cursor: 'pointer',
+    //   //   variant: 'contained',   
+    //   //   component: 'div',
+    //   //   fontSize: 20,
+    //   //   // margin: '0.4vw 3vw',
+    //   //   width: '5em',
+    //   //   height: '1.9em',
+    //   //   '&:hover': {
+    //   //     backgroundColor: '#4245ff',
+    //   //     // color: "#f00",
+    //   //   },
+  },
 })
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(({ theme }) => ({ //Export these in
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -117,52 +112,41 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const classes = useStyles();
-
   const { user, isAuthenticated, loginWithRedirect, logout, } = useAuth0();
+  const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [publicDecks, setPublicDecks] = useState([]);
   const [cardValue, setCardValue] = useState({
     'searchCardInput': ''
   });
 
+  //save cardValue state on search box input
   const handleSearchCard = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setCardValue({ ...cardValue, [name]: value });
-    console.log("Card Value Is:", cardValue);
-    // publicDecks && setFilteredDecks(prev =>[...prev, filter(publicDecks,cardValue)])
+    // console.log("Card Value Is:", cardValue);
   }
-  
-  const sendRequest = (e) => {
 
-    // setFilteredDecks( ...[], () => {
+  //trigger axios when user presses "Enter"
+  const sendRequest = (e) => {
     if (e.key === 'Enter') {
-      // const filter = [];
       grabData();
     }
-      // publicDecks.forEach(d => {
-      //   const deck = JSON.parse(JSON.stringify(d));
-      //   filter.push(deck);
-      // })
-
-      return ;
-    // }})
-    
   }
 
+  //filter by search box term decks list before state save
   const grabData = () => {
-    getAllPublicCardsByDecksWithTitle('')
-    .then((result) => {
-      // console.log("public decks:",result.data)
-      console.log("cardValue:",cardValue);
-      const filtered = result.data.filter(d => d.title.toLowerCase().includes(cardValue.searchCardInput));
-
-      console.log("filtered",filtered);
-      return setPublicDecks(filtered);
-    })
-    .catch((error) => console.log(error.message))
+    getAllPublicCardsByDecksWithTitle()
+      .then((result) => {
+        //filter by deck title
+        const filtered = result.data.filter(d => d.title.toLowerCase().includes(cardValue.searchCardInput));
+        return setPublicDecks(filtered);
+      })
+      .catch((error) => console.log(error.message))
   }
 
   useEffect(() => {
@@ -175,26 +159,11 @@ export default function Header() {
     }
   }, [user])
 
-  //-----------------------------------------------------
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [publicDecks, setPublicDecks] = useState([]);
-  const [filteredDecks, setFilteredDecks] = useState([]);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  useEffect(() => {
-   
-  },[]);
-
-  console.log("public decks list:",publicDecks);
-  // console.log("filtered:",filteredDecks)
-
- 
-// publicDecks.length && console.log("filter",filter(publicDecks,'first'));
-
-
+  console.log("public decks list:", publicDecks);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -277,7 +246,6 @@ export default function Header() {
         {!isAuthenticated
           ?
           <MenuItem
-
             onClick={() => loginWithRedirect()}>
             <IconButton
               size="small"
@@ -310,41 +278,28 @@ export default function Header() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: "#292f41" }}>
+    <Box>
+      <AppBar position="static" style={{ backgroundColor: "#292f41", zIndex: 10 }}>
         <Toolbar>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
           <div className={classes.navi}
-            sx={{ 
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
               borderBottom: '2px solid #bec2d0',
-              display: 'contents'
             }}>
             <Typography
               className={classes.lumosLogo}
               component='span'
-              // noWrap
-              // sx={{ m: -2 }} 
               onClick={() => navigate('/')}
-              sx={{ 
+              sx={{
                 mb: '0.01vw',
                 ml: '0.6vw',
-                mr: '6vw', 
+                mr: '6vw',
                 display: { fontSize: 40 },
                 color: 'gold',
-                // component: 'div',
                 cursor: 'pointer',
-                // marginRight: '3vw',
-                // marginLeft: '0.7vw',
                 borderBottom: '2px solid #292f41',
-                '&:hover': { 
+                '&:hover': {
                   borderBottom: '2px solid #bec2d0',
                 }
               }}
@@ -355,7 +310,7 @@ export default function Header() {
               className={classes.decks}
               noWrap
               component='span'
-              sx={{ 
+              sx={{
                 // mr: '6vw', 
                 // mt: '0.5svw',
                 cursor: 'pointer',
@@ -365,9 +320,7 @@ export default function Header() {
                 // margin: '0.4vw 3vw',
                 borderBottom: '2px solid #292f41',
                 // lineHeight: '1.2em',
-                marginTop: '0.2em',
-                marginRight: '6vw',
-                paddingBottom: '0.5em',
+                marginRight: '24px',
                 '&:hover': {
                   // color: "#f00",
                   borderBottom: '2px solid #bec2d0',
@@ -381,17 +334,15 @@ export default function Header() {
               className={classes.create}
               // noWrap
               // component='span'
-              sx={{ 
-                mb: '1vw',
-                marginTop: '0.5vw',
+              sx={{
                 backgroundColor: '#4255ff',
                 textTransform: 'none',
                 color: '#ffff',
                 cursor: 'pointer',
-                variant: 'contained',   
+                variant: 'contained',
                 component: 'div',
+                marginRight: '24px',
                 fontSize: '1rem',
-                // margin: '0.4vw 3vw',
                 width: '7.5rem',
                 height: '1.9rem',
                 '&:hover': {
@@ -406,8 +357,8 @@ export default function Header() {
           </div>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Search 
-              style={{ position: 'relative' }}>
+            <Search
+              style={{ position: 'relative', zIndex: 10 }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -419,30 +370,21 @@ export default function Header() {
                 value={cardValue.searchCardInput}
                 name='searchCardInput'
               />
-              <div style={{ position: 'absolute', backgroundColor: 'red' }}>
-                   {publicDecks &&  publicDecks.map((deck) => 
-                  <p key={deck.key}>{deck.title}</p>
-                )}
-                {/* <p>abc</p>
-                <p>abc</p>
-                <p>abc</p>
-                <p>abc</p> */}
+              <div style={{ position: 'absolute', backgroundColor: 'black' }}>
+                {publicDecks && publicDecks.map((deck) => {
+                  const { id, cid, title } = deck;
+                  return (
+                    <SearchBarItem
+                      key={id}
+                      deckID={cid}
+                      deckTitle={title}
+                      setPublicDecks={setPublicDecks}
+                    />
+                  )
+                })}
               </div>
             </Search>
-            {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
+
             <IconButton
               size="small"
               edge="end"
@@ -492,43 +434,3 @@ export default function Header() {
 
 
 
-// const Header = () => {
-//     const dispatch = useDispatch();
-
-//     const { user, isAuthenticated, loginWithRedirect, logout, } = useAuth0();
-
-//     useEffect(() => {
-//         if (user) {
-//             axios.post(`http://localhost:8080/api/users/`, { user })
-//                 .then(result => {
-//                     dispatch(setUser(result.data));
-//                 })
-//                 .catch(error => console.log(error));
-//         }
-//     }, [user])
-
-//     return (
-//         <div className="header">
-
-//             <div className="header-left">
-//                 <h1>Lumos</h1>
-//             </div>
-
-//             <div className='header-right'>
-//                 {!isAuthenticated
-//                     ?
-//                     <Button variant='contained' onClick={() => loginWithRedirect()}>
-//                         Sign In
-//                     </Button >
-//                     :
-//                     <Button variant='contained' onClick={() => logout()}>
-//                         Sign Out
-//                     </Button>
-//                 }
-//             </div>
-
-//         </div>
-//     )
-// }
-
-// export default Header;

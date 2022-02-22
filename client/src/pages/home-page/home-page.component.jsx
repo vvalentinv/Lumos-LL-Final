@@ -83,24 +83,29 @@ const HomePage = () => {
     )
   })
 
+  //Before pseudo selector 
+
+  const name = user?.name;
+
   return (
-    <>
-      <div className='deck-container'>
-        <div className='deck-div'>
-          <h3 className='deck-title'>{`YOUR DECKS`}</h3>
-          {/* <h3 className='deck-title'>{`YOUR DECKS (${deckList.length})`}</h3> */}
-        </div>
-        {isLoading && <ReactBootStrap.Spinner animation="border" />}
-        {!isLoading && deckList?.length > 0 && deckListMap}
-        {!isLoading && deckList?.length === 0 && <HomePageSkeleton />}
-        {popup.showPopUp && <DeletePopUp
-          deckList={deckList}
-          setDeckList={setDeckList}
-          handleDeleteTrue={handleDeleteTrue}
-          handleDeleteFalse={handleDeleteFalse}
-        />}
+    <div className='deck-container'>
+      <div className='user-name'>
+        {!isLoading ? <span>{name}</span> : ''}
       </div>
-    </>
+      <div className='deck-div'>
+        <h3 className='deck-title'>{`YOUR DECKS`}</h3>
+      </div>
+      {isLoading && <ReactBootStrap.Spinner animation="border" />}
+      {!isLoading && deckList?.length > 0 && deckListMap}
+      {!isLoading && deckList?.length === 0 && <HomePageSkeleton />}
+      {popup.showPopUp && <DeletePopUp
+        deckList={deckList}
+        setDeckList={setDeckList}
+        handleDeleteTrue={handleDeleteTrue}
+        handleDeleteFalse={handleDeleteFalse}
+      />}
+    </div>
+
   );
 }
 

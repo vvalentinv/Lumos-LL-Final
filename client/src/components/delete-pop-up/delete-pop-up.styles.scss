@@ -10,13 +10,12 @@
 //     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 //   }
 
-  /* Modal Content/Box */
   .delete-pop-up-container {
     background-color: #292d3d;
-    margin: 15% auto; /* 15% from the top and centered */
+    border-radius: 12px;
+    margin: 15% auto;
     padding: 20px;
-    // border: 0px solid #888;
-    width: 60%; /* Could be more or less, depending on screen size */
+    width: 60%; 
 
     p {
         text-align: center;
@@ -28,15 +27,6 @@
       justify-content: space-evenly;
   }
 
-  .delete-pop-up_buttoDelete {
-    background-color: #3bcece;
-  }
 
-  .delete-pop-up_buttonCancel {
-      background-color: #3bcece;
-      padding-right: 10px;
 
-      &:hover {
-        background-color: #78dbdb
-    }
-  }
+  

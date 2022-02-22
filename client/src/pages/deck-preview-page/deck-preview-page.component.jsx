@@ -50,7 +50,7 @@ const DeckPreviewPage = () => {
         setCardList(result.data);
       })
       .catch(error => console.log(error));
-  }, [userUUID, deckID])
+  }, [userUUID, deckID, cardList])
 
   const amendShowAnswerFlag = (cardIndex, shouldBeHidden = false) => {
 
