@@ -24,6 +24,8 @@ const DeckPreviewPage = () => {
   const { deckID } = useParams();
   const selUser = useSelector(state => state.user);
   const { userUUID } = selUser;
+  const navigate = useNavigate();
+  
 
   // useEffect(() => {
   //   if (deck && cardList.length > 0) {
@@ -123,44 +125,44 @@ const DeckPreviewPage = () => {
             </div>
           <div className='primary-card-nav'>
             <span className="left-arrow">
-              <ArrowBack className='left-arrow-icon' sx={{ fontSize: 45 }} onClick={() => leftArrowSubmit()}></ArrowBack>
+              <ArrowBack className='left-arrow-icon' sx={{ fontSize: 60 }} onClick={() => leftArrowSubmit()}></ArrowBack>
             </span>
             <span className='deck-length'>
               {`${activeCardIndex + 1}/${deckLength}`}
             </span>
             <span className="right-arrow" onClick={() => rightArrowSubmit()}>
-              <ArrowForwardIcon className='right-arrow-icon' sx={{ fontSize: 45 }} onClick={() => rightArrowSubmit()}></ArrowForwardIcon>
+              <ArrowForwardIcon className='right-arrow-icon' sx={{ fontSize: 60 }} onClick={() => rightArrowSubmit()}></ArrowForwardIcon>
             </span>
           </div>
         </div>
         <div className='q-in-set-div'>
-          <h2 className="q-in-set">{`Questions in this set (${cardList.length})`}</h2>
+           <h2 className="q-in-set">{`Questions in this set (${cardList.length})`}</h2>
         </div>
         <div className="questions-answers">
-          <div className='preview-card-container'>
-            {cardList.length && cardList.map((card) => {
-              const { term, definition } = card;
-              return (
-                <PreviewCard
-                  className="preview-card"
-                  key={uuidv4()}
-                  term={definition}
-                  definition={term}
-                />
-              )
-            })}
-          </div>
-        </div>
-        <div style={{ width: '100%' }}>
-        </div>
-        <div className="button">
-          <Box textAlign='center'>
-            <Button size="large" variant="contained" href={`/editdeck/${deckID}`}>
-              Add or Remove Questions
-            </Button>
-          </Box>
+            <div className='preview-card-container'>
+              {cardList.length && cardList.map((card) => {
+                const { term, definition } = card;
+                return (
+                  <PreviewCard
+                    className="preview-card"
+                    key={uuidv4()}
+                    term={definition}
+                    definition={term}
+                  />
+                )
+              })}
+            <div className='a-r-button' >
+              <CustomButton onClick={() => navigate(`/editdeck/${deckID}`)}>
+                Add or Remove Questions
+              </CustomButton>
         </div>
       </div>
+    </div>
+        
+        {/* <div style={{ width: '100%' }}>
+        </div> */}
+     
+  </div>
   );
 }
 

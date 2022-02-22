@@ -8,9 +8,9 @@ const PreviewCard = (props) => {
 
     return (
         <div className="q-a">
-            
-            <div className="container-q">
-                <Box
+            {/* <div className="container-q"> */}
+                <div className='answer'>
+                {/* <Box
                     component="div"
                     sx={{
                     display: 'flow',
@@ -23,21 +23,23 @@ const PreviewCard = (props) => {
                     borderColor: (theme) =>
                         theme.palette.mode === 'dark' ? '#292f41' : '#292f41',
                     borderRadius: 1.2,
-                    fontSize: '0.875rem',
+                    fontSize: '1.8vw',
                     height: maxHeight,
                     }}
-                >
-                    {definition}
-                </Box>
+                > */}
+                        {definition}
+                    {/* </div> */}
+                {/* </Box> */}
             </div>
             <div className="vertical"></div>
-            <div className="container-a">
-                <Box
+            {/* <div className="container-a"> */}
+                <div className='question'>
+                {/* <Box
                     component="div"
                     sx={{
-                    display: 'block',
+                    display: 'flow',
                     // p: 0.5,
-                    mt: 1.2,
+                    m: 1.2,
                     bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#292f41' : '#292f41'),
                     color: (theme) =>
                         theme.palette.mode === 'dark' ? '#ffff' : '#ffff',
@@ -46,11 +48,17 @@ const PreviewCard = (props) => {
                         theme.palette.mode === 'dark' ? '#292f41' : '#292f41',
                     borderRadius: 1.2,
                     fontSize: '2vw',
+                    height: maxHeight,
+                    // height: '100%',
+                    // width: '90%',
+                    // textOverflow: 'ellipsis',
+                    // overflow: 'hidden',
                     }}
-                >
+                > */}
                     {term}
-                </Box>
-            </div>
+                {/* </Box> */}
+                </div>
+            {/* </div> */}
         </div>
     )
 
