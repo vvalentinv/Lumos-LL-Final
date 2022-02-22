@@ -84,22 +84,22 @@ const ViewDeckPage = () => {
         event.preventDefault();
         const validationResult = validate(deckTitle);
 
-        if (validationResult) {
-            setDeckTitleError(true);
-            return;
-        }
+        // if (validationResult) { FIX LATER
+        //     setDeckTitleError(true);
+        //     return;
+        // }
 
         if (!isLoading) {
             if (!deckID) {
                 return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
-                    .then(result => console.log("result from axios create deck:", result))
+                    .then(navigate(`/deckpreview/${deckID}`))
                     .catch(error => console.log(error));
-            } else if (deckID) {
+            } else {
                 return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
-                    .then(result => console.log(result))
+                    .then(navigate(`/deckpreview/${deckID}`))
                     .catch(error => console.log(error));
             }
-        } navigate(`/deckpreview/${deckID}`);
+        };
     }
 
     return (

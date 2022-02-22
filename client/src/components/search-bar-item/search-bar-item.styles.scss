@@ -1,0 +1,12 @@
+.search-bar-item {
+    cursor: pointer;
+    padding: 15px;
+    width: 320px;
+    text-transform: uppercase;
+    font-weight: bold;
+    z-index: 10;
+
+    &:hover {
+        background-color: #282e3e;
+    }
+}
