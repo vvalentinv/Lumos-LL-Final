@@ -4,8 +4,8 @@
 }
 
 .deck-name-container{
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
     background-color: #2e3856;
     cursor: pointer;
     border-radius: 5px;
@@ -14,16 +14,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 1.8rem;
+    font-weight: 600;
 
     &:hover { 
         border-bottom: 6px solid #bec2d0;
     }
 
     span {
-        font-weight: 700;
+        font-weight: 600;
     }
 
     .delete-logo {
         cursor: pointer;
+        &:hover{
+            color: #FF0000;
+        }
     }
 }

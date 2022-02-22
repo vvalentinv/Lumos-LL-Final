@@ -9,6 +9,8 @@ import DeletePopUp from "../../components/delete-pop-up/delete-pop-up.component"
 
 import { deleteDeck } from "../../helpers/selectors";
 
+import './home-page.styles.scss';
+
 const HomePage = () => {
 
   const { user } = useAuth0();
@@ -67,29 +69,32 @@ const HomePage = () => {
 
   return (
     <div className='deck-container'>
-      <p>YOUR DECKS</p>
-      {deckList.length > 0 ? deckList.map((deck) => {
-        const { id, deck_name } = deck
-        return (
-          <HomePageCard
-            key={id}
-            deckID={id}
-            deckName={deck_name}
-            summonPopUp={summonPopUp}
+      <div className='deck-div'>
+        <h3 className='deck-title'>{`YOUR DECKS (${deckList.length})`}</h3>
+      </div>
+        {deckList.length > 0 ? deckList.map((deck) => {
+          const { id, deck_name } = deck
+          return (
+            <HomePageCard
+              className='home-page-card'
+              key={id}
+              deckID={id}
+              deckName={deck_name}
+              summonPopUp={summonPopUp}
+            />
+          )
+        }) : (
+          <HomePageSkeleton />
+        )}
+        {popup.showPopUp && (
+          <DeletePopUp
+            deckList={deckList}
+            setDeckList={setDeckList}
+            handleDeleteTrue={handleDeleteTrue}
+            handleDeleteFalse={handleDeleteFalse}
           />
-        )
-      }) : (
-        <HomePageSkeleton />
-      )}
-      {popup.showPopUp && (
-        <DeletePopUp
-          deckList={deckList}
-          setDeckList={setDeckList}
-          handleDeleteTrue={handleDeleteTrue}
-          handleDeleteFalse={handleDeleteFalse}
-        />
-      )}
-    </div>
+        )}
+      </div>
   );
 }
 
