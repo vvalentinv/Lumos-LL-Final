@@ -7,6 +7,7 @@ import axios from "axios";
 
 import { setUser } from '../../redux/user/user.actions';
 
+import './header.styles.scss';
 import CustomButton from "../custom-button/custom-button.component";
 import Button from '@mui/material/Button';
 import * as React from 'react';
@@ -20,13 +21,60 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { red } from "@mui/material/colors";
+// // import { red } from "@mui/material/colors";
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+
+  navi: {
+//     display: 'contents',
+//     // transition: 'all .12s cubic-bezier(.47,0,.745,.715)',
+//     // borderBottom: '2px solid #2e3856',
+//     //   '&:hover': { 
+//     //     borderBottom: '1.5px solid #bec2d0',
+//     //   },
+  },
+  lumosLogo: {
+//     color: 'gold',
+//     // component: 'div',
+//     cursor: 'pointer',
+//     // marginRight: '3vw',
+//     // marginLeft: '0.7vw',
+//     borderBottom: '2px solid #292f41',
+//     '&:hover': { 
+//       borderBottom: '2px solid #bec2d0',
+    },
+    
+//     // xs: 'none', 
+//     // sm: 'block', 
+//     fontSize: 40, 
+//   },
+  decks: {
+ 
+  },
+  create: {
+//   //   backgroundColor: '#4255ff',
+//   //   textTransform: 'none',
+//   //   color: '#ffff',
+//   //   cursor: 'pointer',
+//   //   variant: 'contained',   
+//   //   component: 'div',
+//   //   fontSize: 20,
+//   //   // margin: '0.4vw 3vw',
+//   //   width: '5em',
+//   //   height: '1.9em',
+//   //   '&:hover': {
+//   //     backgroundColor: '#4245ff',
+//   //     // color: "#f00",
+//   //   },
+   },
+})
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -40,7 +88,7 @@ const Search = styled('div')(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
-    width: 'auto',
+    width: '20em',
   },
 }));
 
@@ -69,6 +117,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const classes = useStyles();
 
   const { user, isAuthenticated, loginWithRedirect, logout, } = useAuth0();
   const dispatch = useDispatch();
@@ -145,7 +194,7 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
     </Menu>
   );
 
@@ -167,7 +216,7 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <Box>Lumos-LL-Final/client/public/favicon.ico</Box>
+        {/* <Box>Lumos-LL-Final/client/public/favicon.ico</Box> */}
         <IconButton size="small" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <MailIcon />
@@ -236,18 +285,92 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-            onClick={() => navigate('/')}
-          >
-            lumos
-          </Typography>
+          <div className={classes.navi}
+            sx={{ 
+              borderBottom: '2px solid #bec2d0',
+              display: 'contents'
+            }}>
+            <Typography
+              className={classes.lumosLogo}
+              component='span'
+              // noWrap
+              // sx={{ m: -2 }} 
+              onClick={() => navigate('/')}
+              sx={{ 
+                mb: '0.01vw',
+                ml: '0.6vw',
+                mr: '6vw', 
+                display: { fontSize: 40 },
+                color: 'gold',
+                // component: 'div',
+                cursor: 'pointer',
+                // marginRight: '3vw',
+                // marginLeft: '0.7vw',
+                borderBottom: '2px solid #292f41',
+                '&:hover': { 
+                  borderBottom: '2px solid #bec2d0',
+                }
+              }}
+            >
+              lumos
+            </Typography>
+            <Typography
+              className={classes.decks}
+              noWrap
+              component='span'
+              sx={{ 
+                // mr: '6vw', 
+                // mt: '0.5svw',
+                cursor: 'pointer',
+                variant: 'h7',
+                // component: 'div',
+                fontSize: '1rem',
+                // margin: '0.4vw 3vw',
+                borderBottom: '2px solid #292f41',
+                // lineHeight: '1.2em',
+                marginTop: '0.2em',
+                marginRight: '6vw',
+                paddingBottom: '0.5em',
+                '&:hover': {
+                  // color: "#f00",
+                  borderBottom: '2px solid #bec2d0',
+                },
+              }}
+              onClick={() => navigate('/')}
+            >
+              Your Library
+            </Typography>
+            <Button
+              className={classes.create}
+              // noWrap
+              // component='span'
+              sx={{ 
+                mb: '1vw',
+                marginTop: '0.5vw',
+                backgroundColor: '#4255ff',
+                textTransform: 'none',
+                color: '#ffff',
+                cursor: 'pointer',
+                variant: 'contained',   
+                component: 'div',
+                fontSize: '1rem',
+                // margin: '0.4vw 3vw',
+                width: '7.5rem',
+                height: '1.9rem',
+                '&:hover': {
+                  backgroundColor: '#4245ff',
+                  // color: "#f00",
+                },
+              }}
+              onClick={() => navigate('/createdeck')}
+            >
+              Create Deck
+            </Button>
+          </div>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Search style={{ position: 'relative' }}>
+            <Search 
+              style={{ position: 'relative' }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -325,7 +448,7 @@ export default function Header() {
   );
 }
 
-// import './header.styles.scss';
+
 
 
 // const Header = () => {

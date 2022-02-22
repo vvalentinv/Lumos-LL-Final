@@ -88,13 +88,16 @@ const DeckPreviewPage = () => {
   }
 
   let fontSize;
-  const baseFontSize = 250;
+  const baseFontSize = 15;
 
-  // TERM
-  if (curCard.term && curCard.showAnswer && curCard.term.length > 10) {
-    fontSize = 40;
-  } else if (curCard.term && curCard.showAnswer && curCard.term.length > 40) {
-    fontSize = 0.01;
+  if (curCard.term && curCard.showAnswer && curCard.term.length >= 20) {
+    fontSize = 6;
+  } else if ((curCard.term && curCard.showAnswer && curCard.term.length >= 10)) {
+    fontSize = 11;
+  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 20) {
+    fontSize = 6;
+  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 10) {
+    fontSize = 11;
   } else {
     fontSize = baseFontSize;
   }
@@ -115,17 +118,19 @@ const DeckPreviewPage = () => {
         </div>
         <div className='primary-card-nav'>
           <span className="left-arrow">
-            <ArrowBack className='left-arrow-icon' sx={{ fontSize: 35 }} onClick={() => leftArrowSubmit()}></ArrowBack>
+            <ArrowBack className='left-arrow-icon' sx={{ fontSize: 45 }} onClick={() => leftArrowSubmit()}></ArrowBack>
           </span>
           <span className='deck-length'>
             {`${activeCardIndex + 1}/${deckLength}`}
           </span>
           <span className="right-arrow" onClick={() => rightArrowSubmit()}>
-            <ArrowForwardIcon className='right-arrow-icon' sx={{ fontSize: 35 }} onClick={() => rightArrowSubmit()}></ArrowForwardIcon>
+            <ArrowForwardIcon className='right-arrow-icon' sx={{ fontSize: 45 }} onClick={() => rightArrowSubmit()}></ArrowForwardIcon>
           </span>
         </div>
       </div>
-      <h2 className="q-in-set">{`Questions in this set (${cardList.length})`}</h2>
+      <div className='q-in-set-div'>
+        <h2 className="q-in-set">{`Questions in this set (${cardList.length})`}</h2>
+      </div>
       <div className="questions-answers">
         <div className='preview-card-container'>
           {cardList.length && cardList.map((card) => {
