@@ -6,8 +6,7 @@ import "./deck-preview.page-styles.scss";
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import SnackbarContent from '@mui/material/SnackbarContent';
+
 import Box from '@mui/material/Box';
 
 import { getDeckBydeckID, getCardsByDeckForUser } from "../../helpers/selectors";
@@ -19,29 +18,27 @@ import CustomButton from "../../components/custom-button/custom-button.component
 const DeckPreviewPage = () => {
 
   const [loading, setLoading] = useState(true);
-  const [deck, setDeck] = useState();
+  const [deckTitle, setDeckTitle] = useState();
   const [cardList, setCardList] = useState([]);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const { deckID } = useParams();
   const selUser = useSelector(state => state.user);
   const { userUUID } = selUser;
 
-  useEffect(() => {
-    if (deck && cardList.length > 0) {
-      setLoading(false);
-    }
-  }, [deck, cardList]);
+  // useEffect(() => {
+  //   if (deck && cardList.length > 0) {
+  //     setLoading(false);
+  //   }
+  // }, [deck, cardList]);
 
-
   useEffect(() => {
-    //get deck obj
     if (!userUUID) {
       return;
     }
     getDeckBydeckID(userUUID, deckID)
       .then(result => {
-        // console.log("RESULT:", result.data);
-        setDeck(result.data);
+        let deckTitle = result.data.deck_name
+        setDeckTitle(deckTitle);
       })
       .catch(error => console.log(error));
 
@@ -85,7 +82,7 @@ const DeckPreviewPage = () => {
   const [flip, setFlip] = useState();
 
   function handleClick() {
-    amendShowAnswerFlag(activeCardIndex)
+    amendShowAnswerFlag(activeCardIndex);
     setSide(!side);
     setFlip(side);
   }
@@ -99,30 +96,26 @@ const DeckPreviewPage = () => {
     fontSize = 11;
   } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 20) {
     fontSize = 6;
-  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >=10) {
+  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 10) {
     fontSize = 11;
   } else {
     fontSize = baseFontSize;
   }
 
   const stringFontSize = fontSize;
- 
+
   return (
     <>
-      <div className='deck-preview'>
-        <h2>Deck Preview</h2>
-      </div>
-        <div className='main-div'> 
-          <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()} >
-            <span className={!flip ? 'card-flip' : 'test'} style={{ fontSize: `${stringFontSize}vmin`}}>
-              <div className='flash-card-text' style={{ fontSize: `${stringFontSize}vmin`}}>
-                {curCard.showAnswer
-                  ? curCard.definition
-                  : curCard.term
-                }
-              </div>
-            </span>
-          </div>
+      <div className='main-div'>
+        <h2 className='deck-title'>{deckTitle}</h2>
+        <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()}>
+          <span className={!flip ? 'card-flip' : ''} style={{ fontSize: stringFontSize }}>
+            {curCard.showAnswer
+              ? curCard.definition
+              : curCard.term
+            }
+          </span>
+        </div>
         <div className='primary-card-nav'>
           <span className="left-arrow">
             <ArrowBack className='left-arrow-icon' sx={{ fontSize: 45 }} onClick={() => leftArrowSubmit()}></ArrowBack>

@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import axios from "axios";
 
+import * as ReactBootStrap from 'react-bootstrap';
+
 import CustomButton from "../../components/custom-button/custom-button.component";
 import Card from "../../components/card/card.component";
 import AddCardRow from '../../components/add-card-row/add-card-row.component';
@@ -59,7 +61,7 @@ const ViewDeckPage = () => {
             .catch(error => console.log(error));
     }, [userUUID]);
 
-    const validate = (str) => {
+    const validate = (str) => { //Refactor, cannot update current deck right now
         console.log('VALIDATE', str, existingDeckTitles);
         if (existingDeckTitles.every(title => title !== str)) {
             return false;
@@ -88,7 +90,7 @@ const ViewDeckPage = () => {
         }
 
         if (!isLoading) {
-            if (!deckID) {// && existingDeckTitles.includes(deckTitle)){
+            if (!deckID) {
                 return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
                     .then(result => console.log("result from axios create deck:", result))
                     .catch(error => console.log(error));
@@ -97,25 +99,24 @@ const ViewDeckPage = () => {
                     .then(result => console.log(result))
                     .catch(error => console.log(error));
             }
-        }
+        } navigate(`/deckpreview/${deckID}`);
     }
 
     return (
         <div className='view-deck-page-container'>
             <div className='view-deck-page'>
-            <div className='deck-title-div'>
-                <div className='back-link'>
-                    <span className='back-link-text' onClick={() => navigate(`/deckpreview/${deckID}`)}>Back to set</span>
-                </div>
-                {editMode
-                    ? ''
-                    : <h1 className='title-header'>Create a new deck</h1>
-                }
-                <div className='title-a'>Title</div>
-                {deckTitleError && <p className='deck-title-error-message'>
-                    Whoops! This title is already in use. Try picking a different title.
-                </p>}
-                
+                <div className='deck-title-div'>
+                    {editMode
+                        ? <div className='back-link'>
+                            <span className='back-link-text' onClick={() => navigate(`/deckpreview/${deckID}`)}>Back to set</span>
+                        </div>
+                        : <h1 className='title-header'>Create a new deck</h1>
+                    }
+                    <div className='title-a'>Title</div>
+                    {deckTitleError && <p className='deck-title-error-message'>
+                        Whoops! This title is already in use. Try picking a different title.
+                    </p>}
+
                     <span className='deck-title-span'>
                         <input
                             type='text'
@@ -129,6 +130,7 @@ const ViewDeckPage = () => {
                     </span>
                 </div>
                 <div className='card-container'>
+                    {isLoading && <ReactBootStrap.Spinner animation="border" />}
                     {!isLoading && cardList.map((card, index) => {
                         const { id, term, definition } = card;
                         return (
