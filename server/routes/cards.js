@@ -46,10 +46,8 @@ const cardRoutes = () => {
       .catch((error) => console.log(error));
   });
 
-  router.get('/:title', (req, res) => {
-    const { title } = req.params;
-    console.log("cardList params--------------:", title);
-    return getAllPublicCardsByDeckTitle(title)
+  router.get('/publicDecks', (req, res) => {
+    return getAllPublicCardsByDeckTitle()
       .then((data) => {
         console.log("raw cards:", data);
         const changeForFrontEnd = [];

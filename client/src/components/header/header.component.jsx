@@ -132,34 +132,19 @@ export default function Header() {
     const value = e.target.value;
     setCardValue({ ...cardValue, [name]: value });
     console.log("Card Value Is:", cardValue);
-    // publicDecks && setFilteredDecks(prev =>[...prev, filter(publicDecks,cardValue)])
   }
   
   const sendRequest = (e) => {
-
-    // setFilteredDecks( ...[], () => {
     if (e.key === 'Enter') {
-      // const filter = [];
       grabData();
     }
-      // publicDecks.forEach(d => {
-      //   const deck = JSON.parse(JSON.stringify(d));
-      //   filter.push(deck);
-      // })
-
-      return ;
-    // }})
-    
   }
 
   const grabData = () => {
-    getAllPublicCardsByDecksWithTitle('')
+    getAllPublicCardsByDecksWithTitle()
     .then((result) => {
-      // console.log("public decks:",result.data)
-      console.log("cardValue:",cardValue);
+      //filter by deck title
       const filtered = result.data.filter(d => d.title.toLowerCase().includes(cardValue.searchCardInput));
-
-      console.log("filtered",filtered);
       return setPublicDecks(filtered);
     })
     .catch((error) => console.log(error.message))
