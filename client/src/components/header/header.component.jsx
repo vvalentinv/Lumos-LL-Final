@@ -29,7 +29,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 // // import { red } from "@mui/material/colors";
 import { makeStyles } from '@material-ui/core';
-import { getAllPublicCardsByDecksWithTitle } from "../../helpers/selectors";
+import { getAllPublicCardsByDecksWithTitle, retrieveUser } from "../../helpers/selectors";
 const useStyles = makeStyles({
 
   navi: {
@@ -117,49 +117,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const classes = useStyles();
-
   const { user, isAuthenticated, loginWithRedirect, logout, } = useAuth0();
+  const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [publicDecks, setPublicDecks] = useState([]);
   const [cardValue, setCardValue] = useState({
     'searchCardInput': ''
   });
 
+  //save cardValue state on search box input
   const handleSearchCard = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setCardValue({ ...cardValue, [name]: value });
-    console.log("Card Value Is:", cardValue);
-    // publicDecks && setFilteredDecks(prev =>[...prev, filter(publicDecks,cardValue)])
+    // console.log("Card Value Is:", cardValue);
   }
   
+  //trigger axios when user presses "Enter"
   const sendRequest = (e) => {
-
-    // setFilteredDecks( ...[], () => {
     if (e.key === 'Enter') {
-      // const filter = [];
       grabData();
     }
-      // publicDecks.forEach(d => {
-      //   const deck = JSON.parse(JSON.stringify(d));
-      //   filter.push(deck);
-      // })
-
-      return ;
-    // }})
-    
   }
 
+  //filter by search box term decks list before state save
   const grabData = () => {
-    getAllPublicCardsByDecksWithTitle('')
+    getAllPublicCardsByDecksWithTitle()
     .then((result) => {
-      // console.log("public decks:",result.data)
-      console.log("cardValue:",cardValue);
+      //filter by deck title
       const filtered = result.data.filter(d => d.title.toLowerCase().includes(cardValue.searchCardInput));
-
-      console.log("filtered",filtered);
       return setPublicDecks(filtered);
     })
     .catch((error) => console.log(error.message))
@@ -172,29 +161,14 @@ export default function Header() {
           dispatch(setUser(result.data));
         })
         .catch(error => console.log(error));
-    }
+      }
   }, [user])
 
-  //-----------------------------------------------------
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [publicDecks, setPublicDecks] = useState([]);
-  const [filteredDecks, setFilteredDecks] = useState([]);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  useEffect(() => {
-   
-  },[]);
-
   console.log("public decks list:",publicDecks);
-  // console.log("filtered:",filteredDecks)
-
- 
-// publicDecks.length && console.log("filter",filter(publicDecks,'first'));
-
-
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -421,12 +395,8 @@ export default function Header() {
               />
               <div style={{ position: 'absolute', backgroundColor: 'red' }}>
                    {publicDecks &&  publicDecks.map((deck) => 
-                  <p key={deck.key}>{deck.title}</p>
-                )}
-                {/* <p>abc</p>
-                <p>abc</p>
-                <p>abc</p>
-                <p>abc</p> */}
+                      <p key={deck.key}>{deck.title}</p>
+                   )}
               </div>
             </Search>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
