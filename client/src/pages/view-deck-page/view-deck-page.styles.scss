@@ -7,13 +7,26 @@
     .view-deck-page {
 
         .back-link-text {
+            border-bottom: 2px solid #0a082e;
             color:#868dd1;
+            font-size: 1.5em;
+            font-weight: 600;
             cursor: pointer;
     
             &:hover{ 
                 color:#4255ff;
-                
+                border-bottom: 2px solid #D1D2DC;
             } 
+        }
+
+        .title-header {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .title-a {
+            font-size: 1.5em;
+            font-weight: 600;
         }
 
         .deck-title-error-message {
@@ -21,6 +34,7 @@
         }
     
         .deck-title-div {
+            margin:1vw 8vw 1vw 8vw;
     
             .deck-title-span {
                 width: 80%;
@@ -28,11 +42,11 @@
     
             .title-input-text {
                 outline: none;
-                margin: 1vh 12vh 1vh 1vh;
                 width: 100%;
-                height: 5vh;
+                height: 6vh;
                 background-color: #0a082e;
                 font-size: 1em;
+                font-weight: 600;
                 color: #ffffff;
                 border: none;
                 &:focus{ 
@@ -55,9 +69,9 @@
         }
     
         .submit-deck-button-container {
-            width: 100%;
+            margin: 1.0vw 8vw 1.0vw 8vw;
             display: flex;
-            justify-content: center;
+            justify-content: end;
         }
     }
 }
