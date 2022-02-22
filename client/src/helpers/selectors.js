@@ -23,9 +23,8 @@ export function deleteDeck(deckID) {
   return axios.delete(`http://localhost:8080/api/decks/`, { data: { deckID } });
 }
 
-export function getAllPublicCardsByDecksWithTitle(title) {
-  console.log("title params:", title);
-  return axios.get(`http://localhost:8080/api/cards/${title.searchCardInput}`);
+export function getAllPublicCardsByDecksWithTitle() {
+  return axios.get(`http://localhost:8080/api/cards/publicDecks`);
 }
 
 export function setCardVisibilityByUser(card, userUUID) {

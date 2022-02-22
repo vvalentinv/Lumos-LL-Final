@@ -51,8 +51,19 @@
         border-color: #f6f7fb;
         border-width: 0 0 0.1vw 0;
         background-color: #2e3856;
+        // width: auto;
+        // height: 8vw;
+
+        // box-sizing: border-box; //Different branch
+        // overflow: hidden;
+        // resize: none;
+        
+        // word-break: break-all;
         resize: none;
-        word-break: break-all;
+        min-height: 80px;
+        padding: 5px;
+        overflow: hidden;
+        box-sizing: border-box;
         
         @media (max-width: 720px) {
             font-size: 0.7em;
@@ -87,23 +98,28 @@
   .grow-wrap::after {
     /* This is how textarea text behaves */
     white-space: pre-wrap;
+    // white-space: break spaces;
   
     /* Hidden from view, clicks, and s creen readers */
     visibility: hidden;
+    // visibility: collapse;
   }
   .grow-wrap > textarea {
     /* You could leave this, but after a user resizes, then it ruins the auto sizing */
     resize: none;
   
     /* Firefox shows scrollbar on growth, you can hide like this. */
+    // overflow: hidden;
     overflow: hidden;
+    box-sizing: border-box;
   }
   .grow-wrap > textarea,
   .grow-wrap::after {
     /* Identical styling required!! */
     border: 1px solid black;
-    padding: 0.5rem;
+    padding: 1rem;
     font-family: inherit;
+    font-size: 1vh;
 
     /* Place on top of each other */
     grid-area: 1 / 1 / 2 / 2;
