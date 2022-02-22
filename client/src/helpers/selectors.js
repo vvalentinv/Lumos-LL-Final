@@ -24,7 +24,8 @@ export function deleteDeck(deckID) {
 }
 
 export function getAllPublicCardsByDecksWithTitle(title) {
-  return axios.get(`http://localhost:8080/api/cards/${title}`);
+  console.log("title params:", title);
+  return axios.get(`http://localhost:8080/api/cards/${title.searchCardInput}`);
 }
 
 export function setCardVisibilityByUser(card, userUUID) {

@@ -105,17 +105,18 @@ const ViewDeckPage = () => {
     return (
         <div className='view-deck-page-container'>
             <div className='view-deck-page'>
-                {editMode
-                    ? <div className='back-link'>
-                        <span className='back-link-text' onClick={() => navigate(`/deckpreview/${deckID}`)}>Back to set</span>
-                    </div>
-                    : <h1 className='title-header'>Create a new deck</h1>
-                }
-                <span>Title</span>
-                {deckTitleError && <p className='deck-title-error-message'>
-                    Whoops! This title is already in use. Try picking a different title.
-                </p>}
                 <div className='deck-title-div'>
+                    {editMode
+                        ? <div className='back-link'>
+                            <span className='back-link-text' onClick={() => navigate(`/deckpreview/${deckID}`)}>Back to set</span>
+                        </div>
+                        : <h1 className='title-header'>Create a new deck</h1>
+                    }
+                    <div className='title-a'>Title</div>
+                    {deckTitleError && <p className='deck-title-error-message'>
+                        Whoops! This title is already in use. Try picking a different title.
+                    </p>}
+
                     <span className='deck-title-span'>
                         <input
                             type='text'

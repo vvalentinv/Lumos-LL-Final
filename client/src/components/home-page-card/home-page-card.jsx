@@ -18,10 +18,12 @@ const HomePageCard = ({ deckID, deckName, summonPopUp }) => {
     // }
 
     return (
-        <div className='deck-name-container' >
-            <span onClick={() => navigate(`/deckpreview/${deckID}`)}>
-                {deckName}
-            </span>
+        <div className='deck-name-container'>
+            <div className='deck-click-container' onClick={() => navigate(`/deckpreview/${deckID}`)} >
+                <div className='deck-name'>
+                    {deckName}
+                </div>
+            </div>
             <div className='delete-logo-container'>
                 <DeleteIcon
                     className='delete-logo'
