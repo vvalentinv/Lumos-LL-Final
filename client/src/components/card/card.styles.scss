@@ -3,11 +3,10 @@
     margin: 1.0vw 0;
 }
 
-.card {
+.deck-card {
     background-color: #2e3856;
     border-radius: 10px;
 
-    
     .card-toolbar {
         border-bottom: 2px solid #0a082e;
         display: flex;
@@ -33,7 +32,6 @@
         }
     }
     
-
     .delete-logo {
         cursor: pointer;
         margin: 0 0.5vw 0 0;
@@ -42,7 +40,7 @@
         }
             
         &:hover {
-            color: 	#FF0000;
+            color:	#FF0000;
         }
     }
 

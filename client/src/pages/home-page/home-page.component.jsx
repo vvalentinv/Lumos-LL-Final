@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getDeckListForUser } from "../../helpers/selectors";
@@ -9,13 +9,18 @@ import DeletePopUp from "../../components/delete-pop-up/delete-pop-up.component"
 
 import { deleteDeck } from "../../helpers/selectors";
 
+<<<<<<< HEAD
 import './home-page.styles.scss';
+=======
+import * as ReactBootStrap from 'react-bootstrap';
+>>>>>>> main
 
 const HomePage = () => {
 
   const { user } = useAuth0();
 
-  const [deckList, setDeckList] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  const [deckList, setDeckList] = useState(undefined);
   const [popup, setPopUp] = useState({
     showPopUp: false,
     deckID: null,
@@ -25,6 +30,7 @@ const HomePage = () => {
   const { userUUID } = selUser;
 
   const summonPopUp = (deckID) => {
+    console.log('CLICK')
     setPopUp({
       showPopUp: true,
       deckID: deckID
@@ -60,14 +66,29 @@ const HomePage = () => {
     if (!userUUID) {
       return;
     }
+    setLoading(true);
     getDeckListForUser(userUUID)
       .then(result => {
         setDeckList(result.data);
+        setLoading(false);
       })
       .catch(error => console.log(error));
   }, [userUUID]);
 
+  const deckListMap = deckList?.map((deck) => {
+    const { id, deck_name } = deck
+    return (
+      <HomePageCard
+        key={id}
+        deckID={id}
+        deckName={deck_name}
+        summonPopUp={summonPopUp}
+      />
+    )
+  })
+
   return (
+<<<<<<< HEAD
     <div className='deck-container'>
       <div className='deck-div'>
         <h3 className='deck-title'>{`YOUR DECKS (${deckList.length})`}</h3>
@@ -95,7 +116,25 @@ const HomePage = () => {
           />
         )}
       </div>
+=======
+    <>
+      <div className='deck-container'>
+        <p>YOUR DECKS</p>
+        {isLoading && <ReactBootStrap.Spinner animation="border" />}
+        {!isLoading && deckList?.length > 0 && deckListMap}
+        {!isLoading && deckList?.length === 0 && <HomePageSkeleton />}
+        {popup.showPopUp && <DeletePopUp
+          deckList={deckList}
+          setDeckList={setDeckList}
+          handleDeleteTrue={handleDeleteTrue}
+          handleDeleteFalse={handleDeleteFalse}
+        />}
+      </div>
+    </>
+>>>>>>> main
   );
 }
 
 export default HomePage;
+
+// 
