@@ -29,7 +29,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 // // import { red } from "@mui/material/colors";
 import { makeStyles } from '@material-ui/core';
-
+import { getAllPublicCardsByDecksWithTitle } from "../../helpers/selectors";
 const useStyles = makeStyles({
 
   navi: {
@@ -130,15 +130,39 @@ export default function Header() {
   const handleSearchCard = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setCardValue({ ...cardValue, [name]: value })
-    console.log("Card Value Is:", cardValue)
-    axios.post(`http://localhost,`, { cardValue })
-      .then(response => {
-        response.data.map(item => {
-          const abc = `<div>${item.whatever}</div>`
-          return abc
-        })
-      })
+    setCardValue({ ...cardValue, [name]: value });
+    console.log("Card Value Is:", cardValue);
+    // publicDecks && setFilteredDecks(prev =>[...prev, filter(publicDecks,cardValue)])
+  }
+  
+  const sendRequest = (e) => {
+
+    // setFilteredDecks( ...[], () => {
+    if (e.key === 'Enter') {
+      // const filter = [];
+      grabData();
+    }
+      // publicDecks.forEach(d => {
+      //   const deck = JSON.parse(JSON.stringify(d));
+      //   filter.push(deck);
+      // })
+
+      return ;
+    // }})
+    
+  }
+
+  const grabData = () => {
+    getAllPublicCardsByDecksWithTitle('')
+    .then((result) => {
+      // console.log("public decks:",result.data)
+      console.log("cardValue:",cardValue);
+      const filtered = result.data.filter(d => d.title.toLowerCase().includes(cardValue.searchCardInput));
+
+      console.log("filtered",filtered);
+      return setPublicDecks(filtered);
+    })
+    .catch((error) => console.log(error.message))
   }
 
   useEffect(() => {
@@ -155,9 +179,37 @@ export default function Header() {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const [publicDecks, setPublicDecks] = useState([]);
+  const [filteredDecks, setFilteredDecks] = useState([]);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  useEffect(() => {
+   
+  },[]);
+
+  console.log("public decks list:",publicDecks);
+  // console.log("filtered:",filteredDecks)
+
+ const filter = (arr,term) => {
+    const res = [];
+    // const decks = arr.map(l => Object.assign({}, l));
+    for(const deck of arr){
+      let name = deck.title;
+      const arrWords = name.toLowerCase().split(' ');
+      if(arrWords.includes(term.toLowerCase())){
+        res.push(deck);
+      }
+    }
+    return res;
+  }
+
+// publicDecks.length && console.log("filter",filter(publicDecks,'first'));
+
+useEffect(() => {
+           // THIS WILL RUN WHEN THERE'S A CHANGE IN 'quotes'
+  publicDecks && cardValue && setFilteredDecks([...filteredDecks,filter(publicDecks,cardValue)])
+},[cardValue]);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -378,14 +430,18 @@ export default function Header() {
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
                 onChange={handleSearchCard}
+                onKeyUp={sendRequest}
                 value={cardValue.searchCardInput}
                 name='searchCardInput'
               />
               <div style={{ position: 'absolute', backgroundColor: 'red' }}>
+                   {publicDecks &&  publicDecks.map((deck) => 
+                  <p>{deck.title}</p>
+                )}
+                {/* <p>abc</p>
                 <p>abc</p>
                 <p>abc</p>
-                <p>abc</p>
-                <p>abc</p>
+                <p>abc</p> */}
               </div>
             </Search>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">

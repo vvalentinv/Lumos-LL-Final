@@ -47,17 +47,18 @@ const cardRoutes = () => {
   });
 
   router.get('/:title', (req, res) => {
-    const { title } = req.params.title;
-    // console.log("cardList params--------------:", userUUID, deckID);
+    const { title } = req.params;
+    console.log("cardList params--------------:", title);
     return getAllPublicCardsByDeckTitle(title)
       .then((data) => {
-        // console.log("raw cards:", data);
+        console.log("raw cards:", data);
         const changeForFrontEnd = [];
         data.forEach((d, index) => {
           let id = index + 1;
           const deck = {};
           deck.cid = d.deck_id;
           deck.id = id;
+          deck.key = id;
           deck.title = d.deck_name;
           deck.user_id = d.user_id;
           changeForFrontEnd.push(deck);
