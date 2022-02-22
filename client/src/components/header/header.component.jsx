@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 
 import { setUser } from '../../redux/user/user.actions';
-
+import { v4 as uuidv4 } from 'uuid';
 import './header.styles.scss';
 import CustomButton from "../custom-button/custom-button.component";
 import Button from '@mui/material/Button';
@@ -191,25 +191,10 @@ export default function Header() {
   console.log("public decks list:",publicDecks);
   // console.log("filtered:",filteredDecks)
 
- const filter = (arr,term) => {
-    const res = [];
-    // const decks = arr.map(l => Object.assign({}, l));
-    for(const deck of arr){
-      let name = deck.title;
-      const arrWords = name.toLowerCase().split(' ');
-      if(arrWords.includes(term.toLowerCase())){
-        res.push(deck);
-      }
-    }
-    return res;
-  }
-
+ 
 // publicDecks.length && console.log("filter",filter(publicDecks,'first'));
 
-useEffect(() => {
-           // THIS WILL RUN WHEN THERE'S A CHANGE IN 'quotes'
-  publicDecks && cardValue && setFilteredDecks([...filteredDecks,filter(publicDecks,cardValue)])
-},[cardValue]);
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -436,7 +421,7 @@ useEffect(() => {
               />
               <div style={{ position: 'absolute', backgroundColor: 'red' }}>
                    {publicDecks &&  publicDecks.map((deck) => 
-                  <p>{deck.title}</p>
+                  <p key={deck.key}>{deck.title}</p>
                 )}
                 {/* <p>abc</p>
                 <p>abc</p>
