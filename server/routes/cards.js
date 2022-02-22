@@ -49,7 +49,7 @@ const cardRoutes = () => {
   router.get('/publicDecks', (req, res) => {
     return getAllPublicCardsByDeckTitle()
       .then((data) => {
-        console.log("raw cards:", data);
+        // console.log("raw cards:", data);
         const changeForFrontEnd = [];
         data.forEach((d, index) => {
           let id = index + 1;
@@ -62,7 +62,7 @@ const cardRoutes = () => {
           changeForFrontEnd.push(deck);
         });
         // console.log("changeForFrontEnd:", changeForFrontEnd);
-        console.log("Deck List with public cards", changeForFrontEnd);
+        // console.log("Deck List with public cards", changeForFrontEnd);
         return res.send(changeForFrontEnd);
       })
       .catch((error) => console.log(error));
