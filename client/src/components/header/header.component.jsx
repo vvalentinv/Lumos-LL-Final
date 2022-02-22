@@ -174,12 +174,6 @@ export default function Header() {
   }, []);
 
   console.log("public decks list:", publicDecks);
-  // console.log("filtered:",filteredDecks)
-
-
-  // publicDecks.length && console.log("filter",filter(publicDecks,'first'));
-
-
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -262,7 +256,6 @@ export default function Header() {
         {!isAuthenticated
           ?
           <MenuItem
-
             onClick={() => loginWithRedirect()}>
             <IconButton
               size="small"
@@ -375,7 +368,7 @@ export default function Header() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Search
-              style={{ position: 'relative' }}>
+              style={{ position: 'relative', zIndex: 10 }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
