@@ -9,11 +9,8 @@ import DeletePopUp from "../../components/delete-pop-up/delete-pop-up.component"
 
 import { deleteDeck } from "../../helpers/selectors";
 
-<<<<<<< HEAD
 import './home-page.styles.scss';
-=======
 import * as ReactBootStrap from 'react-bootstrap';
->>>>>>> main
 
 const HomePage = () => {
 
@@ -88,38 +85,12 @@ const HomePage = () => {
   })
 
   return (
-<<<<<<< HEAD
-    <div className='deck-container'>
-      <div className='deck-div'>
-        <h3 className='deck-title'>{`YOUR DECKS (${deckList.length})`}</h3>
-      </div>
-        {deckList.length > 0 ? deckList.map((deck) => {
-          const { id, deck_name } = deck
-          return (
-            <HomePageCard
-              className='home-page-card'
-              key={id}
-              deckID={id}
-              deckName={deck_name}
-              summonPopUp={summonPopUp}
-            />
-          )
-        }) : (
-          <HomePageSkeleton />
-        )}
-        {popup.showPopUp && (
-          <DeletePopUp
-            deckList={deckList}
-            setDeckList={setDeckList}
-            handleDeleteTrue={handleDeleteTrue}
-            handleDeleteFalse={handleDeleteFalse}
-          />
-        )}
-      </div>
-=======
     <>
       <div className='deck-container'>
-        <p>YOUR DECKS</p>
+        <div className='deck-div'>
+          <h3 className='deck-title'>{`YOUR DECKS`}</h3>
+          {/* <h3 className='deck-title'>{`YOUR DECKS (${deckList.length})`}</h3> */}
+        </div>
         {isLoading && <ReactBootStrap.Spinner animation="border" />}
         {!isLoading && deckList?.length > 0 && deckListMap}
         {!isLoading && deckList?.length === 0 && <HomePageSkeleton />}
@@ -131,10 +102,7 @@ const HomePage = () => {
         />}
       </div>
     </>
->>>>>>> main
   );
 }
 
 export default HomePage;
-
-// 
