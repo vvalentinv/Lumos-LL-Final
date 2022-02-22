@@ -3,12 +3,10 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
 import "./deck-preview.page-styles.scss";
-// import Icon from '@mui/material/Icon';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import SnackbarContent from '@mui/material/SnackbarContent';
+
 import Box from '@mui/material/Box';
 
 import { getDeckBydeckID, getCardsByDeckForUser } from "../../helpers/selectors";
@@ -17,35 +15,30 @@ import { useSelector } from "react-redux";
 import PreviewCard from "../../components/preview-card/preview-card.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
 
-// import { ReactComponent as LeftArrowLogo } from '../../assets/left-arrow.svg';
-// import { ReactComponent as RightArrowLogo } from '../../assets/right-arrow.svg';
-
 const DeckPreviewPage = () => {
 
   const [loading, setLoading] = useState(true);
-  const [deck, setDeck] = useState();
+  const [deckTitle, setDeckTitle] = useState();
   const [cardList, setCardList] = useState([]);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const { deckID } = useParams();
   const selUser = useSelector(state => state.user);
   const { userUUID } = selUser;
 
-  useEffect(() => {
-    if (deck && cardList.length > 0) {
-      setLoading(false);
-    }
-  }, [deck, cardList]);
+  // useEffect(() => {
+  //   if (deck && cardList.length > 0) {
+  //     setLoading(false);
+  //   }
+  // }, [deck, cardList]);
 
-
   useEffect(() => {
-    //get deck obj
     if (!userUUID) {
       return;
     }
     getDeckBydeckID(userUUID, deckID)
       .then(result => {
-        // console.log("RESULT:", result.data);
-        setDeck(result.data);
+        let deckTitle = result.data.deck_name
+        setDeckTitle(deckTitle);
       })
       .catch(error => console.log(error));
 
@@ -89,7 +82,7 @@ const DeckPreviewPage = () => {
   const [flip, setFlip] = useState();
 
   function handleClick() {
-    amendShowAnswerFlag(activeCardIndex)
+    amendShowAnswerFlag(activeCardIndex);
     setSide(!side);
     setFlip(side);
   }
@@ -106,26 +99,12 @@ const DeckPreviewPage = () => {
     fontSize = baseFontSize;
   }
 
-  // // DEFINITION
-  // if (!curCard.showAnswer && curCard.defintion.length > 8) {
-  //   fontSize = 40;
-  // } else if (curCard.showAnswer && curCard.definition.length > 40) {
-  //   fontSize = 0.01;
-  // } else {
-  //   fontSize = baseFontSize ;
-  // } 
-
-
   const stringFontSize = fontSize;
-
-  console.log(curCard);
-  console.log('StringFont', stringFontSize);
-  console.log('curCard:', curCard.showAnswer);
 
   return (
     <>
       <div className='main-div'>
-        <h2 className='deck-preview'>Deck Preview</h2>
+        <h2 className='deck-title'>{deckTitle}</h2>
         <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()}>
           <span className={!flip ? 'card-flip' : ''} style={{ fontSize: stringFontSize }}>
             {curCard.showAnswer

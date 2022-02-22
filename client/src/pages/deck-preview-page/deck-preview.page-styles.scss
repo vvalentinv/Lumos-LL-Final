@@ -9,15 +9,13 @@
 .main-div {
   display: grid;
   align-items: center;
-  // font-size: 10vw;
-  color:red;
   overflow-wrap: break-word;
   word-wrap:break-word;
   height: 100%;
   width: 100%;
 }
 
-.deck-preview {
+.deck-title{
  font-size: 8vh;
  text-align: center;
  margin: 1vh auto 0 auto;

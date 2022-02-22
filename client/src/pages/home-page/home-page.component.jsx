@@ -26,7 +26,6 @@ const HomePage = () => {
   const { userUUID } = selUser;
 
   const summonPopUp = (deckID) => {
-    console.log('CLICK')
     setPopUp({
       showPopUp: true,
       deckID: deckID
