@@ -2,7 +2,7 @@
 
   display: flex;
   border-radius: 0.2em;
-  margin: 0.2em;
+  margin: 0.5em;
   background-color: #292f41;
 
   .container-q {
@@ -18,10 +18,11 @@
 
   .container-a {
     text-align: start;
-    align-self: center;
+    // align-self: center;
     overflow-wrap: break-word;
     width: 35vw;
-    height: 3vw em;
+    height: 5vw ;
+    margin-left: 1em;
   }
   
 }

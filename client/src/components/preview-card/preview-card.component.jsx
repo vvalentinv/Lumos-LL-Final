@@ -14,7 +14,7 @@ const PreviewCard = (props) => {
                     component="div"
                     sx={{
                     display: 'flow',
-                    p: 0.5,
+                    // p: 0.5,
                     m: 0.5,
                     bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#292f41' : '#292f41'),
                     color: (theme) =>
@@ -36,8 +36,8 @@ const PreviewCard = (props) => {
                     component="div"
                     sx={{
                     display: 'block',
-                    p: 0.5,
-                    m: 0.5,
+                    // p: 0.5,
+                    mt: 1.2,
                     bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#292f41' : '#292f41'),
                     color: (theme) =>
                         theme.palette.mode === 'dark' ? '#ffff' : '#ffff',
@@ -45,7 +45,7 @@ const PreviewCard = (props) => {
                     borderColor: (theme) =>
                         theme.palette.mode === 'dark' ? '#292f41' : '#292f41',
                     borderRadius: 1.2,
-                    fontSize: '0.875rem',
+                    fontSize: '2vw',
                     }}
                 >
                     {term}
