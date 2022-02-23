@@ -65,7 +65,10 @@ const deckRoutes = () => {
       const newLink = await linkCardToDeck(cardId, newDeck[0].id);
     }
 
-    return res.send({ status: `for user ${userUUID} stored deck ${newDeck[0].id} associated cards with ids ${cardIDs} with it` });
+    return res.send({
+      status: `for user ${userUUID} stored deck ${newDeck[0].id} associated cards with ids ${cardIDs} with it`,
+      deckID: newDeck[0].id
+    });
   });
 
 
