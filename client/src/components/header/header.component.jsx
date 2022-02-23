@@ -135,6 +135,9 @@ export default function Header() {
   const sendRequest = (e) => {
     if (e.key === 'Enter') {
       grabData();
+      setCardValue({
+        'searchCardInput': ''
+      })
     }
   }
 
@@ -163,7 +166,7 @@ export default function Header() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  console.log("public decks list:", publicDecks);
+  // console.log("public decks list:", publicDecks);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);

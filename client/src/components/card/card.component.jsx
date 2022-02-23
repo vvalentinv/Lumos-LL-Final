@@ -17,6 +17,8 @@ const Card = (props) => {
     const [replicatedAnswer, setReplicatedAnswer] = useState('');
     const [replicatedQuestion, setReplicatedQuestion] = useState('');
 
+    console.log('TERM', term)
+
     const dispatch = useDispatch();
 
     const questionHandleChange = (event) => {
