@@ -56,6 +56,8 @@ const ViewDeckPage = () => {
             getDeckBydeckID(userUUID, deckID)
                 .then((result) => setDeckTitle(result.data.deck_name))
                 .catch(error => console.log(error.message))
+        }else {
+          dispatch(refreshCardList(freshList));
         }
     }, [deckID, userUUID]);
 
