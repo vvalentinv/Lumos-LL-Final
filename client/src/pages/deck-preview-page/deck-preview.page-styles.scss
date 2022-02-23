@@ -6,6 +6,12 @@
   color:#ffffff;
 }
 
+.dp-main-div {
+  padding: 0 25vw;
+  display: flex;
+  flex-direction: column;
+}
+
 .main-div {
   display: grid;
   align-items: center;
@@ -80,11 +86,13 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 1.2vmin 1.2vmin;
+  margin: 3vmin 1.2vmin;
   color: #ffffff;
   cursor: pointer;
+  vertical-align: middle;
 
     .right-arrow:hover {
+
       color: #eb952c;
     }
     .left-arrow:hover {
@@ -98,28 +106,30 @@
   // font-size: 1.2rem;
 }
 
+
 .q-in-set-div {
-  font-size: 3vmin;
-  width: 50vw;
-  align-self: center;
+  // display: flex;
+  justify-content: center;
+  // width: 50%;
 
   .q-in-set {
-    margin-top: 1.5vw;
-    border-top-style: inset
+    // justify-self: ;
+    padding-top: 1.2vw;
+    border-top-style: inset;
+    // width: 51%;
+
+  
+
   }
 }
 
 .questions-answers {
   display: flex;
-  flex-wrap: wrap;
-  color:#ffffff;
-  align-items: center;
   justify-content: center;
-  margin: 1em;
+  color:#ffffff;
 
   .preview-card-container {
-    background-color: 0a082e;
-    text-align: center;
+    width: 50vw;
   }
 
   @media only screen and (max-width: 400px) {
@@ -130,7 +140,7 @@
 
   .q-a {
     display: grid;
-    width: 70vw;
+    width: 100%;
     align-self: center;
     justify-content: space-evenly;
 
@@ -142,11 +152,4 @@
       }
     }
   }
-}
-
-.button {
-  display: grid;
-  margin-top: 1em;
-  grid-template-rows: 1f;
-  align-items: center;
 }

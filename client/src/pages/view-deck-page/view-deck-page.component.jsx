@@ -106,7 +106,6 @@ const ViewDeckPage = () => {
                         isSubmitted(true);
                         navigate(`/deckpreview/${resolved.data.deckID}`);
                     })
-
                     .catch(error => console.log(error));
             } else { //Update existing deck
                 return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })

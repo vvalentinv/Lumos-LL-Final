@@ -219,13 +219,13 @@ const getAllPublicCardsByDeckTitle = () => {
     .catch((error) => console.log(error.message))
 };
 
-const changeCardsVisibility = (card, userUUID) => {
+const changeCardsVisibility = (cid, isPublic, userUUID) => {
   // console.log("params card visibility change:", card, userUUID);
   return client.query(`UPDATE cards
-                  SET public = $1
-              WHERE user_id = $2 RETURNING *;`, [card.isPublic, userUUID])
+                  SET public = $2
+              WHERE user_id = $3 AND id = $1 RETURNING *;`, [cid, isPublic, userUUID])
     .then((results) => {
-      // console.log("change card visibility FROM THE DATABASE:", results);
+      console.log("change card visibility FROM THE DATABASE to:", results.rows[0].public);
       return (results.rows[0]);
     })
     .catch((error) => console.log(error.message));
