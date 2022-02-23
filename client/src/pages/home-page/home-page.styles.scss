@@ -2,21 +2,25 @@
 .deck-container {
   width: 80%;
 
-  .user-name {
-    padding-top: 10px;
-  }
-
   .deck-div {
+    display: flex;
     border-bottom: 1px solid black;
-    justify-self: center;
-   
-  
+    
       .deck-title {
-        margin: 0.5em 0;
+        margin: 1vw 0 0 0;
         font-size: 2.5rem;
-        font-weight: 700;
+        font-weight: 500;
       }
   
     }
+
+    .user-name {
+      // padding-top: 10px;
+      margin: 0.5vw 0 1vw 0;
+      font-size: 1.5em;
+    }
 }
 
+.delete-Delete .custom-button:hover {
+  background-color: #FF0000;
+}

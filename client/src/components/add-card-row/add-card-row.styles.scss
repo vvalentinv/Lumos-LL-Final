@@ -5,10 +5,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        // margin: 10px 10px;
         background-color: #2e3856;
         border-radius: 10px;
-        height: 17vh;
+        height: 14vh;
         font-weight: bold;
         cursor: pointer;
 
@@ -23,16 +22,15 @@
             }
         }
 
-
         .add-card-div {
             display:flex;
             text-align: center;
             border-width: thick;
-            // padding: 0 0 0.8em 0;
             border-bottom: 5px solid #3dcfcf;
         }
 
         .add-card-row-text {
             margin-bottom: 0.8em;
+            font-size: 1.4em;
         }
     }

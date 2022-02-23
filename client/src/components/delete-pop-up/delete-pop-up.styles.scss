@@ -1,32 +1,38 @@
-// .delete-pop-up-wrapper {
-//     position: fixed; /* Stay in place */
-//     z-index: 1; /* Sit on top */
-//     left: 0;
-//     top: 0;
-//     width: 100%; /* Full width */
-//     height: 100%; /* Full height */
-//     overflow: auto; /* Enable scroll if needed */
-//     background-color: rgb(0,0,0); /* Fallback color */
-//     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-//   }
+.delete-pop-up-wrapper {
+  display: flex;
+  justify-content: end;
+}
 
   .delete-pop-up-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-self: center;
     background-color: #292d3d;
     border-radius: 12px;
-    margin: 15% auto;
-    padding: 20px;
-    width: 60%; 
+    // margin: 15% auto;
+    // padding: 20px;
+    // font-size: 1.2em;
+    padding: 15px 2em 45px 2em;
+    margin-bottom: 1em;
+    // width: 50%; 
 
-    p {
-        text-align: center;
+    .delete-warning {
+      font-size: 1.2em;
+      text-align: center;
+      margin-bottom: 1em;
+      // margin: 0 0.1em 1em 0;
     }
-  }
 
-  .delete-pop-up-buttons {
+    .delete-pop-up-buttons {
+      margin: 0 0.5vw 0 0.5vw
+    }
+
+    .delete-pop-up-buttons {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
   }
 
-
+}
 
   
