@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCardList, addCard } from "../../redux/card-list/card-list.actions";
+import { fetchCardList, addCard, refreshCardList } from "../../redux/card-list/card-list.actions";
 import { getDeckListForUser, getDeckBydeckID } from '../../helpers/selectors';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
@@ -18,11 +18,18 @@ import './view-deck-page.styles.scss';
 
 const ViewDeckPage = () => {
 
+    const freshList = [
+        { id: uuidv4(), term: '', definition: '', isUpdated: false, isPublic: false },
+        { id: uuidv4(), term: '', definition: '', isUpdated: false, isPublic: false }
+    ]
+
     const [isLoading, setLoading] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [deckTitle, setDeckTitle] = useState('');
     const [existingDeckTitles, setExistingDeckTitles] = useState([]);
     const [deckTitleError, setDeckTitleError] = useState(false);
+
+    const [submitted, isSubmitted] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,6 +37,8 @@ const ViewDeckPage = () => {
     const selCardList = useSelector(state => state.cardList);
     const { cardList } = selCardList;
     const deckLength = cardList.length;
+
+    console.log('CREATE DECK', cardList);
 
     const selUser = useSelector(state => state.user);
     const { userUUID } = selUser;
@@ -62,7 +71,7 @@ const ViewDeckPage = () => {
     }, [userUUID]);
 
     const validate = (str) => { //Refactor, cannot update current deck right now
-        console.log('VALIDATE', str, existingDeckTitles);
+        // console.log('VALIDATE', str, existingDeckTitles);
         if (existingDeckTitles.every(title => title !== str)) {
             return false;
         }
@@ -90,16 +99,20 @@ const ViewDeckPage = () => {
         // }
 
         if (!isLoading) {
-            if (!deckID) {
+            if (!deckID) { //Create New Deck
                 return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
-                    .then(resolved =>{
-                      navigate(`/deckpreview/${resolved.data.deckID}`);
+                    .then(resolved => {
+                        dispatch(refreshCardList(freshList));
+                        isSubmitted(true);
+                        navigate(`/deckpreview/${resolved.data.deckID}`);
                     })
-                    
-                      .catch(error => console.log(error));
-            } else {
+                    .catch(error => console.log(error));
+            } else { //Update existing deck
                 return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
-                    .then(navigate(`/deckpreview/${deckID}`))
+                    .then(resolved => {
+                        dispatch(refreshCardList(freshList));
+                        navigate(`/deckpreview/${deckID}`)
+                    })
                     .catch(error => console.log(error));
             }
         };
@@ -135,15 +148,20 @@ const ViewDeckPage = () => {
                 <div className='card-container'>
                     {isLoading && <ReactBootStrap.Spinner animation="border" />}
                     {!isLoading && cardList.map((card, index) => {
-                        const { id, term, definition } = card;
+                        const { cid, id, term, definition, isPublic } = card;
                         return (
                             <Card
+                                userUUID={userUUID}
                                 length={deckLength}
                                 key={id}
                                 id={id}
+                                cid={cid}
                                 term={term}
                                 definition={definition}
                                 number={index + 1}
+                                isSubmitted={isSubmitted}
+                                submitted={submitted}
+                                isPublic={isPublic}
                             />
                         )
                     })}

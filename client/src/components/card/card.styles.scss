@@ -30,6 +30,17 @@
             color: 	#FF0000;
         }
     }
+
+    .set-visibility-button-container {
+        cursor: pointer;
+
+        &:hover {
+            color: 	#FF0000;
+        }
+        &:focus {
+            background-color: orange;
+        }
+    }
     
     .delete-logo {
         cursor: pointer;

@@ -18,6 +18,11 @@ const cardListReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 cardList: [...action.payload]
             };
+        case CardListActionTypes.REFRESH_CARD_LIST:
+            return {
+                ...state,
+                cardList: action.payload
+            };
         case CardListActionTypes.ADD_CARD:
             return {
                 ...state,

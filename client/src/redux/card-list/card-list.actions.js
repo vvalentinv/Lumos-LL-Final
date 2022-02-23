@@ -17,10 +17,16 @@ export const updateCard = card => ({
   payload: card
 });
 
+export const refreshCardList = freshCardList => ({
+  type: CardListActionTypes.REFRESH_CARD_LIST,
+  payload: freshCardList
+});
+
 export const fetchCardList = (UUID, deckID, setLoading) => (
   async (dispatch) => {
     try {
       const res = await getCardsByDeckForUser(UUID, deckID);
+      console.log('REDUX', res)
       const { data } = res;
       setLoading(false);
 

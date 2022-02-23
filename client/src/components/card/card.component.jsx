@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import { useDispatch } from 'react-redux';
 import { deleteCard, updateCard } from '../../redux/card-list/card-list.actions';
@@ -6,18 +7,40 @@ import { deleteCard, updateCard } from '../../redux/card-list/card-list.actions'
 import './card.styles.scss';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const Card = (props) => {
 
-    const { id, term, definition, length, number } = props;
+    const {
+        userUUID,
+        id,
+        cid,
+        term,
+        definition,
+        length,
+        number,
+        submitted,
+        isSubmitted,
+        isPublic
+    } = props;
 
     const [question, setQuestion] = useState(term);
     const [answer, setAnswer] = useState(definition);
+
+    const [isPublicStatus, setIsPublic] = useState(isPublic)
 
     const [replicatedAnswer, setReplicatedAnswer] = useState('');
     const [replicatedQuestion, setReplicatedQuestion] = useState('');
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (submitted) {
+            setQuestion('');
+            setAnswer('');
+            isSubmitted(!submitted);
+        }
+    }, [submitted])
 
     const questionHandleChange = (event) => {
         setQuestion(event.target.value);
@@ -40,12 +63,20 @@ const Card = (props) => {
             value: event.target.value,
         }));
     }
+    console.log('CARD STATUS', isPublicStatus)
+    const changeVisibilityStatus = (isPublicStatus) => {
+        setIsPublic(!isPublicStatus)
+        axios.post(`http://localhost:8080/api/cards/change`, { cid, isPublicStatus, userUUID })
+    }
 
     return (
         <div className='main-card-div'>
             <div className='deck-card'>
                 <div className='card-toolbar'>
                     <span className='card-number'>{number}</span>
+                    <div className='set-visibility-button-container' onClick={() => changeVisibilityStatus(cid, isPublicStatus, userUUID)}>
+                        <CheckBoxIcon classname='set-visibility-button' />
+                    </div>
                     <div className='delete-logo-container'>
                         <DeleteIcon
                             className='delete-logo'
