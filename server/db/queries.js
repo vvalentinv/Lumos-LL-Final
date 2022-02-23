@@ -220,13 +220,16 @@ const getAllPublicCardsByDeckTitle = () => {
 };
 
 const changeCardsVisibility = (cid, isPublic, userUUID) => {
-  // console.log("params card visibility change:", card, userUUID);
+  let param = false;
+  isPublic ? param = true : param = false;
+  // console.log("params card visibility change:", param, cid, userUUID);
+
   return client.query(`UPDATE cards
                   SET public = $2
-              WHERE user_id = $3 AND id = $1 RETURNING *;`, [cid, isPublic, userUUID])
+              WHERE user_id = $3 AND id = $1;`, [cid, param, userUUID])
     .then((results) => {
-      console.log("change card visibility FROM THE DATABASE to:", results.rows[0].public);
-      return (results.rows[0]);
+      // console.log("change card visibility FROM THE DATABASE to:", results.rowCount);
+      return res.send({ status: `Visibility changed to ${param}` });
     })
     .catch((error) => console.log(error.message));
 };

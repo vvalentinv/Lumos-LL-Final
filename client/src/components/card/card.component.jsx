@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const Card = (props) => {
-
+console.log("props",props);
     const {
         userUUID,
         id,
@@ -64,10 +64,12 @@ const Card = (props) => {
         }));
     }
     console.log('CARD STATUS', isPublicStatus)
+    console.log("cid",cid);
 
     const changeVisibilityStatus = () => {
         console.log('CLICK CHECK', isPublicStatus)
         setIsPublic(!isPublicStatus)
+        console.log("cid inside",cid);
         const sendUpdate = axios.post(`http://localhost:8080/api/cards/change`, { cid, isPublicStatus, userUUID })
         setTimeout(sendUpdate, 500);
     }
