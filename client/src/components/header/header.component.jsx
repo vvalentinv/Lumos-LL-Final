@@ -147,6 +147,7 @@ export default function Header() {
       .then((result) => {
         //filter by deck title
         const filtered = result.data.filter(d => d.title.toLowerCase().includes(cardValue.searchCardInput));
+        // console.log("pub",publicDecks);
         return setPublicDecks(filtered);
       })
       .catch((error) => console.log(error.message))
@@ -441,7 +442,3 @@ export default function Header() {
     </Box >
   );
 }
-
-
-
-

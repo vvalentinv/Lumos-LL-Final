@@ -38,7 +38,7 @@ const ViewDeckPage = () => {
     const { cardList } = selCardList;
     const deckLength = cardList.length;
 
-    console.log('CREATE DECK', cardList);
+    // console.log('CREATE DECK', cardList);
 
     const selUser = useSelector(state => state.user);
     const { userUUID } = selUser;
@@ -109,7 +109,9 @@ const ViewDeckPage = () => {
                         navigate(`/deckpreview/${resolved.data.deckID}`);
                     })
                     .catch(error => console.log(error));
-            } else { //Update existing deck
+            } else { 
+              //Update existing deck
+              console.log("update  deckID, deckTitle, cardList, userUUID:", deckID, deckTitle, cardList, userUUID);
                 return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
                     .then(resolved => {
                         dispatch(refreshCardList(freshList));
@@ -149,7 +151,7 @@ const ViewDeckPage = () => {
                 </div>
                 <div className='card-container'>
                     {isLoading && <ReactBootStrap.Spinner animation="border" />}
-                    {!isLoading && cardList.map((card, index) => {
+                    {!isLoading &&  cardList.map((card, index) => {
                         const { cid, id, term, definition, isPublic } = card;
                         return (
                             <Card
