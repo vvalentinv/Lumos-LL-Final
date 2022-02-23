@@ -6,7 +6,7 @@ import "./deck-preview.page-styles.scss";
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 
 import { getDeckBydeckID, getCardsByDeckForUser } from "../../helpers/selectors";
 import { useSelector } from "react-redux";
@@ -47,6 +47,9 @@ const DeckPreviewPage = () => {
       .then(result => {
         console.log("resolved promise:", result.data)
         setCardList(result.data);
+          console.log('DEFINTION',curCard.definition.length);
+          console.log('ANSWER',curCard.term.length);
+
       })
       .catch(error => console.log(error));
   }, [userUUID, deckID])
@@ -81,46 +84,56 @@ const DeckPreviewPage = () => {
 
   const [side, setSide] = useState(true);
   const [flip, setFlip] = useState();
+  const [stringFontSize, setStringFontSize] = useState(13);
+
+  // let stringFontSize;
 
   function handleClick() {
     amendShowAnswerFlag(activeCardIndex);
     setSide(!side);
     setFlip(side);
-  }
 
-  let fontSize;
-  const baseFontSize = 15;
-
-  if (curCard.term && curCard.showAnswer && curCard.term.length >= 20) {
-    fontSize = 6;
-  } else if ((curCard.term && curCard.showAnswer && curCard.term.length >= 10)) {
-    fontSize = 11;
-  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 20) {
-    fontSize = 6;
-  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 10) {
-    fontSize = 11;
+  if (curCard.term && curCard.showAnswer && curCard.term.length >= 15) {
+    // fontSize = 30;
+    setStringFontSize(7);
+    console.log("BACK",curCard.term.length);
+  } else if ((curCard.term && curCard.showAnswer && curCard.term.length >= 7)) {
+    // fontSize = 20;
+    setStringFontSize(7);
+  } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 15) {
+    console.log("DDDDDDDDDDDDDDDDD",curCard.definition.length);
+    // fontSize = 10;
+    setStringFontSize(7);
+  } else if (curCard.definition && curCard.showAnswer && curCard.definition.length >= 7) {
+    // fontSize = 20;
+    setStringFontSize(6);
   } else {
-    fontSize = baseFontSize;
+    setStringFontSize(13);
+    // fontSize = baseFontSize;
   }
 
-  const stringFontSize = fontSize;
+}
+ 
 
+  console.log(side);
   return (
-    <div className='dp-main-div'>
-      <div className='deck-preview'>
-        <h2>Deck Preview</h2>
+    <div className='dp-main-div' >
+      <div className='deck-preview' >
+        <h1 className='d-preview'>Deck Preview</h1>
+        <h1 className='d-title'>{deckTitle}</h1>
       </div>
       <div className='main-div'>
-        <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()} >
-          <span className={!flip ? 'card-flip' : 'test'} style={{ fontSize: `${stringFontSize}vmin` }}>
-            <div className='flash-card-text' style={{ fontSize: `${stringFontSize}vmin` }}>
+        <div className={`primary-card-container  ${side ? 'side' : 'default'}`}  onClick={() => handleClick()}> 
+        {/* style={{ fontSize: `${stringFontSize}vmin` }} */}
+          <span className={!flip ? 'card-flip' : ''} style={{ fontSize: `${stringFontSize}vmin` }}>
+            <span className='flash-card-text' style={{ fontSize: `${stringFontSize}vmin` }}>
               {curCard.showAnswer
                 ? curCard.definition
                 : curCard.term
               }
-            </div>
+            </span>
           </span>
-        </div>
+        </div >
         <div className='primary-card-nav'>
           <span className="left-arrow">
             <ArrowBack className='left-arrow-icon' sx={{ fontSize: 45 }} onClick={() => leftArrowSubmit()}></ArrowBack>
@@ -153,12 +166,10 @@ const DeckPreviewPage = () => {
       </div>
       <div style={{ width: '100%' }}>
       </div>
-      <div className="button">
-        <Box textAlign='center'>
+      <div className="button-a">
           <CustomButton onClick={() => navigate(`/editdeck/${deckID}`)}>
             Add or Remove Questions
           </CustomButton>
-        </Box>
       </div>
     </div>
 
