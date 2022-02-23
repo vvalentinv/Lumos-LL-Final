@@ -59,7 +59,6 @@ const ViewDeckPage = () => {
         }else {
           dispatch(refreshCardList(freshList));
         }
-        else dispatch(refreshCardList(freshList));
     }, [deckID, userUUID]);
 
     useEffect(() => {
@@ -150,7 +149,7 @@ const ViewDeckPage = () => {
                 </div>
                 <div className='card-container'>
                     {isLoading && <ReactBootStrap.Spinner animation="border" />}
-                    {!isLoading && cardList.map((card, index) => {
+                    {!isLoading &&  cardList.map((card, index) => {
                         const { cid, id, term, definition, isPublic } = card;
                         return (
                             <Card
