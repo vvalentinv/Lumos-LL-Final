@@ -6,8 +6,8 @@ const cardRoutes = () => {
 
   // change a card's public column true or false
   router.post('/change', (req, res) => {
-    const { card, userUUID } = req.body;
-    return changeCardsVisibility(card, userUUID)
+    const { cid, isPublic, userUUID } = req.body;
+    return changeCardsVisibility(cid, isPublic, userUUID)
       .then((data) => res.send(data))
       .catch((error) => console.log(error));
   });

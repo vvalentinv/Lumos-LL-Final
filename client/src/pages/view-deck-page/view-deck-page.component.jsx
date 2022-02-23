@@ -95,7 +95,6 @@ const ViewDeckPage = () => {
                     .then(resolved =>{
                       navigate(`/deckpreview/${resolved.data.deckID}`);
                     })
-                    
                       .catch(error => console.log(error));
             } else {
                 return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
