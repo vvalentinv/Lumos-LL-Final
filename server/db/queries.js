@@ -208,10 +208,11 @@ const deleteDeck = (deckID) => {
 
 const getAllPublicCardsByDeckTitle = () => {
 
-  return client.query(`SELECT * FROM decks
+  return client.query(`SELECT DISTINCT(decks.id), decks.deck_name FROM decks
                         JOIN decks_with_cards ON decks_with_cards.deck_id = decks.id
                         JOIN cards ON decks_with_cards.card_id = cards.id
-                        WHERE cards.public IS TRUE;`)
+                        WHERE cards.public IS TRUE
+                        GROUP BY decks.id;`)
     .then((results) => {
       // console.log("DECKS with public cards FROM THE DATABASE:", results.rows);
       return (results.rows);
