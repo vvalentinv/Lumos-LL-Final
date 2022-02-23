@@ -88,12 +88,12 @@ const storeDeck = async (deck) => {
 };
 
 //! STORECARD
-const storeCard = async (card) => {
-  console.log("store card params", card);
+const storeCard = async (card, userUUID) => {
+  console.log("store card params", card, userUUID);
   const newCard = await client.query(`INSERT INTO cards (user_id, question, url, answer, all_answers, public) VALUES
-($1, $2, $3, $4, $5, $6) RETURNING *;`, [card.user_id, card.definition,
+($1, $2, $3, $4, $5, $6) RETURNING *;`, [userUUID, card.definition,
     'https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
-  card.term, '{"F1", "F2", "F3"}', card.isPublic]);
+    card.term, '{"F1", "F2", "F3"}', card.isPublic]);
   return newCard.rows;
 };
 
@@ -221,14 +221,14 @@ const getAllPublicCardsByDeckTitle = () => {
 
 const changeCardsVisibility = (cid, isPublic, userUUID) => {
   let param = false;
-  isPublic ? param = true : param = false;
-  // console.log("params card visibility change:", param, cid, userUUID);
+  isPublic !== 'false' ? param = !param : param;
+  console.log("params card visibility change:", param, cid, userUUID);
 
   return client.query(`UPDATE cards
                   SET public = $2
               WHERE user_id = $3 AND id = $1;`, [cid, param, userUUID])
     .then((results) => {
-      // console.log("change card visibility FROM THE DATABASE to:", results.rowCount);
+      console.log("change card visibility FROM THE DATABASE to:", results);
       return res.send({ status: `Visibility changed to ${param}` });
     })
     .catch((error) => console.log(error.message));
