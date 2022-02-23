@@ -6,6 +6,12 @@
   color:#ffffff;
 }
 
+.dp-main-div {
+  padding: 0 25vw;
+  display: flex;
+  flex-direction: column;
+}
+
 .main-div {
   display: grid;
   align-items: center;
@@ -81,15 +87,12 @@
   flex-direction: row;
   justify-content: center;
   margin: 3vmin 1.2vmin;
-  // padding: 4vmin 5vmin;
   color: #ffffff;
   cursor: pointer;
   vertical-align: middle;
 
     .right-arrow:hover {
-      // .css-1dxcdol-MuiSvgIcon-root{
-      //   font-size: 65px;
-      // }
+
       color: #eb952c;
     }
     .left-arrow:hover {
@@ -105,7 +108,7 @@
 
 
 .q-in-set-div {
-  display: flex;
+  // display: flex;
   justify-content: center;
   // width: 50%;
 
@@ -123,18 +126,10 @@
 .questions-answers {
   display: flex;
   justify-content: center;
-  // direction: column;
   color:#ffffff;
-  // align-items: center;
-  // width: 75%;
-  // margin: 1em;
-
-
 
   .preview-card-container {
-    // background-color: 0a082e;
-    // text-align: center;
-    // width: 52%;
+    width: 50vw;
   }
 
   @media only screen and (max-width: 400px) {
@@ -158,19 +153,3 @@
     }
   }
 }
-
-
-// .a-r-button {
-//   display: flex;
-//   justify-content: end;
-//   // margin-top: 5em;
-//   margin: 0.5em 0 1em 0;
-
-//   // grid-template-rows: 1f;
-//   // align-items: flex-end;
-// .button {
-//   display: grid;
-//   margin-top: 1em;
-//   grid-template-rows: 1f;
-//   align-items: center;
-// }

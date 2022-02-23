@@ -11,12 +11,12 @@
   // width: 60em;
   // max-width: 75%;
 
-  .container-q {
-    align-self: center;
-    // overflow-wrap: break-word;
-    // width: 25vw;
-    // width: 100%;
-  }
+  // .container-q {
+  //   align-self: center;
+  //   // overflow-wrap: break-word;
+  //   // width: 25vw;
+  //   // width: 100%;
+  // }
 
   .vertical {
     Float:left;
@@ -24,19 +24,26 @@
   }
 
   .question {
-    width: 100%;
+    // width: 80%;
+    // width: em;
+    flex: 1;
     padding: 1 em;
     margin: 1em;
     text-align: left;
+    overflow-wrap: break-word;
+    overflow: hidden;
   }
 
   .answer { 
     // border-left: 2px solid rgb(255, 255, 255);
     // width: 10vw;
-    width: 40%;
+    // width: 20%;
+    flex: 0.4;
     padding: 1 em;
     margin: 1em;
     text-align: left;
+    overflow-wrap: break-word;
+    overflow: hidden;
   }
 
   .container-a {
