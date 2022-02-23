@@ -57,31 +57,23 @@
 
     .input-text {
         margin: 0 1.5vh 0 1.5vw;
-        font-size: 1.2em;
+        font-size: 1.4vw;
         color: #f6f7fb;
         border-color: #f6f7fb;
         border-width: 0 0 0.1vw 0;
         background-color: #2e3856;
-        // width: auto;
-        // height: 8vw;
-
-        // box-sizing: border-box; //Different branch
-        // overflow: hidden;
-        // resize: none;
-        
-        // word-break: break-all;
         resize: none;
         min-height: 80px;
         padding: 5px;
         overflow: hidden;
         box-sizing: border-box;
         
-        @media (max-width: 720px) {
-            font-size: 0.7em;
+        @media (max-width: 500px) {
+            font-size: 1.7vh;
         }
 
-        @media (max-height: 500px) {
-            font-size: 0.3em;
+        @media (max-height: 600px) {
+            font-size: 1.5vw;
         }
 
         &:focus{ 
@@ -120,7 +112,6 @@
     resize: none;
   
     /* Firefox shows scrollbar on growth, you can hide like this. */
-    // overflow: hidden;
     overflow: hidden;
     box-sizing: border-box;
   }
