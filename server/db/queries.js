@@ -3,7 +3,7 @@ const res = require('express/lib/response');
 
 //! DECK CARDS
 const getAllCardsByDeck = (userUUID, deckID) => {
-  // console.log("params for DB:", userUUID, deckID);
+  console.log("params for DB:", userUUID, deckID);
   return client.query(`SELECT * FROM cards
                 JOIN decks_with_cards ON cards.id =  decks_with_cards.card_id
                 WHERE deck_id = $1;`, [deckID])
@@ -205,6 +205,9 @@ const deleteDeck = (deckID) => {
 
 
 };
+
+
+
 
 const getAllPublicCardsByDeckTitle = () => {
 
