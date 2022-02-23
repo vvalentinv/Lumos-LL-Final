@@ -38,7 +38,7 @@ const ViewDeckPage = () => {
     const { cardList } = selCardList;
     const deckLength = cardList.length;
 
-    console.log('CREATE DECK', cardList);
+    // console.log('CREATE DECK', cardList);
 
     const selUser = useSelector(state => state.user);
     const { userUUID } = selUser;
@@ -57,6 +57,7 @@ const ViewDeckPage = () => {
                 .then((result) => setDeckTitle(result.data.deck_name))
                 .catch(error => console.log(error.message))
         }
+        else dispatch(refreshCardList(freshList));
     }, [deckID, userUUID]);
 
     useEffect(() => {

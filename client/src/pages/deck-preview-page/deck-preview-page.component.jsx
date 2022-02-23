@@ -88,6 +88,8 @@ const DeckPreviewPage = () => {
     setFlip(side);
   }
 
+  console.log('deckT', deckTitle);
+
   let fontSize;
   const baseFontSize = 15;
 
@@ -108,7 +110,7 @@ const DeckPreviewPage = () => {
   return (
     <div className='dp-main-div'>
       <div className='deck-preview'>
-        <h2>Deck Preview</h2>
+        <h2>{deckTitle}</h2>
       </div>
       <div className='main-div'>
         <div className={`primary-card-container ${side ? 'side' : ''}`} onClick={() => handleClick()} >
