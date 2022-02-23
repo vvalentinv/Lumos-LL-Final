@@ -89,11 +89,11 @@ const HomePage = () => {
 
   return (
     <div className='deck-container'>
+      <div className='deck-div'>
+        <h1 className='deck-title'>{`Your Decks`}</h1>
+      </div>
       <div className='user-name'>
         {!isLoading ? <span>{name}</span> : ''}
-      </div>
-      <div className='deck-div'>
-        <h3 className='deck-title'>{`YOUR DECKS`}</h3>
       </div>
       {isLoading && <ReactBootStrap.Spinner animation="border" />}
       {!isLoading && deckList?.length > 0 && deckListMap}

@@ -7,7 +7,7 @@
 }
 
 .dp-main-div {
-  padding: 0 25vw;
+  padding: 0 15vw;
   display: flex;
   flex-direction: column;
 }
@@ -28,8 +28,8 @@
 }
 .deck-preview {
   font-size: 4vmin;
-  width: 50vw;
-  align-self: center;
+  // width: 50vw;
+  // align-self: center;
 }
 
 .primary-card-container {
@@ -38,7 +38,7 @@
   text-align: center;
   margin: 0;
   height: 50vh;
-  width: 50vw;
+  width: 55vw;
   justify-content: center;
   align-items: center;
   color: #ffffff;
@@ -101,35 +101,30 @@
 }
 
 .deck-length {
-  margin: 0 4vw 0 4vw;
+  margin: 0 6vw 0 6vw;
   align-self: center;
-  // font-size: 1.2rem;
+  font-size: 1.8em;
+
 }
 
-
 .q-in-set-div {
-  // display: flex;
   justify-content: center;
-  // width: 50%;
 
   .q-in-set {
-    // justify-self: ;
     padding-top: 1.2vw;
-    border-top-style: inset;
-    // width: 51%;
-
-  
+    border-top-style: inset
 
   }
 }
 
 .questions-answers {
-  display: flex;
+  // display: flex;
   justify-content: center;
   color:#ffffff;
 
   .preview-card-container {
-    width: 50vw;
+
+    // width: 50vw;
   }
 
   @media only screen and (max-width: 400px) {
@@ -152,4 +147,11 @@
       }
     }
   }
+
+  .a-r-button {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0.5em 0 1em 0;
+  }
+
 }

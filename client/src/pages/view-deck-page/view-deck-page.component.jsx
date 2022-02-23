@@ -92,8 +92,11 @@ const ViewDeckPage = () => {
         if (!isLoading) {
             if (!deckID) {
                 return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
-                    .then(navigate(`/deckpreview/${deckID}`))
-                    .catch(error => console.log(error));
+                    .then(resolved =>{
+                      navigate(`/deckpreview/${resolved.data.deckID}`);
+                    })
+                    
+                      .catch(error => console.log(error));
             } else {
                 return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
                     .then(navigate(`/deckpreview/${deckID}`))
