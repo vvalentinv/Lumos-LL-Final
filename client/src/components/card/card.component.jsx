@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 import { useDispatch } from 'react-redux';
 import { deleteCard, updateCard, updateCardIsPublic } from '../../redux/card-list/card-list.actions';
@@ -10,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const Card = (props) => {
-
+    console.log("props", props);
     const {
         userUUID,
         id,

@@ -56,8 +56,9 @@ const ViewDeckPage = () => {
             getDeckBydeckID(userUUID, deckID)
                 .then((result) => setDeckTitle(result.data.deck_name))
                 .catch(error => console.log(error.message))
+        } else {
+            dispatch(refreshCardList(freshList));
         }
-        else dispatch(refreshCardList(freshList));
     }, [deckID, userUUID]);
 
     useEffect(() => {
@@ -108,7 +109,9 @@ const ViewDeckPage = () => {
                         navigate(`/deckpreview/${resolved.data.deckID}`);
                     })
                     .catch(error => console.log(error));
-            } else { //Update existing deck
+            } else {
+                //Update existing deck
+                console.log("update  deckID, deckTitle, cardList, userUUID:", deckID, deckTitle, cardList, userUUID);
                 return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
                     .then(resolved => {
                         dispatch(refreshCardList(freshList));

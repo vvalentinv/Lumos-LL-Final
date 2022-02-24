@@ -100,7 +100,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: theme.spacing(1, 1, 1, 1),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
@@ -141,12 +141,14 @@ export default function Header() {
     }
   }
 
+  
   //filter by search box term decks list before state save
   const grabData = () => {
     getAllPublicCardsByDecksWithTitle()
       .then((result) => {
         //filter by deck title
         const filtered = result.data.filter(d => d.title.toLowerCase().includes(cardValue.searchCardInput));
+        // console.log("pub",publicDecks);
         return setPublicDecks(filtered);
       })
       .catch((error) => console.log(error.message))
@@ -202,7 +204,7 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}></MenuItem>
       <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
     </Menu>
   );
@@ -295,15 +297,16 @@ export default function Header() {
               component='span'
               onClick={() => navigate('/')}
               sx={{
-                mb: '0.01vw',
-                ml: '0.6vw',
-                mr: '6vw',
-                display: { fontSize: 40 },
+                // mb: '0.01vw',
+                ml: '5px',
+                mr: '50px',
+                fontSize: 40,
+                fontWeight: 500,
                 color: 'gold',
                 cursor: 'pointer',
-                borderBottom: '2px solid #292f41',
+                borderBottom: '3px solid #292f41',
                 '&:hover': {
-                  borderBottom: '2px solid #bec2d0',
+                  borderBottom: '3px solid #bec2d0',
                 }
               }}
             >
@@ -314,19 +317,23 @@ export default function Header() {
               noWrap
               component='span'
               sx={{
-                // mr: '6vw', 
-                // mt: '0.5svw',
+                // mr: '6vw',
+                pb: '10px', 
+                mt: '15px',
+                mr: '50px',
+                // mb: '1vw',
                 cursor: 'pointer',
                 variant: 'h7',
+                height: '100%',
                 // component: 'div',
-                fontSize: '1rem',
+                fontSize: '1.2rem',
                 // margin: '0.4vw 3vw',
-                borderBottom: '2px solid #292f41',
+                borderBottom: '3px solid #292f41',
                 // lineHeight: '1.2em',
-                marginRight: '24px',
+                // marginRight: '24px',
                 '&:hover': {
                   // color: "#f00",
-                  borderBottom: '2px solid #bec2d0',
+                  borderBottom: '3px solid #bec2d0',
                 },
               }}
               onClick={() => navigate('/')}
@@ -344,12 +351,16 @@ export default function Header() {
                 cursor: 'pointer',
                 variant: 'contained',
                 component: 'div',
-                marginRight: '24px',
-                fontSize: '1rem',
+                mt: '2px',
+                mr: '24px',
+                fontSize: '1.1rem',
                 width: '7.5rem',
-                height: '1.9rem',
+                height: '2.2rem',
+                // pb: '10px', 
+                borderBottom: '1px solid #4255ff',
                 '&:hover': {
-                  backgroundColor: '#4245ff',
+                  backgroundColor: '#3122cf',
+                  borderBottom: '1px solid #bec2d0',
                   // color: "#f00",
                 },
               }}
@@ -362,8 +373,8 @@ export default function Header() {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Search
               style={{ position: 'relative', zIndex: 10 }}>
-              <SearchIconWrapper>
-                <SearchIcon />
+              <SearchIconWrapper >
+                <SearchIcon/>
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
@@ -373,7 +384,7 @@ export default function Header() {
                 value={cardValue.searchCardInput}
                 name='searchCardInput'
               />
-              <div style={{ position: 'absolute', backgroundColor: 'black' }}>
+              <div style={{ width: '100%', position: 'absolute', backgroundColor: '#494e5d' }}>
                 {publicDecks && publicDecks.map((deck) => {
                   const { id, cid, title } = deck;
                   return (
@@ -387,7 +398,6 @@ export default function Header() {
                 })}
               </div>
             </Search>
-
             <IconButton
               size="small"
               edge="end"
@@ -397,7 +407,7 @@ export default function Header() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle size='large'> </AccountCircle>
             </IconButton>
             {/* <div className='header-right'> */}
             <Box ml={3} mt={0.5}>
@@ -416,7 +426,7 @@ export default function Header() {
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
+              size=""
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
@@ -433,7 +443,3 @@ export default function Header() {
     </Box >
   );
 }
-
-
-
-

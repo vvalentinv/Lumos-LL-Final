@@ -55,7 +55,7 @@ const deckRoutes = () => {
     for (const card of cardList) {
       console.log("cardToStore:", card);
       card.user_id = userUUID;
-      const newCard = await storeCard(card);
+      const newCard = await storeCard(card, userUUID);
       console.log("stored Card:", newCard);
       cardIDs.push(newCard[0].id);
     }
