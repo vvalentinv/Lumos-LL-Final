@@ -113,71 +113,72 @@ const DeckPreviewPage = () => {
       // fontSize = baseFontSize;
     }
 
-    const stringFontSize = fontSize;
-
-    console.log(side);
-    return (
-      <div className='dp-main-div' >
-        <div className='deck-preview' >
-          <h1 className='d-preview'>Deck Preview</h1>
-          <h1 className='d-title'>{deckTitle}</h1>
-        </div>
-        <div className='main-div'>
-          <div className={`primary-card-container  ${side ? 'side' : 'default'}`} onClick={() => handleClick()}>
-            {/* style={{ fontSize: `${stringFontSize}vmin` }} */}
-            <span className={!flip ? 'card-flip' : ''} style={{ fontSize: `${stringFontSize}vmin` }}>
-              <span className='flash-card-text' style={{ fontSize: `${stringFontSize}vmin` }}>
-                {curCard.showAnswer
-                  ? curCard.definition
-                  : curCard.term
-                }
-              </span>
-            </span>
-          </div >
-          <div className='primary-card-nav'>
-            <span className="left-arrow">
-              <ArrowBack className='left-arrow-icon' sx={{ fontSize: 45 }} onClick={() => leftArrowSubmit()}></ArrowBack>
-            </span>
-            <span className='deck-length'>
-              {`${activeCardIndex + 1}/${deckLength}`}
-            </span>
-            <span className="right-arrow" onClick={() => rightArrowSubmit()}>
-              <ArrowForwardIcon className='right-arrow-icon' sx={{ fontSize: 45 }} onClick={() => rightArrowSubmit()}></ArrowForwardIcon>
-            </span>
-          </div>
-        </div>
-        <div className='q-in-set-div'>
-          <h2 className="q-in-set">{`Questions in this set (${cardList.length})`}</h2>
-        </div>
-        <div className="questions-answers">
-          <div className='preview-card-container'>
-            {cardList.length && cardList.map((card) => {
-              const { term, definition } = card;
-              return (
-                <PreviewCard
-                  className="preview-card"
-                  key={uuidv4()}
-                  term={definition}
-                  definition={term}
-                />
-              )
-            })}
-          </div>
-        </div>
-        <div style={{ width: '100%' }}>
-        </div>
-        <div className="button-a">
-          <CustomButton onClick={() => navigate(`/editdeck/${deckID}`)}>
-            Add or Remove Questions
-          </CustomButton>
-        </div>
-      </div>
-
-
-
-
-
-    );
   }
 
-  export default DeckPreviewPage;
+
+  console.log(side);
+  return (
+    <div className='dp-main-div' >
+      <div className='deck-preview' >
+        <h1 className='d-preview'>Deck Preview</h1>
+        <h1 className='d-title'>{deckTitle}</h1>
+      </div>
+      <div className='main-div'>
+        <div className={`primary-card-container  ${side ? 'side' : 'default'}`} onClick={() => handleClick()}>
+          {/* style={{ fontSize: `${stringFontSize}vmin` }} */}
+          <span className={!flip ? 'card-flip' : ''} style={{ fontSize: `${stringFontSize}vmin` }}>
+            <span className='flash-card-text' style={{ fontSize: `${stringFontSize}vmin` }}>
+              {curCard.showAnswer
+                ? curCard.definition
+                : curCard.term
+              }
+            </span>
+          </span>
+        </div >
+        <div className='primary-card-nav'>
+          <span className="left-arrow">
+            <ArrowBack className='left-arrow-icon' sx={{ fontSize: 45 }} onClick={() => leftArrowSubmit()}></ArrowBack>
+          </span>
+          <span className='deck-length'>
+            {`${activeCardIndex + 1}/${deckLength}`}
+          </span>
+          <span className="right-arrow" onClick={() => rightArrowSubmit()}>
+            <ArrowForwardIcon className='right-arrow-icon' sx={{ fontSize: 45 }} onClick={() => rightArrowSubmit()}></ArrowForwardIcon>
+          </span>
+        </div>
+      </div>
+      <div className='q-in-set-div'>
+        <h2 className="q-in-set">{`Questions in this set (${cardList.length})`}</h2>
+      </div>
+      <div className="questions-answers">
+        <div className='preview-card-container'>
+          {cardList.length && cardList.map((card) => {
+            const { term, definition } = card;
+            return (
+              <PreviewCard
+                className="preview-card"
+                key={uuidv4()}
+                term={definition}
+                definition={term}
+              />
+            )
+          })}
+        </div>
+      </div>
+      <div style={{ width: '100%' }}>
+      </div>
+      <div className="button-a">
+        <CustomButton onClick={() => navigate(`/editdeck/${deckID}`)}>
+          Add or Remove Questions
+        </CustomButton>
+      </div>
+    </div>
+
+
+
+
+
+  );
+}
+
+export default DeckPreviewPage;
