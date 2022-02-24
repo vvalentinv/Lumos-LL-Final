@@ -11,4 +11,16 @@ export const updateCardInCardList = (cardList, payload) => {
     return newCardList;
 };
 
+export const updateCardIsPublic = (cardList, payload) => {
+    let newCardList = cardList.map((card) => {
+        let editCard = { ...card }
+        if (card.id === payload) {
+            let prevState = editCard.isPublic
+            editCard.isPublic = !prevState
+        }
+        return editCard;
+    })
+    return newCardList;
+};
+
 

@@ -105,6 +105,8 @@ const DeckPreviewPage = () => {
     fontSize = baseFontSize;
   }
 
+  console.log('DT', deckTitle);
+
   const stringFontSize = fontSize;
 
   return (

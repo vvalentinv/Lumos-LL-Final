@@ -72,11 +72,11 @@ const ViewDeckPage = () => {
     }, [userUUID]);
 
     const validate = (str) => { //Refactor, cannot update current deck right now
-        // console.log('VALIDATE', str, existingDeckTitles);
+        console.log('VALIDATE', str, existingDeckTitles);
         if (existingDeckTitles.every(title => title !== str)) {
-            return false;
+            return false; //Return valid ID
         }
-        return true;
+        return true; //Return -1
     }
 
     const addNewCard = () => {
@@ -94,7 +94,7 @@ const ViewDeckPage = () => {
         event.preventDefault();
         const validationResult = validate(deckTitle);
 
-        // if (validationResult) { FIX LATER
+        // if (validationResult) { //If ID is different display message 
         //     setDeckTitleError(true);
         //     return;
         // }
@@ -148,7 +148,7 @@ const ViewDeckPage = () => {
                 </div>
                 <div className='card-container'>
                     {isLoading && <ReactBootStrap.Spinner animation="border" />}
-                    {!isLoading && cardList.map((card, index) => {
+                    {!isLoading && cardList.map((card, index) => { //Filter cardList for isPublic === true
                         const { cid, id, term, definition, isPublic } = card;
                         return (
                             <Card
