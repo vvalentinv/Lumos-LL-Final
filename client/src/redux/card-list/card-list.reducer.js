@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import CardListActionTypes from "./card-list.types";
 
-import { updateCardInCardList } from './card-list.utils';
+import { updateCardInCardList, updateCardIsPublic } from './card-list.utils';
 
 const INITIAL_STATE = {
     cardList: [
@@ -37,6 +37,11 @@ const cardListReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 cardList: updateCardInCardList(state.cardList, action.payload)
+            };
+        case CardListActionTypes.UPDATE_CARD_IS_PUBLIC:
+            return {
+                ...state,
+                cardList: updateCardIsPublic(state.cardList, action.payload)
             };
         default:
             return state;

@@ -22,6 +22,11 @@ export const refreshCardList = freshCardList => ({
   payload: freshCardList
 });
 
+export const updateCardIsPublic = id => ({
+  type: CardListActionTypes.UPDATE_CARD_IS_PUBLIC,
+  payload: id
+});
+
 export const fetchCardList = (UUID, deckID, setLoading) => (
   async (dispatch) => {
     try {

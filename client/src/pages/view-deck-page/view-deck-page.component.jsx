@@ -56,9 +56,8 @@ const ViewDeckPage = () => {
             getDeckBydeckID(userUUID, deckID)
                 .then((result) => setDeckTitle(result.data.deck_name))
                 .catch(error => console.log(error.message))
-        }else {
-          dispatch(refreshCardList(freshList));
         }
+        else dispatch(refreshCardList(freshList));
     }, [deckID, userUUID]);
 
     useEffect(() => {
@@ -73,11 +72,11 @@ const ViewDeckPage = () => {
     }, [userUUID]);
 
     const validate = (str) => { //Refactor, cannot update current deck right now
-        // console.log('VALIDATE', str, existingDeckTitles);
+        console.log('VALIDATE', str, existingDeckTitles);
         if (existingDeckTitles.every(title => title !== str)) {
-            return false;
+            return false; //Return valid ID
         }
-        return true;
+        return true; //Return
     }
 
     const addNewCard = () => {
@@ -95,10 +94,10 @@ const ViewDeckPage = () => {
         event.preventDefault();
         const validationResult = validate(deckTitle);
 
-        // if (validationResult) { FIX LATER
-        //     setDeckTitleError(true);
-        //     return;
-        // }
+        if (validationResult) { //If ID is different display message 
+            setDeckTitleError(true);
+            return;
+        }
 
         if (!isLoading) {
             if (!deckID) { //Create New Deck
@@ -109,9 +108,7 @@ const ViewDeckPage = () => {
                         navigate(`/deckpreview/${resolved.data.deckID}`);
                     })
                     .catch(error => console.log(error));
-            } else { 
-              //Update existing deck
-              console.log("update  deckID, deckTitle, cardList, userUUID:", deckID, deckTitle, cardList, userUUID);
+            } else { //Update existing deck
                 return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
                     .then(resolved => {
                         dispatch(refreshCardList(freshList));
@@ -151,8 +148,9 @@ const ViewDeckPage = () => {
                 </div>
                 <div className='card-container'>
                     {isLoading && <ReactBootStrap.Spinner animation="border" />}
-                    {!isLoading &&  cardList.map((card, index) => {
+                    {!isLoading && cardList.map((card, index) => {
                         const { cid, id, term, definition, isPublic } = card;
+                        // if (!card.isPublic) continue;
                         return (
                             <Card
                                 userUUID={userUUID}

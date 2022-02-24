@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { useDispatch } from 'react-redux';
-import { deleteCard, updateCard } from '../../redux/card-list/card-list.actions';
+import { deleteCard, updateCard, updateCardIsPublic } from '../../redux/card-list/card-list.actions';
 
 import './card.styles.scss';
 
@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const Card = (props) => {
-console.log("props",props);
+    console.log("props", props);
     const {
         userUUID,
         id,
@@ -63,23 +63,20 @@ console.log("props",props);
             value: event.target.value,
         }));
     }
-    console.log('CARD STATUS', isPublicStatus)
-    console.log("cid",cid);
 
-    const changeVisibilityStatus = () => {
-        console.log('CLICK CHECK', isPublicStatus)
-        setIsPublic(!isPublicStatus)
-        console.log("cid inside",cid);
-        const sendUpdate = axios.post(`http://localhost:8080/api/cards/change`, { cid, isPublicStatus, userUUID })
-        setTimeout(sendUpdate, 500);
-    }
+    // const changeVisibilityStatus = () => {
+    //     console.log('CLICK CHECK', isPublicStatus)
+    //     setIsPublic(!isPublicStatus)
+    //     const sendUpdate = axios.post(`http://localhost:8080/api/cards/change`, { cid, isPublicStatus, userUUID })
+    //     setTimeout(sendUpdate, 500);
+    // }
 
     return (
         <div className='main-card-div'>
             <div className='deck-card'>
                 <div className='card-toolbar'>
                     <span className='card-number'>{number}</span>
-                    <div className='set-visibility-button-container' onClick={changeVisibilityStatus}>
+                    <div className='set-visibility-button-container' onClick={() => dispatch(updateCardIsPublic(id))}>
                         <CheckBoxIcon classname='set-visibility-button' />
                     </div>
                     <div className='delete-logo-container'>

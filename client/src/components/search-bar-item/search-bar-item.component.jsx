@@ -1,5 +1,3 @@
-
-
 import './search-bar-item.styles.scss';
 
 import { useNavigate } from 'react-router-dom';
