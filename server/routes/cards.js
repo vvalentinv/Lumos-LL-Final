@@ -20,7 +20,7 @@ const cardRoutes = () => {
     return checkCardAuthor(card, userUUID)
       .then((data) => res.send(data))
       .catch((error) => console.log(error));
-  })
+  });
 
   router.post('/:id', (req, res) => {
     const { userUUID, deckID } = req.body;
@@ -37,7 +37,7 @@ const cardRoutes = () => {
           card.term = c.answer;
           card.definition = c.question;
           card.showAnswer = false;
-          card.isPublic = false;
+          card.isPublic = c.public;
           card.isUpdated = false;
           changeForFrontEnd.push(card);
         });
@@ -51,12 +51,12 @@ const cardRoutes = () => {
   router.get('/publicDecks', (req, res) => {
     return getAllPublicCardsByDeckTitle()
       .then((data) => {
-        // console.log("raw cards:", data);
+        console.log("raw cards:", data);
         const changeForFrontEnd = [];
         data.forEach((d, index) => {
           let id = index + 1;
           const deck = {};
-          deck.cid = d.deck_id;
+          deck.cid = d.id;
           deck.id = id;
           deck.key = id;
           deck.title = d.deck_name;

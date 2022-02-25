@@ -76,9 +76,10 @@ const Card = (props) => {
             <div className='deck-card'>
                 <div className='card-toolbar'>
                     <span className='card-number'>{number}</span>
-                    <div className='set-visibility-button-container' onClick={() => dispatch(updateCardIsPublic(id))}>
-                        <CheckBoxIcon classname='set-visibility-button' />
-                    </div>
+                        {/* <p>TEST</p> */}
+                    {/* <div className='set-visibility-button-container' onClick={() => dispatch(updateCardIsPublic(id))}> */}
+                        {/* <CheckBoxIcon classname='set-visibility-button' /> */}
+                    {/* </div> */}
                     <div className='delete-logo-container'>
                         <DeleteIcon
                             className='delete-logo'

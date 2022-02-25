@@ -94,10 +94,10 @@ const ViewDeckPage = () => {
         event.preventDefault();
         const validationResult = validate(deckTitle);
 
-        if (validationResult) { //If ID is different display message 
-            setDeckTitleError(true);
-            return;
-        }
+        // if (validationResult) { //If ID is different display message 
+        //     setDeckTitleError(true);
+        //     return;
+        // }
 
         if (!isLoading) {
             if (!deckID) { //Create New Deck
