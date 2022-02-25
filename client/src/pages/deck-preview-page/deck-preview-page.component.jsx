@@ -48,8 +48,8 @@ const DeckPreviewPage = () => {
       .then(result => {
         console.log("resolved promise:", result.data)
         setCardList(result.data);
-        console.log('DEFINTION', curCard.definition.length);
-        console.log('ANSWER', curCard.term.length);
+        // console.log('DEFINTION', curCard.definition.length);
+        // console.log('ANSWER', curCard.term.length);
 
       })
       .catch(error => console.log(error));
@@ -85,7 +85,7 @@ const DeckPreviewPage = () => {
 
   const [side, setSide] = useState(true);
   const [flip, setFlip] = useState();
-  const [stringFontSize, setStringFontSize] = useState(13);
+  // const [stringFontSize, setStringFontSize] = useState(7);
 
   // let stringFontSize;
 
@@ -94,27 +94,30 @@ const DeckPreviewPage = () => {
     setSide(!side);
     setFlip(side);
 
-    if (curCard.term && curCard.showAnswer && curCard.term.length >= 15) {
-      // fontSize = 30;
-      setStringFontSize(7);
-      console.log("BACK", curCard.term.length);
-    } else if ((curCard.term && curCard.showAnswer && curCard.term.length >= 7)) {
-      // fontSize = 20;
-      setStringFontSize(7);
-    } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 15) {
-      console.log("DDDDDDDDDDDDDDDDD", curCard.definition.length);
-      // fontSize = 10;
-      setStringFontSize(7);
-    } else if (curCard.definition && curCard.showAnswer && curCard.definition.length >= 7) {
-      // fontSize = 20;
-      setStringFontSize(6);
-    } else {
-      setStringFontSize(13);
-      // fontSize = baseFontSize;
-    }
-
   }
 
+  //   if (curCard.term && curCard.showAnswer && curCard.term.length >= 15) {
+  //     // fontSize = 30;
+  //     setStringFontSize(7);
+  //     console.log("BACK", curCard.term.length);
+  //   } else if ((curCard.term && curCard.showAnswer && curCard.term.length >= 7)) {
+  //     // fontSize = 20;
+  //     setStringFontSize(7);
+  //   } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 15) {
+  //     console.log("DDDDDDDDDDDDDDDDD", curCard.definition.length);
+  //     // fontSize = 10;
+  //     setStringFontSize(7);
+  //   } else if (curCard.definition && curCard.showAnswer && curCard.definition.length >= 7) {
+  //     // fontSize = 20;
+  //     setStringFontSize(6);
+  //   } else {
+  //     setStringFontSize(7);
+  //     // fontSize = baseFontSize;
+  //   }
+
+  // }
+let fontSize = 8;
+const stringFontSize = fontSize;
 
   console.log(side);
   return (
@@ -126,14 +129,14 @@ const DeckPreviewPage = () => {
       <div className='main-div'>
         <div className={`primary-card-container  ${side ? 'side' : 'default'}`} onClick={() => handleClick()}>
           {/* style={{ fontSize: `${stringFontSize}vmin` }} */}
-          <span className={!flip ? 'card-flip' : ''} style={{ fontSize: `${stringFontSize}vmin` }}>
+          <div className={!flip ? 'card-flip' : ''} style={{ fontSize: `${stringFontSize}vmin` }}>
             <span className='flash-card-text' style={{ fontSize: `${stringFontSize}vmin` }}>
               {curCard.showAnswer
                 ? curCard.definition
                 : curCard.term
               }
             </span>
-          </span>
+          </div>
         </div >
         <div className='primary-card-nav'>
           <span className="left-arrow">

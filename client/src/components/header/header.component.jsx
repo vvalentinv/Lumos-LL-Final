@@ -69,6 +69,7 @@ const useStyles = makeStyles({
     //   //     // color: "#f00",
     //   //   },
   },
+  
 })
 
 const Search = styled('div')(({ theme }) => ({ //Export these in
@@ -149,6 +150,7 @@ export default function Header() {
         //filter by deck title
         const filtered = result.data.filter(d => d.title.toLowerCase().includes(cardValue.searchCardInput));
         // console.log("pub",publicDecks);
+        console.log("pub",result);
         return setPublicDecks(filtered);
       })
       .catch((error) => console.log(error.message))
@@ -377,6 +379,7 @@ export default function Header() {
                 <SearchIcon/>
               </SearchIconWrapper>
               <StyledInputBase
+                autoComplete="off"
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
                 onChange={handleSearchCard}
@@ -384,7 +387,7 @@ export default function Header() {
                 value={cardValue.searchCardInput}
                 name='searchCardInput'
               />
-              <div style={{ width: '100%', position: 'absolute', backgroundColor: '#494e5d' }}>
+              <div style={{ width: '100%', position: 'absolute', backgroundColor: '#494e5d', borderRadius: '5px', border: '2px solid ', borderTop: 'none' }}>
                 {publicDecks && publicDecks.map((deck) => {
                   const { id, cid, title } = deck;
                   return (

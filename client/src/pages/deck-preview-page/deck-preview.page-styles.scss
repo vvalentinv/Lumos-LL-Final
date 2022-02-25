@@ -62,7 +62,7 @@
   transform-style: preserve-3d;
   transform: perspective(1000px) rotateX(var(--rotate-y, 0))
   translateY(var(--translate-x, 180deg));
-
+  word-break: break-word;
   // @media only screen and (max-width: 400px) {
   //   height: 70vh;
   //   width: 70vw;
@@ -75,16 +75,20 @@
   transform-style: preserve-3d;
   transform: rotateX(180deg);
   background: #292f41;
+  word-break: break-word;
 }
 
 .card-flip {
   position: relative;
   transform: rotateX(180deg);
-  width: 90%;
+  // width: 90%;
+  display: inline-block;
+  word-break: break-word;
 }
 
 .default {
   position: relative;
+  word-break: break-word;
   // font-size: 10em;
   // width: 90%;
 }
@@ -92,12 +96,13 @@
 .flash-card-text {
   overflow: hidden;
   position: relative;
+  word-break: break-word;
 
   @media (max-width: 720px) {
-    font-size: 4vmin;
+    // font-size: 4vmin;
   }
   @media (max-height: 720px) {
-    font-size: 7vmin;
+    // font-size: 7vmin;
   }
 
 }
