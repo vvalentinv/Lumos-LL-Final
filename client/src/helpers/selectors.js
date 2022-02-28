@@ -31,6 +31,6 @@ export function setCardVisibilityByUser(card, userUUID) {
   return axios.post(`http://localhost:8080/api/cards/change`, { card, userUUID });
 }
 
-export function isUserTheCardsAuthor(card, userUUID) {
-  return axios.post(`http://localhost:8080/api/cards/user`, { card, userUUID });
+export function isUserDeckAuthor(deckID, userUUID) {
+  return axios.post(`http://localhost:8080/api/cards/user`, { deckID, userUUID });
 }
