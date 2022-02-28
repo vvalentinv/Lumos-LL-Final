@@ -150,7 +150,6 @@ const ViewDeckPage = () => {
                     {isLoading && <ReactBootStrap.Spinner animation="border" />}
                     {!isLoading && cardList.map((card, index) => {
                         const { cid, id, term, definition, isPublic } = card;
-                        // if (!card.isPublic) continue;
                         return (
                             <Card
                                 userUUID={userUUID}

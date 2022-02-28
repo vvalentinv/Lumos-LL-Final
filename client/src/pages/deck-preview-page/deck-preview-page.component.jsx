@@ -32,27 +32,21 @@ const DeckPreviewPage = () => {
     if (!userUUID) {
       return;
     }
-    isUserDeckAuthor(deckID, userUUID)
-      .then(result => {
-        console.log('DECK AUTHOR', result.data);
-        setIsAuthor(result.data);
-      })
-    getDeckBydeckID(userUUID, deckID)
-      .then(result => {
-        let deckTitle = result.data.deck_name
-        setDeckTitle(deckTitle);
-      })
-      .catch(error => console.log(error));
 
-    getCardsByDeckForUser(userUUID, deckID)
-      .then(result => {
-        console.log("resolved promise:", result.data)
-        setCardList(result.data);
-        // console.log('DEFINTION', curCard.definition.length);
-        // console.log('ANSWER', curCard.term.length);
+    const isUserDeckAuthorPromise = isUserDeckAuthor(deckID, userUUID)
+    const getDeckBydeckIDPromise = getDeckBydeckID(userUUID, deckID)
+    const getCardsByDeckForUserPromise = getCardsByDeckForUser(userUUID, deckID)
 
-      })
-      .catch(error => console.log(error));
+    Promise.all([isUserDeckAuthorPromise, getDeckBydeckIDPromise, getCardsByDeckForUserPromise]).then((values) => {
+      const promiseAll = values;
+      setIsAuthor(promiseAll[0].data);
+      setDeckTitle(promiseAll[1].data.deck_name);
+      if (!promiseAll[0].data) {
+        let filteredCards = promiseAll[2].data.filter(card => card.isPublic === true);
+        setCardList(filteredCards);
+      }
+      else setCardList(promiseAll[2].data);
+    });
   }, [userUUID, deckID])
 
   const amendShowAnswerFlag = (cardIndex, shouldBeHidden = false) => {
