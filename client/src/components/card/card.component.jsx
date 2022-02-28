@@ -10,7 +10,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const Card = (props) => {
-    console.log("props", props);
     const {
         userUUID,
         id,
@@ -76,10 +75,9 @@ const Card = (props) => {
             <div className='deck-card'>
                 <div className='card-toolbar'>
                     <span className='card-number'>{number}</span>
-                        {/* <p>TEST</p> */}
-                    {/* <div className='set-visibility-button-container' onClick={() => dispatch(updateCardIsPublic(id))}> */}
-                        {/* <CheckBoxIcon classname='set-visibility-button' /> */}
-                    {/* </div> */}
+                    <div className='set-visibility-button-container' onClick={() => dispatch(updateCardIsPublic(id))}>
+                        <CheckBoxIcon className='set-visibility-button' />
+                    </div>
                     <div className='delete-logo-container'>
                         <DeleteIcon
                             className='delete-logo'

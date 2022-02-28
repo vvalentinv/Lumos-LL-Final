@@ -8,7 +8,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 // import Box from '@mui/material/Box';
 
-import { getDeckBydeckID, getCardsByDeckForUser } from "../../helpers/selectors";
+import { getDeckBydeckID, getCardsByDeckForUser, isUserDeckAuthor } from "../../helpers/selectors";
 import { useSelector } from "react-redux";
 
 import PreviewCard from "../../components/preview-card/preview-card.component";
@@ -17,6 +17,7 @@ import CustomButton from "../../components/custom-button/custom-button.component
 const DeckPreviewPage = () => {
 
   const [loading, setLoading] = useState(true);
+  const [isAuthor, setIsAuthor] = useState(false);
   const [deckTitle, setDeckTitle] = useState();
   const [cardList, setCardList] = useState([]);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
@@ -26,33 +27,26 @@ const DeckPreviewPage = () => {
   const selUser = useSelector(state => state.user);
   const { userUUID } = selUser;
 
-  // useEffect(() => {
-  //   if (deck && cardList.length > 0) {
-  //     setLoading(false);
-  //   }
-  // }, [deck, cardList]);
-
 
   useEffect(() => {
     if (!userUUID) {
       return;
     }
-    getDeckBydeckID(userUUID, deckID)
-      .then(result => {
-        let deckTitle = result.data.deck_name
-        setDeckTitle(deckTitle);
-      })
-      .catch(error => console.log(error));
 
-    getCardsByDeckForUser(userUUID, deckID)
-      .then(result => {
-        console.log("resolved promise:", result.data)
-        setCardList(result.data);
-        // console.log('DEFINTION', curCard.definition.length);
-        // console.log('ANSWER', curCard.term.length);
+    const isUserDeckAuthorPromise = isUserDeckAuthor(deckID, userUUID)
+    const getDeckBydeckIDPromise = getDeckBydeckID(userUUID, deckID)
+    const getCardsByDeckForUserPromise = getCardsByDeckForUser(userUUID, deckID)
 
-      })
-      .catch(error => console.log(error));
+    Promise.all([isUserDeckAuthorPromise, getDeckBydeckIDPromise, getCardsByDeckForUserPromise]).then((values) => {
+      const promiseAll = values;
+      setIsAuthor(promiseAll[0].data);
+      setDeckTitle(promiseAll[1].data.deck_name);
+      if (!promiseAll[0].data) {
+        let filteredCards = promiseAll[2].data.filter(card => card.isPublic === true);
+        setCardList(filteredCards);
+      }
+      else setCardList(promiseAll[2].data);
+    });
   }, [userUUID, deckID])
 
   const amendShowAnswerFlag = (cardIndex, shouldBeHidden = false) => {
@@ -116,10 +110,10 @@ const DeckPreviewPage = () => {
   //   }
 
   // }
-let fontSize = 8;
-const stringFontSize = fontSize;
+  let fontSize = 8;
+  const stringFontSize = fontSize;
 
-  console.log(side);
+
   return (
     <div className='dp-main-div' >
       <div className='deck-preview' >
@@ -171,9 +165,11 @@ const stringFontSize = fontSize;
       <div style={{ width: '100%' }}>
       </div>
       <div className="button-a">
-        <CustomButton onClick={() => navigate(`/editdeck/${deckID}`)}>
-          Add or Remove Questions
-        </CustomButton>
+        {isAuthor ?
+          <CustomButton onClick={() => navigate(`/editdeck/${deckID}`)}>
+            Add or Remove Questions
+          </CustomButton>
+          : ''}
       </div>
     </div>
 
