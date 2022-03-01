@@ -90,7 +90,7 @@ const HomePage = () => {
   return (
     <div className='deck-container'>
       <div className='deck-div'>
-        <h1 className='deck-title'>{`Your Decks`}</h1>
+        <h1 className='deck-title'>{`Your decks`}</h1>
       </div>
       <div className='user-name'>
         {!isLoading ? <span>{name}</span> : ''}

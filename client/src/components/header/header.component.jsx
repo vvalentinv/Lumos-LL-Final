@@ -22,6 +22,7 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import CancelIcon from '@mui/icons-material/Cancel';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -376,7 +377,9 @@ export default function Header() {
             <Search
               style={{ position: 'relative', zIndex: 10 }}>
               <SearchIconWrapper >
-                <SearchIcon />
+                <SearchIcon/>
+                <CancelIcon sx={{ ml: 40, cursor: 'pointer'}} onClick={() => {console.log("click");
+                 return setPublicDecks([]);}} />
               </SearchIconWrapper>
               <StyledInputBase
                 autoComplete="off"
