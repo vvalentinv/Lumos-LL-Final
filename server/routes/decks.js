@@ -95,13 +95,14 @@ const deckRoutes = () => {
     const deletedCards = [];
 
     for (const card of cardList) {
-      if (typeof card.id === 'number' && card.isUpdated) {
+      if (typeof card.id === 'number') {
         const update = await updateCard(card);
         updatedCardIDs.push(card.cid);
-      } else if (typeof card.id === 'number' && !card.isUpdated) {
-        unchangedCardIDs.push(card.cid);
-      } else if (typeof card.id !== 'number' && card.isUpdated) {
-
+      }
+      // } else if (typeof card.id === 'number' && !card.isUpdated) {
+      //   unchangedCardIDs.push(card.cid);
+      else //(typeof card.id !== 'number' && card.isUpdated) {
+      {
         const newCard = await storeCard(card, userUUID);
         const newLink = await linkCardToDeck(newCard[0].id, deckID);
         newCards.push(newCard);
