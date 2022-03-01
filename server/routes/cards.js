@@ -1,4 +1,4 @@
-const { changeCardsVisibility, checkCardAuthor, getAllCardsByDeck, getAllPublicCardsByDeckTitle } = require("../db/queries");
+const { changeCardsVisibility, getAllCardsByDeck, getAllPublicCardsByDeckTitle, checkDeckAuthor } = require("../db/queries");
 
 const router = require('express').Router();
 
@@ -14,10 +14,10 @@ const cardRoutes = () => {
       .catch((error) => console.log(error));
   });
 
-  // check if current user is the author of the card (used in rendering the delete button)
-  router.post('/change', (req, res) => {
-    const { card, userUUID } = req.body;
-    return checkCardAuthor(card, userUUID)
+  // check if current user is the author of the deck (used in rendering the delete button)
+  router.post('/user', (req, res) => {
+    const { deckID, userUUID } = req.body;
+    return checkDeckAuthor(deckID, userUUID)
       .then((data) => res.send(data))
       .catch((error) => console.log(error));
   });
@@ -42,7 +42,7 @@ const cardRoutes = () => {
           changeForFrontEnd.push(card);
         });
         // console.log("changeForFrontEnd:", changeForFrontEnd);
-        console.log(changeForFrontEnd);
+        // console.log(changeForFrontEnd);
         return res.send(changeForFrontEnd);
       })
       .catch((error) => console.log(error));
@@ -51,7 +51,7 @@ const cardRoutes = () => {
   router.get('/publicDecks', (req, res) => {
     return getAllPublicCardsByDeckTitle()
       .then((data) => {
-        console.log("raw cards:", data);
+        // console.log("raw cards:", data);
         const changeForFrontEnd = [];
         data.forEach((d, index) => {
           let id = index + 1;
