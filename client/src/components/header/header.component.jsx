@@ -376,9 +376,9 @@ export default function Header() {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Search
               style={{ position: 'relative', zIndex: 10 }}>
-              <SearchIconWrapper >
+              <SearchIconWrapper>
                 <SearchIcon/>
-                <CancelIcon sx={{ ml: 40, cursor: 'pointer'}} onClick={() => {console.log("click");
+                <CancelIcon className="cancel" sx={{ ml: 40,  zIndex: 11, cursor: 'pointer'}} onClick={() => {console.log("click");
                  return setPublicDecks([]);}} />
               </SearchIconWrapper>
               <StyledInputBase
