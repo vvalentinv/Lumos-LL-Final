@@ -79,40 +79,15 @@ const DeckPreviewPage = () => {
 
   const [side, setSide] = useState(true);
   const [flip, setFlip] = useState();
-  // const [stringFontSize, setStringFontSize] = useState(7);
-
-  // let stringFontSize;
 
   function handleClick() {
     amendShowAnswerFlag(activeCardIndex);
     setSide(!side);
     setFlip(side);
-
   }
 
-  //   if (curCard.term && curCard.showAnswer && curCard.term.length >= 15) {
-  //     // fontSize = 30;
-  //     setStringFontSize(7);
-  //     console.log("BACK", curCard.term.length);
-  //   } else if ((curCard.term && curCard.showAnswer && curCard.term.length >= 7)) {
-  //     // fontSize = 20;
-  //     setStringFontSize(7);
-  //   } else if (curCard.definition && !curCard.showAnswer && curCard.definition.length >= 15) {
-  //     console.log("DDDDDDDDDDDDDDDDD", curCard.definition.length);
-  //     // fontSize = 10;
-  //     setStringFontSize(7);
-  //   } else if (curCard.definition && curCard.showAnswer && curCard.definition.length >= 7) {
-  //     // fontSize = 20;
-  //     setStringFontSize(6);
-  //   } else {
-  //     setStringFontSize(7);
-  //     // fontSize = baseFontSize;
-  //   }
-
-  // }
   let fontSize = 8;
   const stringFontSize = fontSize;
-
 
   return (
     <div className='dp-main-div' >
@@ -172,11 +147,6 @@ const DeckPreviewPage = () => {
           : ''}
       </div>
     </div>
-
-
-
-
-
   );
 }
 

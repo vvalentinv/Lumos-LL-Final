@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-
 import { useDispatch } from 'react-redux';
 import { deleteCard, updateCard, updateCardIsPublic } from '../../redux/card-list/card-list.actions';
 
 import './card.styles.scss';
 
 import DeleteIcon from '@mui/icons-material/Delete';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const Card = (props) => {
     const {
@@ -25,8 +22,9 @@ const Card = (props) => {
 
     const [question, setQuestion] = useState(term);
     const [answer, setAnswer] = useState(definition);
+    const [active, setActive] = useState(isPublic);
 
-    const [isPublicStatus, setIsPublic] = useState(isPublic)
+    const [isPublicStatus, setIsPublic] = useState(isPublic);
 
     const [replicatedAnswer, setReplicatedAnswer] = useState('');
     const [replicatedQuestion, setReplicatedQuestion] = useState('');
@@ -63,20 +61,17 @@ const Card = (props) => {
         }));
     }
 
-    // const changeVisibilityStatus = () => {
-    //     console.log('CLICK CHECK', isPublicStatus)
-    //     setIsPublic(!isPublicStatus)
-    //     const sendUpdate = axios.post(`http://localhost:8080/api/cards/change`, { cid, isPublicStatus, userUUID })
-    //     setTimeout(sendUpdate, 500);
-    // }
-
     return (
         <div className='main-card-div'>
             <div className='deck-card'>
                 <div className='card-toolbar'>
                     <span className='card-number'>{number}</span>
-                    <div className='set-visibility-button-container' onClick={() => dispatch(updateCardIsPublic(id))}>
-                        <CheckBoxIcon className='set-visibility-button' />
+                    <div className='set-visibility-button-container' onClick={() => {
+                        dispatch(updateCardIsPublic(id));
+                        setActive(!active);
+                    }}>
+                        <input type='radio' checked={active}>
+                        </input>
                     </div>
                     <div className='delete-logo-container'>
                         <DeleteIcon

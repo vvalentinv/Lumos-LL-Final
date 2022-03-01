@@ -38,8 +38,6 @@ const ViewDeckPage = () => {
     const { cardList } = selCardList;
     const deckLength = cardList.length;
 
-    // console.log('CREATE DECK', cardList);
-
     const selUser = useSelector(state => state.user);
     const { userUUID } = selUser;
 

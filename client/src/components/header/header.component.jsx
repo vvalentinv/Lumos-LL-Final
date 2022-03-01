@@ -69,7 +69,7 @@ const useStyles = makeStyles({
     //   //     // color: "#f00",
     //   //   },
   },
-  
+
 })
 
 const Search = styled('div')(({ theme }) => ({ //Export these in
@@ -142,7 +142,7 @@ export default function Header() {
     }
   }
 
-  
+
   //filter by search box term decks list before state save
   const grabData = () => {
     getAllPublicCardsByDecksWithTitle()
@@ -150,7 +150,7 @@ export default function Header() {
         //filter by deck title
         const filtered = result.data.filter(d => d.title.toLowerCase().includes(cardValue.searchCardInput));
         // console.log("pub",publicDecks);
-        console.log("pub",result);
+        console.log("pub", result);
         return setPublicDecks(filtered);
       })
       .catch((error) => console.log(error.message))
@@ -320,7 +320,7 @@ export default function Header() {
               component='span'
               sx={{
                 // mr: '6vw',
-                pb: '10px', 
+                pb: '10px',
                 mt: '15px',
                 mr: '50px',
                 // mb: '1vw',
@@ -376,7 +376,7 @@ export default function Header() {
             <Search
               style={{ position: 'relative', zIndex: 10 }}>
               <SearchIconWrapper >
-                <SearchIcon/>
+                <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
                 autoComplete="off"
