@@ -378,7 +378,7 @@ export default function Header() {
               style={{ position: 'relative', zIndex: 10 }}>
               <SearchIconWrapper >
                 <SearchIcon/>
-                <CancelIcon sx={{ ml: 40}}/>
+                <CancelIcon sx={{ ml: 40, cursor: 'pointer'}}/>
               </SearchIconWrapper>
               <StyledInputBase
                 autoComplete="off"

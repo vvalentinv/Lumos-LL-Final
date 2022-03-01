@@ -66,14 +66,30 @@ const Card = (props) => {
             <div className='deck-card'>
                 <div className='card-toolbar'>
                     <span className='card-number'>{number}</span>
-                    <div className='set-visibility-button-container' onClick={() => {
+                    {/* <div className='set-visibility-button-container' onClick={() => {
                         dispatch(updateCardIsPublic(id));
                         setActive(!active);
                     }}>
-                        <input type='radio' checked={active}>
+                        <label className="private-toggle">private</label>
+                        <input type='checkbox' class='toggle' checked={active}>
                         </input>
+                        <label>public</label>
+                    </div> */}
+                    <div className="public-delete">
+                    <div className='set-visibility-button-container'>
+                        <label className="private-label">PRIVATE</label>
+                        <div onClick={() => {
+                        dispatch(updateCardIsPublic(id));
+                        setActive(!active);
+                    }}>
+                            <input type='checkbox' class='toggle' checked={active}></input>
+                            <label></label>
+                        </div>
+                        <label className="public-label">PUBLIC</label>
+
                     </div>
-                    <div className='delete-logo-container'>
+                    <div className='delete-logo-container'>             
+                    </div>
                         <DeleteIcon
                             className='delete-logo'
                             onClick={() => length <= 2 ? null : dispatch(deleteCard(id))}
