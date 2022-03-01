@@ -15,16 +15,18 @@ import * as ReactBootStrap from 'react-bootstrap';
 const HomePage = () => {
 
   const { user } = useAuth0();
+  const name = user?.name;
+
+  const selUser = useSelector(state => state.user);
+  const { userUUID } = selUser;
 
   const [isLoading, setLoading] = useState(false);
   const [deckList, setDeckList] = useState(undefined);
+
   const [popup, setPopUp] = useState({
     showPopUp: false,
     deckID: null,
   });
-
-  const selUser = useSelector(state => state.user);
-  const { userUUID } = selUser;
 
   const summonPopUp = (deckID) => {
     setPopUp({
@@ -72,7 +74,7 @@ const HomePage = () => {
   }, [userUUID]);
 
   const deckListMap = deckList?.map((deck) => {
-    const { id, deck_name } = deck
+    const { id, deck_name } = deck;
     return (
       <HomePageCard
         key={id}
@@ -82,10 +84,6 @@ const HomePage = () => {
       />
     )
   })
-
-  //Before pseudo selector 
-
-  const name = user?.name;
 
   return (
     <div className='deck-container'>
