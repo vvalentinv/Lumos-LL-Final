@@ -70,6 +70,9 @@ const useStyles = makeStyles({
     //   //     // color: "#f00",
     //   //   },
   },
+  cancel: {
+    // sx={{ ml: 40,  zIndex: 11, cursor: 'pointer'}}
+  }
 
 })
 
@@ -378,8 +381,7 @@ export default function Header() {
               style={{ position: 'relative', zIndex: 10 }}>
               <SearchIconWrapper>
                 <SearchIcon/>
-                <CancelIcon className="cancel" sx={{ ml: 40,  zIndex: 11, cursor: 'pointer'}} onClick={() => {console.log("click");
-                 return setPublicDecks([]);}} />
+               
               </SearchIconWrapper>
               <StyledInputBase
                 autoComplete="off"
@@ -390,6 +392,8 @@ export default function Header() {
                 value={cardValue.searchCardInput}
                 name='searchCardInput'
               />
+               <CancelIcon sx={{ml: 10, zIndex: 11, cursor: 'pointer'}} onClick={() => {console.log("click");
+                 return setPublicDecks([]);}} />
               <div style={{ width: '100%', position: 'absolute', backgroundColor: '#494e5d', borderRadius: '5px', border: '2px solid ', borderTop: 'none' }}>
                 {publicDecks && publicDecks.map((deck) => {
                   const { id, cid, title } = deck;
