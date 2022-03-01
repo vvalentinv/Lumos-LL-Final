@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
-import "./deck-preview.page-styles.scss";
-import ArrowBack from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
-// import Box from '@mui/material/Box';
-
 import { getDeckBydeckID, getCardsByDeckForUser, isUserDeckAuthor } from "../../helpers/selectors";
 import { useSelector } from "react-redux";
 
 import PreviewCard from "../../components/preview-card/preview-card.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+import "./deck-preview.page-styles.scss";
+
+import * as ReactBootStrap from 'react-bootstrap';
 
 const DeckPreviewPage = () => {
 
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
   const [isAuthor, setIsAuthor] = useState(false);
   const [deckTitle, setDeckTitle] = useState();
   const [cardList, setCardList] = useState([]);
@@ -32,10 +32,10 @@ const DeckPreviewPage = () => {
     if (!userUUID) {
       return;
     }
-
-    const isUserDeckAuthorPromise = isUserDeckAuthor(deckID, userUUID)
-    const getDeckBydeckIDPromise = getDeckBydeckID(userUUID, deckID)
-    const getCardsByDeckForUserPromise = getCardsByDeckForUser(userUUID, deckID)
+    setLoading(true);
+    const isUserDeckAuthorPromise = isUserDeckAuthor(deckID, userUUID);
+    const getDeckBydeckIDPromise = getDeckBydeckID(userUUID, deckID);
+    const getCardsByDeckForUserPromise = getCardsByDeckForUser(userUUID, deckID);
 
     Promise.all([isUserDeckAuthorPromise, getDeckBydeckIDPromise, getCardsByDeckForUserPromise]).then((values) => {
       const promiseAll = values;
@@ -44,8 +44,12 @@ const DeckPreviewPage = () => {
       if (!promiseAll[0].data) {
         let filteredCards = promiseAll[2].data.filter(card => card.isPublic === true);
         setCardList(filteredCards);
+        setLoading(false);
       }
-      else setCardList(promiseAll[2].data);
+      else {
+        setCardList(promiseAll[2].data);
+        setLoading(false);
+      }
     });
   }, [userUUID, deckID])
 
@@ -95,9 +99,9 @@ const DeckPreviewPage = () => {
         <h1 className='d-preview'>Deck Preview</h1>
         <h1 className='d-title'>{deckTitle}</h1>
       </div>
+      {isLoading && <ReactBootStrap.Spinner animation="border" />}
       <div className='main-div'>
         <div className={`primary-card-container  ${side ? 'side' : 'default'}`} onClick={() => handleClick()}>
-          {/* style={{ fontSize: `${stringFontSize}vmin` }} */}
           <div className={!flip ? 'card-flip' : ''} style={{ fontSize: `${stringFontSize}vmin` }}>
             <span className='flash-card-text' style={{ fontSize: `${stringFontSize}vmin` }}>
               {curCard.showAnswer

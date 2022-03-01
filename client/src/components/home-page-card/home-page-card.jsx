@@ -1,21 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
-import './home-page-card.styles.scss';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { deleteDeck } from "../../helpers/selectors";
+import './home-page-card.styles.scss';
 
 const HomePageCard = ({ deckID, deckName, summonPopUp }) => {
 
     const navigate = useNavigate();
-
-    // const deleteDeckFromDeckList = (deckID) => {
-    //     let updatedDeckList = deckList.filter((deck) => deck.id !== deckID);
-    //     setDeckList(updatedDeckList);
-    //     deleteDeck(deckID)
-    //         .then((result) => console.log("Deck Deleted:", result))
-    //         .catch((error) => console.log(error))
-    // }
 
     return (
         <div className='deck-name-container'>
