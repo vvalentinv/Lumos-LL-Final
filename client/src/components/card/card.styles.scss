@@ -43,7 +43,7 @@
     //     }
     // }
 
-    .public-delete {
+    .main-public-delete {
         display: flex;
     
         .delete-logo {
@@ -68,12 +68,12 @@
             .private-label {
                 // visibility: hidden;
                 margin-right: 0.3em;
-                font-size: 0.5em;
+                font-size: 0.6em;
             }
             
             .public-label {
             margin-left: 0.3em;
-            font-size: 0.5em;
+            font-size: 0.6em;
             }
 
             .toggle {
@@ -92,17 +92,13 @@
                 // color: red;
             }
 
-            // .private-toggle::before {
-            //     // visibility: none;
-            //     font-size: 0.5em;
-            //     margin-right: 0.3em;
-            // }
 
             .toggle + label::before {
                 content: "";
                 width: 1.7em;
                 height: 1em;
-                background-color: hsl(0, 40%, 85%);
+                background-color: #0a082e;
+                border: 1px solid black;
                 border-radius: 1em;
                 // margin-right: 0.3em;
             }
@@ -114,26 +110,17 @@
                 width: .9em;
                 height: .9em;
                 border: 1px solid black;
-                background-color: red;
+                background-color: white;
                 border-radius: 1em;
             }
 
             .toggle:checked + label::after {
                 position: absolute;
-                left: 0.7em;
-                // background-color: hsl(100, 80%, 30%);
-                background-color: green;
-                border-radius: 1em;
+                left: 0.75em;
+                border: 1px solid white;
+                background-color: gold;
+                // border-radius: 1em;
             }
-
-            // .toggle:checked + label::after {
-            //     position: absolute;
-            //     left: 0.75em;
-            //     border: 1px solid black;
-            //     // background-color: hsl(54, 89%, 64%);
-            //     background-color: gold;
-            //     border-radius: 1em;
-            // }
 
             .toggle:checked + label {
                 color:red

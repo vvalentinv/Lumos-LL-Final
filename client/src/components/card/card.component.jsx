@@ -75,9 +75,9 @@ const Card = (props) => {
                         </input>
                         <label>public</label>
                     </div> */}
-                    <div className="public-delete">
+                    <div className="main-public-delete">
                     <div className='set-visibility-button-container'>
-                        <label className="private-label">PRIVATE</label>
+                        <label className="private-label">Private</label>
                         <div onClick={() => {
                         dispatch(updateCardIsPublic(id));
                         setActive(!active);
@@ -85,7 +85,7 @@ const Card = (props) => {
                             <input type='checkbox' class='toggle' checked={active}></input>
                             <label></label>
                         </div>
-                        <label className="public-label">PUBLIC</label>
+                        <label className="public-label">Public</label>
 
                     </div>
                     <div className='delete-logo-container'>             
