@@ -378,7 +378,8 @@ export default function Header() {
               style={{ position: 'relative', zIndex: 10 }}>
               <SearchIconWrapper >
                 <SearchIcon/>
-                <CancelIcon sx={{ ml: 40, cursor: 'pointer'}}/>
+                <CancelIcon sx={{ ml: 40, cursor: 'pointer'}} onClick={() => {console.log("click");
+                 return setPublicDecks([]);}} />
               </SearchIconWrapper>
               <StyledInputBase
                 autoComplete="off"
