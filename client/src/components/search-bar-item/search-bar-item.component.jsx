@@ -8,8 +8,8 @@ const SearchBarItem = ({ deckID, deckTitle, setPublicDecks }) => {
 
     return (
         <div className='search-bar-item' onClick={() => {
-            setPublicDecks('')
-            navigate(`/deckpreview/${deckID}`)
+            setPublicDecks('');
+            navigate(`/deckpreview/${deckID}`);
         }}>
             {deckTitle}
         </div>

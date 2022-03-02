@@ -2,7 +2,7 @@
 .deck-container {
   width: 80%;
 
-  .deck-div {
+  .deck-list-heading {
     display: flex;
     border-bottom: 1px solid black;
     
@@ -15,12 +15,9 @@
     }
 
     .user-name {
-      // padding-top: 10px;
       margin: 0.5vw 0 1vw 0;
       font-size: 1.5em;
     }
 }
 
-.delete-Delete .custom-button:hover {
-  background-color: #FF0000;
-}
+

@@ -57,7 +57,7 @@ const DeckPreviewPage = () => {
 
     const curCard = cardList[cardIndex];
 
-    if (shouldBeHidden) curCard.showAnswer = false; //User clicks right click
+    if (shouldBeHidden) curCard.showAnswer = false; //User clicks right right arrow icon
     else curCard.showAnswer = !curCard.showAnswer; //User clicks on current flash card
 
     setCardList((prev) => {
@@ -90,20 +90,17 @@ const DeckPreviewPage = () => {
     setFlip(side);
   }
 
-  let fontSize = 8;
-  const stringFontSize = fontSize;
-
   return (
-    <div className='dp-main-div' >
-      <div className='deck-preview' >
-        <h1 className='d-preview'>Deck Preview</h1>
-        <h1 className='d-title'>{deckTitle}</h1>
+    <div className='deck-preview-container' >
+      <div className='deck-preview-heading'>
+        <h1 className='deck-preview-constant'>Deck Preview</h1>
+        <h1 className='deck-preview-title'>{deckTitle}</h1>
       </div>
       {isLoading && <ReactBootStrap.Spinner animation="border" />}
-      <div className='main-div'>
+      <div className='slide-show-container'>
         <div className={`primary-card-container  ${side ? 'side' : 'default'}`} onClick={() => handleClick()}>
-          <div className={!flip ? 'card-flip' : ''} style={{ fontSize: `${stringFontSize}vmin` }}>
-            <span className='flash-card-text' style={{ fontSize: `${stringFontSize}vmin` }}>
+          <div className={!flip ? 'card-flip' : ''}>
+            <span className='flash-card-text'>
               {curCard.showAnswer
                 ? curCard.definition
                 : curCard.term
@@ -111,7 +108,7 @@ const DeckPreviewPage = () => {
             </span>
           </div>
         </div >
-        <div className='primary-card-nav'>
+        <div className='slide-show-control-container'>
           <span className="left-arrow">
             <ArrowBack className='left-arrow-icon' sx={{ fontSize: 45 }} onClick={() => leftArrowSubmit()}></ArrowBack>
           </span>
@@ -123,34 +120,28 @@ const DeckPreviewPage = () => {
           </span>
         </div>
       </div>
-      <div className='q-in-set-div'>
-        <h2 className="q-in-set">{`Questions in this set (${cardList.length})`}</h2>
+      <h2 className="question-quantity">{`Questions in this set (${cardList.length})`}</h2>
+      <div className='preview-card-container'>
+        {cardList.length && cardList.map((card) => {
+          const { term, definition } = card;
+          return (
+            <PreviewCard
+              className="preview-card"
+              key={uuidv4()}
+              term={definition}
+              definition={term}
+            />
+          )
+        })}
       </div>
-      <div className="questions-answers">
-        <div className='preview-card-container'>
-          {cardList.length && cardList.map((card) => {
-            const { term, definition } = card;
-            return (
-              <PreviewCard
-                className="preview-card"
-                key={uuidv4()}
-                term={definition}
-                definition={term}
-              />
-            )
-          })}
-        </div>
-      </div>
-      <div style={{ width: '100%' }}>
-      </div>
-      <div className="button-a">
+      <div className="add-remove-button-container">
         {isAuthor ?
           <CustomButton onClick={() => navigate(`/editdeck/${deckID}`)}>
             Add or Remove Questions
           </CustomButton>
           : ''}
       </div>
-    </div>
+    </div >
   );
 }
 

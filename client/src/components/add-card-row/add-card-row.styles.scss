@@ -1,7 +1,4 @@
-
-
-    .add-row-card-container {
-
+    .add-card-row {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -11,10 +8,6 @@
         font-weight: bold;
         cursor: pointer;
 
-        .add-card-main {
-            margin: 0;
-        }
-
         &:hover{ 
             color:#ffce25;
             .add-card-div {
@@ -22,7 +15,7 @@
             }
         }
 
-        .add-card-div {
+        .add-card-center {
             display:flex;
             text-align: center;
             border-width: thick;

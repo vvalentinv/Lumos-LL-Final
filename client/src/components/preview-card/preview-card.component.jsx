@@ -5,12 +5,12 @@ const PreviewCard = (props) => {
     const { term, definition } = props;
 
     return (
-        <div className="q-a">
-            <div className='answer'>
+        <div className="preview-card">
+            <div className='preview-card-question'>
                 {definition}
             </div>
-            <div className="vertical"></div>
-            <div className='question'>
+            <div className="preview-card-divider"></div>
+            <div className='preview-card-answer'>
                 {term}
             </div>
         </div>

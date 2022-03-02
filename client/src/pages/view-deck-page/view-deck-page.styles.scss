@@ -5,7 +5,7 @@
     justify-items: center;
     margin: 1vw 10vw 0 10vw;
 
-    .view-deck-page {
+    .edit-card-container{
     
         .back-link-text {
             border-bottom: 2px solid #0a082e;
@@ -20,7 +20,7 @@
             } 
         }
 
-        .title-a {
+        .title-constant {
             font-size: 1.5em;
             font-weight: 600;
         }
@@ -29,9 +29,9 @@
             color: red;
         }
         
-        .deck-title-div {
+        .view-deck-header {
     
-            .deck-title-span {
+            .edit-deck-name {
                 width: 80%;
             }
 
