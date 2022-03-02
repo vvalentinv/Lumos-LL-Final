@@ -24,8 +24,8 @@ const deckRoutes = () => {
 
   //! GET SPECIFIC DECK
   router.post('/:id', (req, res) => {
-    const { deckID, userUUID } = req.body;
-    return getDeckByDeckID(userUUID, deckID)
+    const { deckID } = req.body;
+    return getDeckByDeckID(deckID)
       .then((data) => res.send(data))
       .catch((error) => console.log(error));
   });
@@ -70,7 +70,7 @@ const deckRoutes = () => {
     const newDeck = await updateDeck(deckTitle, deckID);
 
     //~ UPDATE FLASHCARDS
-    const oldCards = await getAllCardsByDeck(userUUID, deckID);
+    const oldCards = await getAllCardsByDeck(deckID);
     const oldCardsIDs = [];
     oldCards.forEach((c) => oldCardsIDs.push(c.card_id));
 
