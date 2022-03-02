@@ -392,7 +392,7 @@ export default function Header() {
                 value={cardValue.searchCardInput}
                 name='searchCardInput'
               />
-               <CancelIcon sx={{ml: 10, zIndex: 11, cursor: 'pointer'}} onClick={() => {console.log("click");
+               <CancelIcon sx={{ml: "3.2vw", zIndex: 11, cursor: 'pointer'}} onClick={() => {console.log("click");
                  return setPublicDecks([]);}} />
               <div style={{ width: '100%', position: 'absolute', backgroundColor: '#494e5d', borderRadius: '5px', border: '2px solid ', borderTop: 'none' }}>
                 {publicDecks && publicDecks.map((deck) => {

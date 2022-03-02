@@ -117,7 +117,7 @@
             .toggle:checked + label::after {
                 position: absolute;
                 left: 0.75em;
-                border: 1px solid white;
+                // border: 1px solid white;
                 background-color: gold;
                 // border-radius: 1em;
             }
