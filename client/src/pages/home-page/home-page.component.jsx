@@ -87,7 +87,7 @@ const HomePage = () => {
 
   return (
     <div className='deck-container'>
-      <div className='deck-div'>
+      <div className='deck-list-heading'>
         <h1 className='deck-title'>{`Your decks`}</h1>
       </div>
       <div className='user-name'>
