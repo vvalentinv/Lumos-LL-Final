@@ -1,4 +1,4 @@
-const { changeCardsVisibility, getAllCardsByDeck, getAllPublicCardsByDeckTitle, checkDeckAuthor } = require("../db/queries");
+const { changeCardsVisibility, getAllCardsByDeck, getAllDecks, checkDeckAuthor } = require("../db/queries");
 
 const router = require('express').Router();
 
@@ -6,9 +6,7 @@ const cardRoutes = () => {
 
   // change a card's public column true or false
   router.post('/change', (req, res) => {
-    // console.log("body.req", req.body);
     const { cid, isPublicStatus, userUUID } = req.body;
-    // console.log("params", cid, isPublicStatus, userUUID);
     return changeCardsVisibility(cid, isPublicStatus, userUUID)
       .then((data) => res.send(data))
       .catch((error) => console.log(error));
@@ -22,12 +20,11 @@ const cardRoutes = () => {
       .catch((error) => console.log(error));
   });
 
+  // get cards associated with a deck by deckID
   router.post('/:id', (req, res) => {
     const { userUUID, deckID } = req.body;
-    // console.log("cardList params--------------:", userUUID, deckID);
     return getAllCardsByDeck(userUUID, deckID)
       .then((data) => {
-        // console.log("raw cards:", data);
         const changeForFrontEnd = [];
         data.forEach((c, index) => {
           let id = index + 1;
@@ -41,17 +38,16 @@ const cardRoutes = () => {
           card.isUpdated = false;
           changeForFrontEnd.push(card);
         });
-        // console.log("changeForFrontEnd:", changeForFrontEnd);
-        // console.log(changeForFrontEnd);
+
         return res.send(changeForFrontEnd);
       })
       .catch((error) => console.log(error));
   });
 
+  //get all the decks
   router.get('/publicDecks', (req, res) => {
-    return getAllPublicCardsByDeckTitle()
+    return getAllDecks()
       .then((data) => {
-        // console.log("raw cards:", data);
         const changeForFrontEnd = [];
         data.forEach((d, index) => {
           let id = index + 1;
@@ -63,12 +59,12 @@ const cardRoutes = () => {
           deck.user_id = d.user_id;
           changeForFrontEnd.push(deck);
         });
-        // console.log("changeForFrontEnd:", changeForFrontEnd);
-        // console.log("Deck List with public cards", changeForFrontEnd);
+
         return res.send(changeForFrontEnd);
       })
       .catch((error) => console.log(error));
   });
+
   return router;
 };
 

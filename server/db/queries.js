@@ -209,7 +209,7 @@ const deleteDeck = (deckID) => {
 
 
 
-const getAllPublicCardsByDeckTitle = () => {
+const getAllDecks = () => {
 
   return client.query(`SELECT * FROM decks WHERE decks.id IN(SELECT DISTINCT(decks.id) FROM decks
                       JOIN decks_with_cards ON decks_with_cards.deck_id = decks.id
@@ -253,7 +253,7 @@ const checkDeckAuthor = (deckID, userUUID) => {
 module.exports = {
   changeCardsVisibility,
   checkDeckAuthor,
-  getAllPublicCardsByDeckTitle,
+  getAllDecks,
   deleteDeckAssociations,
   deleteDeck,
   getDeckByDeckID,
