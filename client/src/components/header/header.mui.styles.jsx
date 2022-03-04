@@ -13,12 +13,12 @@ export const Search = styled('div')(({ theme }) => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
-        width: '20em',
+        width: '17em',
     },
 }));
 
 export const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 1),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -30,12 +30,12 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 1),
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        padding: theme.spacing(0, 0, 0, 0),
+        paddingLeft: `calc(1em + ${theme.spacing(3)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('md')]: {
-            width: '20ch',
+            width: '15ch',
         },
     },
 }));

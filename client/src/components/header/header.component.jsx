@@ -209,6 +209,7 @@ export default function Header() {
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
+             <div>
               <StyledInputBase
                 autoComplete="off"
                 placeholder="Search…"
@@ -218,11 +219,12 @@ export default function Header() {
                 value={cardValue.searchCardInput}
                 name='searchCardInput'
               />
-              <CancelIcon
-                sx={{ ml: '3.2vw', zIndex: 11, cursor: 'pointer' }}
+                        <CancelIcon
+                sx={{ cursor: 'pointer' }}
                 onClick={() => {
                   return setPublicDecks([]);
                 }} />
+          </div>
               <div className='search-bar-input' style={searchBarStyling}>
                 {publicDecks && publicDecks.map((deck) => {
                   const { id, cid, title } = deck;
