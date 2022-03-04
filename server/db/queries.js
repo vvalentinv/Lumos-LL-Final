@@ -3,12 +3,11 @@ const res = require('express/lib/response');
 
 //! DECK CARDS
 const getAllCardsByDeck = (deckID) => {
-  console.log('DECKID', deckID);
   return client.query(`SELECT * FROM cards
-                JOIN decks_with_cards ON cards.id =  decks_with_cards.card_id
-                WHERE deck_id = $1;`, [deckID])
+                JOIN decks_with_cards ON cards.id = decks_with_cards.card_id
+                WHERE deck_id = $1
+                ORDER BY cards.order_id ASC;`, [deckID])
     .then((results) => {
-      console.log(results.rows);
       return results.rows
     })
     .catch((error) => console.log(error.message));
@@ -62,17 +61,17 @@ const storeDeck = async (deck) => {
 
 //! STORECARD
 const storeCard = async (card, userUUID) => {
-  const newCard = await client.query(`INSERT INTO cards (user_id, question, url, answer, all_answers, public) VALUES
-($1, $2, $3, $4, $5, $6) RETURNING *;`, [userUUID, card.definition,
+  const newCard = await client.query(`INSERT INTO cards (user_id, question, url, answer, all_answers, public, order_id) VALUES
+($1, $2, $3, $4, $5, $6, $7) RETURNING *;`, [userUUID, card.definition,
     'https://drive.google.com/file/d/1-zn90p7XF2bwQ_aJusE5NIUaajkRQLLo/view?usp=sharing',
-    card.term, '{"F1", "F2", "F3"}', card.isPublic]);
+    card.term, '{"F1", "F2", "F3"}', card.isPublic, card.order_id]);
   return newCard.rows;
 };
 
 //! UPDATE CARD
 const updateCard = async (card) => {
-  return client.query(`UPDATE cards SET question = $1, answer = $2, public = $3
-                        WHERE id = $4;`, [card.definition, card.term, card.isPublic, card.cid])
+  return client.query(`UPDATE cards SET question = $1, answer = $2, public = $3, order_id = $4
+                        WHERE id = $5;`, [card.definition, card.term, card.isPublic, card.order_id, card.cid])
     .then((results) => results.rows[0])
     .catch((error) => console.log(error.message));
 };

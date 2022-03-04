@@ -25,13 +25,13 @@ const cardRoutes = () => {
     const { deckID } = req.body;
     return getAllCardsByDeck(deckID)
       .then((data) => {
-        console.log('RESPONSE', data)
+        console.log("DECKID POST", data)
         const changeForFrontEnd = [];
         data.forEach((c, index) => {
-          let id = index + 1;
+          // let id = index + 1;
           const card = {};
           card.cid = c.card_id;
-          card.id = id;
+          card.id = c.order_id;
           card.term = c.answer;
           card.definition = c.question;
           card.showAnswer = false;
