@@ -39,7 +39,7 @@ const useStyles = makeStyles({
   navi: {
     display: 'flex',
     alignItems: 'center'
-  }
+  },
 })
 
 export default function Header() {
@@ -219,7 +219,7 @@ export default function Header() {
                 name='searchCardInput'
               />
               <CancelIcon
-                sx={{ ml: '3.2vw', zIndex: 11, cursor: 'pointer' }}
+                sx={{ fontSize: '1em', zIndex: 11, cursor: 'pointer' }}
                 onClick={() => {
                   return setPublicDecks([]);
                 }} />

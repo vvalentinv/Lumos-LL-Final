@@ -8,12 +8,12 @@ export const Search = styled('div')(({ theme }) => ({
     '&:hover': {
         backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
-        width: '20em',
+        marginLeft: theme.spacing(1),
+        width: '15em',
     },
 }));
 
@@ -30,12 +30,12 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 1),
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        padding: theme.spacing(0, 0, 0, 0),
+        paddingLeft: `calc(0.5em + ${theme.spacing(5)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('md')]: {
-            width: '20ch',
+            width: '10.5em',
         },
     },
 }));
@@ -75,7 +75,7 @@ export const createDeckButtonStyling = {
     variant: 'contained',
     component: 'div',
     mt: '2px',
-    mr: '24px',
+    mr: '5px',
     fontSize: '1.1rem',
     width: '7.5rem',
     height: '2.2rem',
@@ -92,5 +92,6 @@ export const searchBarStyling = {
     backgroundColor: '#494e5d',
     borderRadius: '5px',
     border: '2px solid ',
-    borderTop: 'none'
+    borderTop: 'none',
+    borderBottom: 'none',
 }
