@@ -3,10 +3,14 @@ const res = require('express/lib/response');
 
 //! DECK CARDS
 const getAllCardsByDeck = (deckID) => {
+  console.log('DECKID', deckID);
   return client.query(`SELECT * FROM cards
                 JOIN decks_with_cards ON cards.id =  decks_with_cards.card_id
                 WHERE deck_id = $1;`, [deckID])
-    .then((results) => results.rows)
+    .then((results) => {
+      console.log(results.rows);
+      return results.rows
+    })
     .catch((error) => console.log(error.message));
 };
 

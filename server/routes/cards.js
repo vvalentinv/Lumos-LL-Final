@@ -22,9 +22,10 @@ const cardRoutes = () => {
 
   // get cards associated with a deck by deckID
   router.post('/:id', (req, res) => {
-    const { userUUID, deckID } = req.body;
-    return getAllCardsByDeck(userUUID, deckID)
+    const { deckID } = req.body;
+    return getAllCardsByDeck(deckID)
       .then((data) => {
+        console.log('RESPONSE', data)
         const changeForFrontEnd = [];
         data.forEach((c, index) => {
           let id = index + 1;
