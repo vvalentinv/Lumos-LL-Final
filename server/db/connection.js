@@ -1,9 +1,5 @@
-// const pg = require('pg');
-
 const { Client } = require('pg');
 const { DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME } = process.env;
-
-// console.log(process.env);
 
 //elephantsql
 const config = {
@@ -16,8 +12,6 @@ const config = {
 
 const client = new Client(config);
 
-client.connect(() => {
-  console.log("connected to the database");
-});
+client.connect(() => console.log("connected to the database"));
 
 module.exports = client;

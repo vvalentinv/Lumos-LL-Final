@@ -52,6 +52,7 @@ CREATE TABLE decks_with_cards(
 
 );
 
+-- initial seeds
 INSERT INTO users (nickname, email, password, email_Verified)
 VALUES ('aa', 'a@a.ca','$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', TRUE),
        ('bb', 'b@b.ca','$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', TRUE),
@@ -116,4 +117,3 @@ INSERT INTO decks_with_cards (card_id,deck_id) VALUES
         (1,4), (3,4), (5,4), (7,4),
         (3,5), (5,5), (9,5),
         (1,6), (3,6), (7,6), (9,6);
-

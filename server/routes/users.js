@@ -9,12 +9,8 @@ const userRoutes = () => {
     const { email, nickname, email_verified } = req.body.user;
     const user = { email, nickname, email_verified };
     getUUIDByEmail(user)
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then((result) => res.send(result))
+      .catch((error) => console.log(error));
   });
 
   return router;
