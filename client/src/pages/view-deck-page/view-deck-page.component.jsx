@@ -46,7 +46,6 @@ const ViewDeckPage = () => {
 
     const [thunkList, setThunkList] = useState([]);
 
-    // console.log('CARDLIST', cardList);
     console.log('TEST', thunkList);
 
     useEffect(() => {
@@ -73,6 +72,10 @@ const ViewDeckPage = () => {
             })
             .catch(error => console.log(error));
     }, [userUUID]);
+
+    useEffect(() => {
+        setThunkList(cardList)
+    }, [cardList])
 
     const validate = (str) => { //Refactor, cannot update current deck right now
         console.log('VALIDATE', str, existingDeckTitles);
@@ -104,7 +107,7 @@ const ViewDeckPage = () => {
 
         if (!isLoading) {
             if (!deckID) { //Create New Deck
-                return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
+                return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, thunkList, user })
                     .then(resolved => {
                         dispatch(refreshCardList(freshList));
                         isSubmitted(true);
