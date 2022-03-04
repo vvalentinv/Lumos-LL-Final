@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCardList, addCard, refreshCardList } from "../../redux/card-list/card-list.actions";
 import { getDeckListForUser, getDeckBydeckID } from '../../helpers/selectors';
 import { useParams, useNavigate } from 'react-router-dom';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useAuth0 } from "@auth0/auth0-react";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,11 +18,23 @@ import AddCardRow from '../../components/add-card-row/add-card-row.component';
 import './view-deck-page.styles.scss';
 
 const ViewDeckPage = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const freshList = [
         { id: uuidv4(), term: '', definition: '', isUpdated: false, isPublic: false },
         { id: uuidv4(), term: '', definition: '', isUpdated: false, isPublic: false }
     ]
+
+    const selCardList = useSelector(state => state.cardList);
+    const { cardList } = selCardList;
+    const selUser = useSelector(state => state.user);
+    const { userUUID } = selUser;
+
+    const { user } = useAuth0();
+    const { deckID } = useParams();
+
+    const deckLength = cardList.length;
 
     const [isLoading, setLoading] = useState(false);
     const [editMode, setEditMode] = useState(false);
@@ -31,18 +44,9 @@ const ViewDeckPage = () => {
 
     const [submitted, isSubmitted] = useState(false);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [thunkList, setThunkList] = useState([]);
 
-    const selCardList = useSelector(state => state.cardList);
-    const { cardList } = selCardList;
-    const deckLength = cardList.length;
-
-    const selUser = useSelector(state => state.user);
-    const { userUUID } = selUser;
-
-    const { user } = useAuth0();
-    const { deckID } = useParams();
+    console.log('TEST', thunkList);
 
     useEffect(() => {
         const isDeckID = deckID ? true : false;
@@ -50,7 +54,7 @@ const ViewDeckPage = () => {
 
         if (deckID && userUUID) {
             setLoading(true);
-            dispatch(fetchCardList(userUUID, deckID, setLoading));
+            dispatch(fetchCardList(userUUID, deckID, setLoading, setThunkList));
             getDeckBydeckID(userUUID, deckID)
                 .then((result) => setDeckTitle(result.data.deck_name))
                 .catch(error => console.log(error.message))
@@ -68,6 +72,10 @@ const ViewDeckPage = () => {
             })
             .catch(error => console.log(error));
     }, [userUUID]);
+
+    useEffect(() => {
+        setThunkList(cardList)
+    }, [cardList])
 
     const validate = (str) => { //Refactor, cannot update current deck right now
         console.log('VALIDATE', str, existingDeckTitles);
@@ -99,7 +107,7 @@ const ViewDeckPage = () => {
 
         if (!isLoading) {
             if (!deckID) { //Create New Deck
-                return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, cardList, user })
+                return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, thunkList, user })
                     .then(resolved => {
                         dispatch(refreshCardList(freshList));
                         isSubmitted(true);
@@ -107,7 +115,7 @@ const ViewDeckPage = () => {
                     })
                     .catch(error => console.log(error));
             } else { //Update existing deck
-                return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, cardList, userUUID })
+                return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, thunkList, userUUID })
                     .then(resolved => {
                         dispatch(refreshCardList(freshList));
                         navigate(`/deckpreview/${deckID}`)
@@ -115,6 +123,15 @@ const ViewDeckPage = () => {
                     .catch(error => console.log(error));
             }
         };
+    }
+    const handleOnDragEnd = (result) => {
+        if (!result.destination) return;
+
+        const draggedList = Array.from(thunkList);
+        const [reorderedItem] = draggedList.splice(result.source.index, 1);
+        draggedList.splice(result.destination.index, 0, reorderedItem);
+
+        setThunkList(draggedList);
     }
 
     return (
@@ -144,29 +161,34 @@ const ViewDeckPage = () => {
                         </input>
                     </span>
                 </div>
-                <div className='card-container'>
-                    {isLoading && <ReactBootStrap.Spinner animation="border" />}
-                    {!isLoading && cardList.map((card, index) => {
-                        const { cid, id, term, definition, isPublic } = card;
-                        return (
-                            <Card
-                                userUUID={userUUID}
-                                length={deckLength}
-                                key={id}
-                                id={id}
-                                cid={cid}
-                                term={term}
-                                definition={definition}
-                                number={index + 1}
-                                isSubmitted={isSubmitted}
-                                submitted={submitted}
-                                isPublic={isPublic}
-                            />
-                        )
-                    })}
-                    <AddCardRow addCardHandler={() => addNewCard()} />
-                </div>
+                <DragDropContext onDragEnd={handleOnDragEnd}>
+                    <Droppable droppableId='cards'>
+                        {(provided) => (
+                            <div className='card-container' {...provided.droppableProps} ref={provided.innerRef}>
+                                {isLoading && <ReactBootStrap.Spinner animation="border" />}
+                                {!isLoading && thunkList.map((card, index) => {
+                                    const { id, term, definition, isPublic } = card;
+                                    return (
+                                        <Card
+                                            id={id}
+                                            index={index}
+                                            key={id}
+                                            length={deckLength}
+                                            term={term}
+                                            definition={definition}
+                                            number={index + 1}
+                                            isSubmitted={isSubmitted}
+                                            submitted={submitted}
+                                            isPublic={isPublic}
+                                        />
+                                    )
+                                })}
 
+                                <AddCardRow addCardHandler={() => addNewCard()} />
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
                 <div className='submit-deck-button-container'>
                     <CustomButton className='submit-deck-button' onClick={handleOnSubmit}>
                         {editMode ? 'Save Deck' : 'Submit New Deck'}
