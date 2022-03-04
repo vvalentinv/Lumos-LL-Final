@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteCard, updateCard, updateCardIsPublic } from '../../redux/card-list/card-list.actions';
+import { Draggable } from 'react-beautiful-dnd';
 
 import './card.styles.scss';
 
@@ -9,9 +10,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const Card = (props) => {
     const {
         id,
+        index,
+        length,
         term,
         definition,
-        length,
         number,
         submitted,
         isSubmitted,
@@ -57,52 +59,55 @@ const Card = (props) => {
     }
 
     return (
-        <div className='main-card-div'>
-            <div className='deck-card'>
-                <div className='card-toolbar'>
-                    <span className='card-number'>{number}</span>
-                    <div className="public-private-delete-container">
-                        <div className='set-visibility-button-container'>
-                            <label className="private-label">Private</label>
-                            <div onClick={() => {
-                                dispatch(updateCardIsPublic(id));
-                                setActive(!active);
-                            }}>
-                                <input type='checkbox' class='toggle' checked={active}></input>
-                                <label />
+        <Draggable key={id} draggableId={id.toString()} index={index}>
+            {(provided) => (
+                <div className='main-card-div' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                    <div className='deck-card'>
+                        <div className='card-toolbar'>
+                            <span className='card-number'>{number}</span>
+                            <div className="public-private-delete-container">
+                                <div className='set-visibility-button-container'>
+                                    <label className="private-label">Private</label>
+                                    <div onClick={() => {
+                                        dispatch(updateCardIsPublic(id));
+                                        setActive(!active);
+                                    }}>
+                                        <input type='checkbox' class='toggle' checked={active}></input>
+                                        <label />
+                                    </div>
+                                    <label className="public-label">Public</label>
+
+                                </div>
+                                <div className='delete-logo-container'>
+                                </div>
+                                <DeleteIcon
+                                    className='delete-logo'
+                                    onClick={() => length <= 2 ? null : dispatch(deleteCard(id))}
+                                />
                             </div>
-                            <label className="public-label">Public</label>
-
                         </div>
-                        <div className='delete-logo-container'>
+                        <div className='card-input-container'>
+                            <div className='grow-wrap grow-wrap-answer' data-replicated-answer={replicatedAnswer}>
+                                <textarea
+                                    className='input-text'
+                                    placeholder='Enter term'
+                                    value={question}
+                                    onChange={event => questionHandleChange(event)}
+                                />
+                            </div>
+                            <div className='grow-wrap grow-wrap-question' data-replicated-question={replicatedQuestion}>
+                                <textarea
+                                    className='input-text'
+                                    placeholder='Enter definition'
+                                    value={answer}
+                                    onChange={event => answerHandleChange(event)}
+                                />
+                            </div>
                         </div>
-                        <DeleteIcon
-                            className='delete-logo'
-                            onClick={() => length <= 2 ? null : dispatch(deleteCard(id))}
-                        />
                     </div>
                 </div>
-                <div className='card-input-container'>
-                    <div className='grow-wrap grow-wrap-answer' data-replicated-answer={replicatedAnswer}>
-                        <textarea
-                            className='input-text'
-                            placeholder='Enter term'
-                            value={question}
-                            onChange={event => questionHandleChange(event)}
-                        />
-                    </div>
-                    <div className='grow-wrap grow-wrap-question' data-replicated-question={replicatedQuestion}>
-                        <textarea
-                            className='input-text'
-                            placeholder='Enter definition'
-                            value={answer}
-                            onChange={event => answerHandleChange(event)}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-
+            )}
+        </Draggable>
     )
 };
 
