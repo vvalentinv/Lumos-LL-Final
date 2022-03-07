@@ -12,7 +12,6 @@ const userRoutes = () => {
       .then((result) => res.send(result))
       .catch((error) => console.log(error));
   });
-
   return router;
 };
 
