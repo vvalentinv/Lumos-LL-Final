@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export function getDeckBydeckID(userUUID, deckID) {
+  console.log(process.env);
   if (!deckID) {
     return;
   }
@@ -19,7 +20,6 @@ export function getDeckListForUser(userUUID) {
 }
 
 export function deleteDeck(deckID) {
-  // console.log("deleteD params:", deckID);
   return axios.delete(`http://localhost:8080/api/decks/`, { data: { deckID } });
 }
 

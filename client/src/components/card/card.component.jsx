@@ -72,7 +72,7 @@ const Card = (props) => {
                                         dispatch(updateCardIsPublic(id));
                                         setActive(!active);
                                     }}>
-                                        <input type='checkbox' class='toggle' checked={active}></input>
+                                        <input type='checkbox' className='toggle' checked={active} onChange={() => { }}></input>
                                         <label />
                                     </div>
                                     <label className="public-label">Public</label>
