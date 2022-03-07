@@ -39,14 +39,9 @@ const ViewDeckPage = () => {
     const [isLoading, setLoading] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [deckTitle, setDeckTitle] = useState('');
-    const [existingDeckTitles, setExistingDeckTitles] = useState([]);
-    const [deckTitleError, setDeckTitleError] = useState(false);
-
     const [submitted, isSubmitted] = useState(false);
 
     const [thunkList, setThunkList] = useState([]);
-
-    console.log('TEST', thunkList);
 
     useEffect(() => {
         const isDeckID = deckID ? true : false;
@@ -77,14 +72,6 @@ const ViewDeckPage = () => {
         setThunkList(cardList)
     }, [cardList])
 
-    const validate = (str) => { //Refactor, cannot update current deck right now
-        console.log('VALIDATE', str, existingDeckTitles);
-        if (existingDeckTitles.every(title => title !== str)) {
-            return false; //Return valid ID
-        }
-        return true; //Return
-    }
-
     const addNewCard = () => {
         const newCard = {
             id: uuidv4(),
@@ -98,13 +85,6 @@ const ViewDeckPage = () => {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        const validationResult = validate(deckTitle);
-
-        // if (validationResult) { //If ID is different display message 
-        //     setDeckTitleError(true);
-        //     return;
-        // }
-
         if (!isLoading) {
             if (!deckID) { //Create New Deck
                 return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, thunkList, user })
@@ -130,7 +110,6 @@ const ViewDeckPage = () => {
         const draggedList = Array.from(thunkList);
         const [reorderedItem] = draggedList.splice(result.source.index, 1);
         draggedList.splice(result.destination.index, 0, reorderedItem);
-
         setThunkList(draggedList);
     }
 
@@ -145,10 +124,6 @@ const ViewDeckPage = () => {
                         : <h1 className='title-header'>Create a new deck</h1>
                     }
                     <div className='title-constant'>Title</div>
-                    {deckTitleError && <p className='deck-title-error-message'>
-                        Whoops! This title is already in use. Try picking a different title.
-                    </p>}
-
                     <span className='edit-deck-name'>
                         <input
                             type='text'
@@ -183,7 +158,7 @@ const ViewDeckPage = () => {
                                         />
                                     )
                                 })}
-
+                                {provided.placeholder}
                                 <AddCardRow addCardHandler={() => addNewCard()} />
                             </div>
                         )}

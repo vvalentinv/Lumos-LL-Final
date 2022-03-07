@@ -219,7 +219,7 @@ export default function Header() {
                 name='searchCardInput'
               />
               <CancelIcon
-                sx={{ ml: '3.2vw', zIndex: 11, cursor: 'pointer' }}
+                sx={{ ml: '35px', zIndex: 11, cursor: 'pointer' }}
                 onClick={() => {
                   return setPublicDecks([]);
                 }} />
