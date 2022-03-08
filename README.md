@@ -6,6 +6,11 @@ Lumos is a flash card web app to make studying for tests and interviews easier!
 
 https://lumos-frontend.herokuapp.com/
 
+## Cycling Through Deck
+
+![](cycle-deck.gif)
+
+
 # Stack
 
 - Built using React, Redux, NodeJS, Express and ElephantSQL.
