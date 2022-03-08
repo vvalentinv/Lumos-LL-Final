@@ -8,7 +8,7 @@ https://lumos-frontend.herokuapp.com/
 
 ## Cycling Through Deck
 
-![til]()
+![me](https://github.com/sarisssa/Lumos-LL-Final/blob/main/client/src/assets/cycle-deck.gif)
 
 
 # Stack
