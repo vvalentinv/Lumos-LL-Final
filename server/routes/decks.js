@@ -47,21 +47,10 @@ const deckRoutes = () => {
     for (let i = 0; i < thunkList.length; i++) {
       let card = thunkList[i];
       card["order_id"] = i;
-
-      console.log("cardToStore:", card);
       card.user_id = userUUID;
       const newCard = await storeCard(card, userUUID);
-      console.log("stored Card:", newCard);
       cardIDs.push(newCard[0].id);
     }
-
-    // for (const card of thunkList) {
-    //   console.log("cardToStore:", card);
-    //   card.user_id = userUUID;
-    //   const newCard = await storeCard(card, userUUID);
-    //   console.log("stored Card:", newCard);
-    //   cardIDs.push(newCard[0].id);
-    // }
 
     //~ STORE CARD ASSOCIATION
     for (const cardId of cardIDs) {
@@ -104,17 +93,6 @@ const deckRoutes = () => {
         newCards.push(newCard);
       }
     }
-
-    // for (const card of thunkList) {
-    //   if (typeof card.id === 'number') {
-    //     const update = await updateCard(card);
-    //     updatedCardIDs.push(card.cid);
-    //   } else {
-    //     const newCard = await storeCard(card, userUUID);
-    //     const newLink = await linkCardToDeck(newCard[0].id, deckID);
-    //     newCards.push(newCard);
-    //   }
-    // }
 
     //check if an existing card was marked for deletion
     const deleted = oldCards.length > updatedCardIDs.length;
