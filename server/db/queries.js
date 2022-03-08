@@ -119,7 +119,7 @@ const getDeckByDeckID = (deckID) => {
     .catch((error) => console.log(error.message));
 };
 
-//update deck title
+//Update deck title
 const updateDeck = (deckTitle, deckID) => {
   return client.query(`UPDATE decks SET deck_name = $1 WHERE id = $2;`, [deckTitle, deckID])
     .then((results) => results.rows[0])
@@ -145,7 +145,7 @@ const deleteDeck = (deckID) => {
     });
 };
 
-//get all decks
+//Fetch all decks
 const getAllDecks = () => {
   return client.query(`SELECT * FROM decks WHERE decks.id IN(SELECT DISTINCT(decks.id) FROM decks
                       JOIN decks_with_cards ON decks_with_cards.deck_id = decks.id
@@ -155,7 +155,7 @@ const getAllDecks = () => {
     .catch((error) => console.log(error.message));
 };
 
-//switch the public status of a card in DB 
+//Flip the public status of a card in DB 
 const changeCardsVisibility = (cid, isPublic, userUUID) => {
   let param = false;
   isPublic !== 'false' ? param = !param : param;
@@ -166,7 +166,7 @@ const changeCardsVisibility = (cid, isPublic, userUUID) => {
     .catch((error) => console.log(error.message));
 };
 
-//returns true if the userID is the same as the deck owner
+//Assess if the current userID is the same as the deck owner
 const checkDeckAuthor = (deckID, userUUID) => {
   return client.query(`SELECT user_id FROM decks WHERE id = $1;`, [deckID])
     .then((results) => results.rows[0].user_id === userUUID ? true : false)
