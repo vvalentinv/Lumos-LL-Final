@@ -61,11 +61,11 @@ const ViewDeckPage = () => {
         if (!userUUID) {
             return;
         }
-        getDeckListForUser(userUUID)
-            .then(result => {
-                setExistingDeckTitles(result.data.map(d => d.deck_name));
-            })
-            .catch(error => console.log(error));
+        // getDeckListForUser(userUUID)
+        //     .then(result => {
+        //         setExistingDeckTitles(result.data.map(d => d.deck_name));
+        //     })
+        //     .catch(error => console.log(error));
     }, [userUUID]);
 
     useEffect(() => {
@@ -87,7 +87,7 @@ const ViewDeckPage = () => {
         event.preventDefault();
         if (!isLoading) {
             if (!deckID) { //Create New Deck
-                return axios.post(`http://localhost:8080/api/decks/`, { deckTitle, thunkList, user })
+                return axios.post(`https://lumos-backend.herokuapp.com/api/decks/`, { deckTitle, thunkList, user })
                     .then(resolved => {
                         dispatch(refreshCardList(freshList));
                         isSubmitted(true);
@@ -95,7 +95,7 @@ const ViewDeckPage = () => {
                     })
                     .catch(error => console.log(error));
             } else { //Update existing deck
-                return axios.put(`http://localhost:8080/api/decks/`, { deckID, deckTitle, thunkList, userUUID })
+                return axios.put(`https://lumos-backend.herokuapp.com/api/decks/`, { deckID, deckTitle, thunkList, userUUID })
                     .then(resolved => {
                         dispatch(refreshCardList(freshList));
                         navigate(`/deckpreview/${deckID}`)
