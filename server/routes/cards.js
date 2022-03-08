@@ -1,10 +1,15 @@
-const { changeCardsVisibility, getAllCardsByDeck, getAllDecks, checkDeckAuthor } = require("../db/queries");
+const {
+  changeCardsVisibility,
+  getAllCardsByDeck,
+  getAllDecks,
+  checkDeckAuthor
+} = require("../db/queries");
 
 const router = require('express').Router();
 
 const cardRoutes = () => {
 
-  // change a card's public column true or false
+  //Change a card's public/visibility status 
   router.post('/change', (req, res) => {
     const { cid, isPublicStatus, userUUID } = req.body;
     return changeCardsVisibility(cid, isPublicStatus, userUUID)
@@ -12,7 +17,7 @@ const cardRoutes = () => {
       .catch((error) => console.log(error));
   });
 
-  // check if current user is the author of the deck (used in rendering the delete button)
+  //Check if current user is the author of the deck
   router.post('/user', (req, res) => {
     const { deckID, userUUID } = req.body;
     return checkDeckAuthor(deckID, userUUID)
@@ -20,15 +25,13 @@ const cardRoutes = () => {
       .catch((error) => console.log(error));
   });
 
-  // get cards associated with a deck by deckID
+  //Fetch cards associated with a deck by deckID
   router.post('/:id', (req, res) => {
     const { deckID } = req.body;
     return getAllCardsByDeck(deckID)
       .then((data) => {
-        console.log("DECKID POST", data)
         const changeForFrontEnd = [];
         data.forEach((c, index) => {
-          // let id = index + 1;
           const card = {};
           card.cid = c.card_id;
           card.id = c.order_id;
@@ -39,13 +42,12 @@ const cardRoutes = () => {
           card.isUpdated = false;
           changeForFrontEnd.push(card);
         });
-
         return res.send(changeForFrontEnd);
       })
       .catch((error) => console.log(error));
   });
 
-  //get all the decks
+  //Fetch all the decks
   router.get('/publicDecks', (req, res) => {
     return getAllDecks()
       .then((data) => {
@@ -65,7 +67,6 @@ const cardRoutes = () => {
       })
       .catch((error) => console.log(error));
   });
-
   return router;
 };
 
