@@ -8,13 +8,24 @@ https://lumos-frontend.herokuapp.com/
 
 ## Creating a Deck
 
+![me](https://github.com/sarisssa/Lumos-LL-Final/blob/main/client/src/assets/create-deck.gif)
 
 ## Cycling Through Deck
 
 ![me](https://github.com/sarisssa/Lumos-LL-Final/blob/main/client/src/assets/cycle-deck.gif)
 
 
-## Editing a Deck
+## Deleting Flash Card
+
+![me](https://github.com/sarisssa/Lumos-LL-Final/blob/main/client/src/assets/delete-card.gif)
+
+## Deleting Deck
+
+![me](https://github.com/sarisssa/Lumos-LL-Final/blob/main/client/src/assets/delete-deck.gif)
+
+## Search Bar
+
+![me](https://github.com/sarisssa/Lumos-LL-Final/blob/main/client/src/assets/search-deck.gif)
 
 # Stack
 
