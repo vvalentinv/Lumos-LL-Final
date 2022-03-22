@@ -11,7 +11,6 @@ const { PORT, ENVIRONMENT } = process.env;
 const userRoutes = require('./routes/users');
 const deckRoutes = require('./routes/decks');
 const cardRoutes = require('./routes/cards');
-const categoriesRoutes = require('./routes/categories');
 
 //middleware
 const app = express();
@@ -23,7 +22,6 @@ app.use(cors());
 app.use('/api/users', userRoutes());
 app.use('/api/decks', deckRoutes());
 app.use('/api/cards', cardRoutes());
-app.use('/api/categories', categoriesRoutes());
 
 app.get('/', (req, res) => {
   res.json({ home: `It's home` });

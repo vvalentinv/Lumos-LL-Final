@@ -47,6 +47,7 @@ export default function Header() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isUser, setIsUser] = useState(user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [publicDecks, setPublicDecks] = useState([]);
@@ -194,13 +195,15 @@ export default function Header() {
             >
               Your Library
             </Typography>
-            <Button
-              className={classes.create}
-              sx={createDeckButtonStyling}
-              onClick={() => navigate('/createdeck')}
-            >
-              Create Deck
-            </Button>
+            {user &&
+              <Button
+                className={classes.create}
+                sx={createDeckButtonStyling}
+                onClick={() => navigate('/createdeck')}
+              >
+                Create Deck
+              </Button>
+            }
           </div>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

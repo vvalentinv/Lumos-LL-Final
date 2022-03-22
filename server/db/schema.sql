@@ -49,5 +49,4 @@ CREATE TABLE decks_with_cards(
   FOREIGN KEY (card_id) REFERENCES "cards" (id),
   CONSTRAINT fk_dwc_deck
   FOREIGN KEY (deck_id) REFERENCES "decks" (id)
-
 );

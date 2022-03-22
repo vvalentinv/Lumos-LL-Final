@@ -1,5 +1,5 @@
 const client = require('./connection');
-const res = require('express/lib/response');
+const res = require('express/lib/response'); //Communicate to Front End
 
 //! DECK CARDS
 const getAllCardsByDeck = (deckID) => {
@@ -13,27 +13,11 @@ const getAllCardsByDeck = (deckID) => {
     .catch((error) => console.log(error.message));
 };
 
-//! CATEGORIES
-const getAllCategories = (cb) => {
-  client.query("SELECT * FROM categories;")
-    .then((results) => cb(results.rows))
-    .catch((error) => console.log(error.message));
-};
-
 //! GETALLDECKSFORUSER
 const getAllDecksForUser = (userUUID) => {
   return client.query(`SELECT * FROM decks
                 WHERE user_id = $1;`, [userUUID])
     .then((results) => results.rows)
-    .catch((error) => console.log(error.message));
-};
-
-//! GETALLCARDSFORDECK
-const getAllCardsForDeck = (deck_id, cb) => {
-  client.query(`SELECT cards.id, cards.question, cards.answer FROM cards 
-                JOIN decks_with_cards ON cards.id = decks_with_cards.card_id
-                WHERE deck_id = $1 ;`, [deck_id])
-    .then((results) => cb(results.rows))
     .catch((error) => console.log(error.message));
 };
 
@@ -126,19 +110,19 @@ const updateDeck = (deckTitle, deckID) => {
     .catch((error) => console.log(error.message));
 };
 
-//remove all records in the decks_with_cards for specific deckID
+//Remove all records in the decks_with_cards for specific deckID
 const deleteDeckAssociations = (deckID) => {
-  return client.query(`DELETE FROM  decks_with_cards
+  return client.query(`DELETE FROM decks_with_cards
               WHERE deck_id = $1;`, [deckID])
     .then(() => res.send({ status: `Deck has no cards associated with it` }))
     .catch((error) => console.log(error.message));
 };
 
-//delete a deck without deleting its cards
+//Delete a deck without deleting its cards
 const deleteDeck = (deckID) => {
   const clearLinks = deleteDeckAssociations(deckID)
     .then(() => {
-      return client.query(`DELETE FROM  decks
+      return client.query(`DELETE FROM decks
       WHERE id = $1;`, [deckID])
         .then(() => res.send({ status: `Deck has been deleted` }))
         .catch((error) => console.log(error.message));
@@ -185,9 +169,7 @@ module.exports = {
   updateCard,
   updateDeck,
   getUUIDByEmail,
-  getAllCategories,
   getAllDecksForUser,
-  getAllCardsForDeck,
   storeUser,
   getUUIDByEmail,
   storeDeck,
