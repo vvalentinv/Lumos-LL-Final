@@ -6,6 +6,9 @@ Lumos is a flash card web app to make studying for tests and interviews easier!
 
 https://lumos-frontend.herokuapp.com/
 
+Note, due to Heroku's hosting policy, kindly note that the demo may be unavailable at certain
+times of the day. 
+
 ## Creating a Deck
 
 ![me](https://github.com/sarisssa/Lumos-LL-Final/blob/main/client/src/assets/create-deck.gif)
@@ -13,7 +16,6 @@ https://lumos-frontend.herokuapp.com/
 ## Cycling Through Deck
 
 ![me](https://github.com/sarisssa/Lumos-LL-Final/blob/main/client/src/assets/cycle-deck.gif)
-
 
 ## Deleting Flash Card
 

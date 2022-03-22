@@ -25,13 +25,9 @@ const DeckPreviewPage = () => {
   const navigate = useNavigate();
   const { deckID } = useParams();
   const selUser = useSelector(state => state.user);
-  const { userUUID } = selUser;
-
+  const { userUUID } = selUser || 'guestUser';
 
   useEffect(() => {
-    if (!userUUID) {
-      return;
-    }
     setLoading(true);
     const isUserDeckAuthorPromise = isUserDeckAuthor(deckID, userUUID);
     const getDeckBydeckIDPromise = getDeckBydeckID(userUUID, deckID);

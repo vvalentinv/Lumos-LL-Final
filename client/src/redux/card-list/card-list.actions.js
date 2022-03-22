@@ -31,7 +31,6 @@ export const fetchCardList = (UUID, deckID, setLoading, setThunkList) => (
   async (dispatch) => {
     try {
       const res = await getCardsByDeckForUser(UUID, deckID);
-      console.log('REDUX', res)
       const { data } = res;
       setThunkList(data);
       setLoading(false);

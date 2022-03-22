@@ -1,4 +1,17 @@
-const { deleteDeck, getDeckByDeckID, removeCard, getUUIDByEmail, getAllCardsByDeck, updateDeck, getAllDecksForUser, storeDeck, storeCard, linkCardToDeck, updateCard, removeLink } = require('../db/queries');
+const {
+  deleteDeck,
+  getDeckByDeckID,
+  removeCard,
+  getUUIDByEmail,
+  getAllCardsByDeck,
+  updateDeck,
+  getAllDecksForUser,
+  storeDeck,
+  storeCard,
+  linkCardToDeck,
+  updateCard,
+  removeLink
+} = require('../db/queries');
 
 const router = require('express').Router();
 
